@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+
+            <ui:define name="content">
+
+                <f:view>
+
+                    <h:form>
+
+                        <h:panelGrid columns="3" styleClass="alignTop" >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel value="From Date" ></p:outputLabel>
+                                <p:calendar id="calFromDate" value="#{stockHistoryController.fromDate}" pattern="dd MMMM yyyy" >
+                                    <f:ajax event="dateSelect" execute="calFromDate calToDate" render="tblDates" listener="#{stockHistoryController.fillHistoryAvailableDays}" ></f:ajax>
+                                </p:calendar>
+
+                                <p:outputLabel value="To Date" ></p:outputLabel>
+                                <p:calendar id="calToDate" value="#{stockHistoryController.toDate}"  pattern="dd MMMM yyyy" >
+                                    <f:ajax event="dateSelect" execute="calFromDate calToDate" render="tblDates" listener="#{stockHistoryController.fillHistoryAvailableDays}" ></f:ajax>
+                                </p:calendar>
+
+                                <p:outputLabel value="Department" ></p:outputLabel>
+                                <p:autoComplete completeMethod="#{departmentController.completeDept}"
+                                                var="d" itemLabel="#{d.name}"
+                                                itemValue="#{d}"
+                                                value="#{stockHistoryController.department}"
+                                                converter="departmentConverter" >
+                                    <f:ajax event="itemSelect" execute="@this" render=":#{p:component('tblHistories')}" ></f:ajax>
+                                </p:autoComplete>
+
+                                <p:commandButton ajax="false" 
+                                                action="#{stockHistoryController.fillHistoryAvailableDays()}" 
+                                                 value="Display Available Days"  ></p:commandButton>
+                                <p:commandButton ajax="false" 
+                                                action="#{stockHistoryController.recordHistory()}" 
+                                                 value="Record History Now"  ></p:commandButton>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" >
+
+                                <p:dataTable id="tblDates" 
+                                             value="#{stockHistoryController.pharmacyStockHistoryDays}" 
+                                             var="d" selection="#{stockHistoryController.historyDate}" 
+                                             rowKey="#{d}" selectionMode="single" 
+                                             paginator="true" paginatorAlwaysVisible="false"
+                                             rows="5"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             >
+                                    <p:column headerText="History Availabe Days" >
+                                        <p:outputLabel value="#{d}" >
+                                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                        </p:outputLabel>
+                                    </p:column>
+                                </p:dataTable>
+
+
+
+                                <p:commandButton id="btnHx" ajax="false" action="#{stockHistoryController.fillStockHistories()}" 
+                                                 value="Display History" process="@this :#{p:component('tblDates')}" update=":#{p:component('tblHistories')}" ></p:commandButton>
+
+
+
+
+
+
+                            </h:panelGrid>
+
+
+                          
+
+                        </h:panelGrid>
+
+                        <p:dataTable id="tblHistories" value="#{stockHistoryController.pharmacyStockHistories}"
+                                     rowKey="#{item.id}"
+                                     rowIndexVar="ii"
+                                     var="item"
+                                     paginator="true"
+                                     rows="20"
+                                     rowsPerPageTemplate="20,50,100"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            
+                            <p:column style="width: 40px;" >
+                                <f:facet name="header" >
+                                    No
+                                </f:facet>
+                                <p:outputLabel value="#{ii + 1}" ></p:outputLabel>
+                            </p:column>
+                            <p:column rendered="#{stockHistoryController.department eq null}" 
+                                      sortBy="department.name"
+                                      filterBy="department.name"
+                                      filterMatchMode="contains"
+                                      >
+                                <f:facet name="header">
+                                    <p:outputLabel value="Department"/>
+                                </f:facet>
+
+                                <p:outputLabel value="#{item.department.name}"/>
+
+                            </p:column>
+                            <p:column sortBy="item.name"
+                                      filterBy="item.name"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Item"/>
+                                </f:facet>
+                                <p:outputLabel value="#{item.item.name}"/>
+                            </p:column>
+                            <p:column style="text-align: right;" styleClass="averageNumericColumn">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Stock"/>
+                                </f:facet>
+                                <p:outputLabel value="#{item.stockQty}"/>
+                            </p:column>
+                            <p:column style="text-align: right;" styleClass="averageNumericColumn">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Purchase Value"/>
+                                </f:facet>
+                                <p:outputLabel value="#{item.stockPurchaseValue}" rendered="#{item.stockPurchaseValue ne 0.0}"/>
+                                <p:outputLabel value="Not Recorded." rendered="#{item.stockPurchaseValue eq 0.0}"/>
+                            </p:column>
+                            <p:column style="text-align: right;" styleClass="averageNumericColumn">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Retail Sale Value"/>
+                                </f:facet>
+                                <p:outputLabel value="#{item.stockSaleValue}" rendered="#{item.stockSaleValue ne 0.0}"/>
+                                <p:outputLabel value="Not Recorded." rendered="#{item.stockSaleValue eq 0.0}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+
+
+                </f:view>
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>

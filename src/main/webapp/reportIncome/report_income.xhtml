@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputStylesheet library="css" name="printing.css" />
+
+                <h:form>
+                    <p:panel header="Income Report">
+                        <h:panelGrid columns="3" styleClass="alignTop" style="margin: auto;" >
+                            <h:panelGrid columns="1" >
+                                <p:panel header="1) With Credit" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Institution" action="report_income_with_credit_by_institution"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Department" action="report_income_with_credit_by_department"/>                                
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Institution Bill Count" action="report_income_with_credit_by_institution_for_build_bills"/>                                
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" >
+                                <p:panel header="2) Without Credit" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Institution" action="report_income_without_credit_by_institution"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Department" action="report_income_without_credit_by_department"/>                                
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1" >
+                                <p:panel header="3) Doctor Payments" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="Doctor Payment Due Report Opd" action="/reportIncome/opd_professional_payment_due"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="By Department" action="report_income_without_credit_by_department"/>                                
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+
+
+
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>

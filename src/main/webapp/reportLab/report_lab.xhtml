@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+            <h:outputStylesheet library="css" name="printing.css"></h:outputStylesheet>
+            <ui:define name="content">
+
+                <h:form>
+                    <p:panel header="Lab Report">
+                        <h:panelGrid columns="3" styleClass="alignTop" style="margin: auto;" >   
+                            <h:panelGrid columns="1" >
+                                <p:panel header="1) Lab Investigation With Credit" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="1)Investigation Month End Detail" action="report_lab_investigation_month_end_detail"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1" >
+                                <p:panel header="2) Lab Investigation Without Credit" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >                            
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="1)Month end Details without credit" action="report_lab_investigation_month_end_detail_without_credit.xhtml"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="2)Month end Summary without credit" action="report_lab_investigation_month_end_summery_without_credit.xhtml"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1" >
+                                <p:panel header="3) Investigation Counts" style="width: 400px;margin:auto;" collapsed="true" toggleable="true"   >
+                                    <h:panelGrid columns="1" >              
+                                        <p:commandButton styleClass="linkButton" ajax="false" 
+                                                         value="1)Fees for outside institutions" 
+                                                         action="#{commonReport.displayOutsideBillFees()}"/>
+
+                                        <p:commandButton styleClass="linkButton" ajax="false" 
+                                                         value="2)Investigation Counts by Institution And Collecting Centre" 
+                                                         action="#{investigationMonthSummeryOwnController.ixCountByInstitutionAndCollectingCentre()}"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="2)Machine Count" action="count_by_machine"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="3)Machine Count By Bill Type" action="count_by_machine_and_bill_type"/>
+                                        <p:commandButton styleClass="linkButton" ajax="false" value="4)Machine and Investigation Count By Bill Type" action="count_by_machine_and_item"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>

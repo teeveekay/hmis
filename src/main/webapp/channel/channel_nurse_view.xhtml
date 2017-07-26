@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/template/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="content">
+        <p:outputLabel value="Nurse View"/>
+        <h:form>
+            <p:commandButton value="Print" ajax="fasle" action="#">
+                <p:printer target="nurseView"/>
+            </p:commandButton>
+            <p:commandButton ajax="false" action="#{channelReportController.fillNurseView()}" value="Refresh"  ></p:commandButton>
+            <p:commandButton ajax="false" action="#{channelReportController.markAsAbsent()}" value="Mark Selected as Absent"  ></p:commandButton>
+            <p:commandButton ajax="false" action="/channel/channel_booking" value="Back" ></p:commandButton>
+            <p:panel id="nurseView">
+                <f:facet name="header">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Consultant"/>
+                        <p:outputLabel value="#{channelReportController.serviceSession.staff.person.nameWithTitle}"/>
+                        <p:outputLabel value="Date"/>
+                        <h:outputLabel value="#{channelReportController.serviceSession.sessionDate}" >
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputLabel>
+                        <p:outputLabel value="Session Name"/>
+                        <h:outputLabel value="#{channelReportController.serviceSession.name}" />
+                    </h:panelGrid>
+                </f:facet>
+
+                <p:dataTable value="#{channelReportController.nurseViewSessions}" selection="#{channelReportController.selectedBillSessions}" var="bs" rowKey="#{bs.id}">
+
+                    <p:column headerText="No">
+                        #{bs.serialNo}&nbsp;&nbsp;<p:inputText style="width: 20px;"/>
+                    </p:column>
+                    
+                    <p:column headerText="Patient Name">#{bs.bill.patient.person.nameWithTitle}</p:column>
+                    
+                    <p:column headerText="Remark">
+                        <p:outputLabel rendered="#{bs.bill.paidAmount eq 0}" value="To Paid" style="color: red;"/>
+                        <p:outputLabel rendered="#{bs.bill.paidAmount ne 0}" value="Paid" style="color: green;"/>
+                    </p:column>
+                    
+                    
+                    <p:column headerText="C / R" style="text-align: center;">
+                        <p:outputLabel value="Cancelled" rendered="#{bs.bill.cancelled eq true}" style="color: red;"/>
+                        <p:outputLabel value="Refunded" rendered="#{bs.bill.refunded eq true}" style="color: red;"/>
+                        <p:outputLabel value="-" rendered="#{bs.bill.refunded eq false and bs.bill.cancelled eq false}"/>
+                        
+                    </p:column>
+                    <p:column headerText="Agent/Emp" style="text-align: center;">
+                        <p:outputLabel value="#{bs.bill.creditCompany.name}" rendered="#{bs.bill.creditCompany ne null}"/>  
+                        <p:outputLabel value="(#{bs.bill.creditCompany.institutionCode})" rendered="#{bs.bill.creditCompany ne null}"/>
+                        
+                        <p:outputLabel value="#{bs.bill.toStaff.person.name}" rendered="#{bs.bill.toStaff ne null}"/>  
+                        <p:outputLabel value="(#{bs.bill.toStaff.code})" rendered="#{bs.bill.toStaff ne null}"/>
+
+                        <p:outputLabel value="-" rendered="#{bs.bill.toStaff eq null and bs.bill.creditCompany eq null}"/>
+
+                        
+
+                    </p:column>                
+                    <p:column headerText="Agent Ref No" style="text-align: center;">                        
+                        <p:outputLabel value="#{bs.billItem.agentRefNo}" rendered="#{bs.billItem.agentRefNo ne null}"/>
+                        <p:outputLabel value="-" rendered="#{bs.billItem.agentRefNo eq ''}"/>
+                    </p:column>
+                    <p:column selectionMode="multiple" headerText="Mark Absent" style="text-align: center;"></p:column>
+                    <p:column headerText="P/A">
+                        <p:outputLabel value="Absent"  rendered="#{bs.absent}" style="color: red;"/>
+                        <p:outputLabel value="Present"  rendered="#{!bs.absent}" style="color: green;"/>
+                    </p:column> 
+
+                </p:dataTable>
+
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+
+
+</ui:composition>
