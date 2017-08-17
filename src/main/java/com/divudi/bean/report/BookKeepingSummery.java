@@ -313,8 +313,6 @@ public class BookKeepingSummery implements Serializable {
     public void setCollectingCentrePaymentTotal(double collectingCentrePaymentTotal) {
         this.collectingCentrePaymentTotal = collectingCentrePaymentTotal;
     }
-    
-    
 
     public double getInwardPaymentTotal() {
         return inwardPaymentTotal;
@@ -2883,24 +2881,27 @@ public class BookKeepingSummery implements Serializable {
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchChannelBills(getFromDate(), getToDate(), getInstitution());
 
-        for (Object[] obj : list) {
-            String1Value2 newRow = new String1Value2();
-            Department department = ((Department) obj[0]);
-            Double value = (Double) obj[1];
+        if (list != null) {
 
-            if (department != null) {
-                newRow.setString(department.getName());
+            for (Object[] obj : list) {
+                String1Value2 newRow = new String1Value2();
+                Department department = ((Department) obj[0]);
+                Double value = (Double) obj[1];
+
+                if (department != null) {
+                    newRow.setString(department.getName());
+                }
+
+                if (value != null) {
+                    newRow.setValue1(value);
+                }
+
+                if (value != null) {
+                    getChannelBills().add(newRow);
+                }
             }
 
-            if (value != null) {
-                newRow.setValue1(value);
-            }
-
-            if (value != null) {
-                getChannelBills().add(newRow);
-            }
         }
-
     }
 
     @Inject
@@ -3016,7 +3017,7 @@ public class BookKeepingSummery implements Serializable {
                 + pharmacyTotal
                 + inwardPaymentTotal
                 + agentPaymentTotal
-                +collectingCentrePaymentTotal
+                + collectingCentrePaymentTotal
                 + creditCompanyTotal
                 + creditCompanyTotalInward
                 + pettyCashTotal;
@@ -3033,7 +3034,7 @@ public class BookKeepingSummery implements Serializable {
                 + channelTotal
                 + inwardPaymentTotal
                 + agentPaymentTotal
-                +collectingCentrePaymentTotal
+                + collectingCentrePaymentTotal
                 + creditCompanyTotal
                 + creditCompanyTotalInward
                 + pettyCashTotal;
@@ -3120,7 +3121,7 @@ public class BookKeepingSummery implements Serializable {
         creditCompanyCollectionsInward = getBillBean().fetchBillItems(BillType.CashRecieveBill, false, fromDate, toDate, institution);
         ///////////////////
         //get ruhunu hospital All hospital fees(hos fee+cc fee)
-        FeeType[] feeTypes={FeeType.OwnInstitution,FeeType.CollectingCentre};
+        FeeType[] feeTypes = {FeeType.OwnInstitution, FeeType.CollectingCentre};
         //get ruhunu hospital All hospital fees(hos fee+cc fee)
         opdHospitalTotal = getBillBean().calFeeValue(Arrays.asList(feeTypes), getFromDate(), getToDate(), getInstitution());
 //        opdHospitalTotal = getBillBean().calFeeValue(FeeType.OwnInstitution, getFromDate(), getToDate(), getInstitution());

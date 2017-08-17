@@ -300,18 +300,17 @@ public class PharmacyController implements Serializable {
                 r.setTransferInVal(Math.abs(v.getValue()));
             }
         }
-        
 
 //        System.out.println("m = " + m);
         itemTransactionSummeryRows = new ArrayList<>(m.values());
-        
-        for(ItemTransactionSummeryRow r:itemTransactionSummeryRows){
-            if(r.getBhtSaleQty()==0.0 && r.getIssueQty()==0.0 && r.getPurchaseQty()==0.0 && r.getRetailSaleQty()==0.0 
-                    && r.getWholeSaleQty()==0.0 && r.getTransferOutQty()==0.0 && r.getTransferInQty()==0.0){
+
+        for (ItemTransactionSummeryRow r : itemTransactionSummeryRows) {
+            if (r.getBhtSaleQty() == 0.0 && r.getIssueQty() == 0.0 && r.getPurchaseQty() == 0.0 && r.getRetailSaleQty() == 0.0
+                    && r.getWholeSaleQty() == 0.0 && r.getTransferOutQty() == 0.0 && r.getTransferInQty() == 0.0) {
                 itemTransactionSummeryRows.remove(r);
             }
         }
-        
+
         Collections.sort(itemTransactionSummeryRows);
 
     }
@@ -1494,6 +1493,10 @@ public class PharmacyController implements Serializable {
         if (pharmacyItem == null) {
             return new ArrayList<>();
         }
+        if (!(pharmacyItem instanceof Amp)) {
+            return new ArrayList<>();
+        }
+
         String sql;
         Map m = new HashMap();
         sql = "select p from Ampp p where p.retired=false and p.amp=:a order by p.dblValue";
