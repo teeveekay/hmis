@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:autocomplete="http://java.sun.com/jsf/composite/autocomplete">
+
+    <h:body>
+        <ui:composition template="/admin/users/index.xhtml">
+            
+            <ui:define name="userimage" >
+                <p:graphicImage library="image" name="user_add.png" width="95%" ></p:graphicImage>
+            </ui:define>
+            <ui:define name="manageusers">
+
+                <h:panelGroup rendered="#{!webUserController.hasPrivilege('AdminManagingUsers')}" >
+                    You are NOT authorized
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}"  >
+
+                    <h:form>
+
+
+                        <p:panel header="Add New User" styleClass="useradd" >
+
+                            <p:panelGrid id="pg1" columns="2" style="text-align: left; "  styleClass="noBorderGrid2">
+
+                                <p:outputLabel value="Staff" rendered="#{webUserController.createOnlyUserForExsistingUser}" ></p:outputLabel>
+                                <autocomplete:completeStaff value="#{webUserController.staff}" rendered="#{webUserController.createOnlyUserForExsistingUser}" />
+                                <p:outputLabel value="Name" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></p:outputLabel>
+                                <p:inputText autocomplete="off"
+                                             required="true" rendered="#{!webUserController.createOnlyUserForExsistingUser}"
+                                             value="#{webUserController.current.webUserPerson.name}"
+                                             requiredMessage="Please enter a username"></p:inputText>
+                                <p:outputLabel value="Address" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></p:outputLabel>
+                                <p:inputText autocomplete="off" 
+                                             required="true" rendered="#{!webUserController.createOnlyUserForExsistingUser}"
+                                             value="#{webUserController.current.webUserPerson.address}"
+                                             requiredMessage="Please enter an address."></p:inputText>
+                                <p:outputLabel value="Mobile" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></p:outputLabel>
+                                <p:inputMask mask="999-9999999" required="true" rendered="#{!webUserController.createOnlyUserForExsistingUser}"
+                                             value="#{webUserController.current.webUserPerson.mobile}"
+                                             requiredMessage="Plase enter a phone number"></p:inputMask>
+                                <p:outputLabel value="Speciality" rendered="#{!webUserController.createOnlyUserForExsistingUser}" ></p:outputLabel>                                            
+                                <autocomplete:completeSpeciality value="#{webUserController.speciality}" disable="#{webUserController.createOnlyUser}" rendered="#{!webUserController.createOnlyUserForExsistingUser}"/>
+
+                                <p:outputLabel value="User Name"   ></p:outputLabel>
+                                <p:inputText autocomplete="off" required="true" maxlength="50" value="#{webUserController.current.name }" ></p:inputText>
+
+                                <p:outputLabel value="Password" ></p:outputLabel>
+                                <p:password id="pw1" validatorMessage="Passwords are NOT matching." match="pw2" feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" />
+
+                                <p:outputLabel value="Re-enter password" ></p:outputLabel>
+                                <p:password id="pw2" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" />
+
+
+                                <p:outputLabel value="Institution" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></p:outputLabel>
+                                <autocomplete:institution value="#{webUserController.institution}" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></autocomplete:institution>
+
+                                <p:outputLabel value="Department" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></p:outputLabel>
+                                <autocomplete:department value="#{webUserController.department}" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></autocomplete:department>
+
+                                <h:outputLabel value="Code" rendered="#{!webUserController.createOnlyUserForExsistingUser}"></h:outputLabel>
+                                <p:inputText autocomplete="off" required="true" value="#{webUserController.current.code}" maxlength="10" rendered="#{!webUserController.createOnlyUserForExsistingUser}" ></p:inputText>
+
+                                <p:outputLabel value="Add Only User" ></p:outputLabel>
+                                <p:selectBooleanCheckbox value="#{webUserController.createOnlyUser}" >
+                                    <p:ajax process="@this" update="pg1" listener="#{webUserController.onlyAddStaffListner()}" />
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel value="Add User To Exsisting Staff" ></p:outputLabel>
+                                <p:selectBooleanCheckbox value="#{webUserController.createOnlyUserForExsistingUser}" >
+                                    <p:ajax process="@this" update="pg1" listener="#{webUserController.onlyAddStaffForExsistingUserListner()}" />
+                                </p:selectBooleanCheckbox>
+
+                                <p:commandButton id="btnCreateUser" value="Create User" action="#{webUserController.saveNewUser()}" ajax="false" onclick="onSubmitButton();" >
+                                </p:commandButton>
+                                <p:defaultCommand target="btnCreateUser"/>
+                            </p:panelGrid>
+
+                        </p:panel>
+
+                      
+
+                    </h:form>
+                </h:panelGroup>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>

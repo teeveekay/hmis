@@ -446,7 +446,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         user.setWebUserPassword(getSecurityController().hash(passord));
         user.setWebUserPerson(person);
         user.setActivated(true);
-        user.setRole(myRole);
+//        user.setRole(myRole);
         uFacade.create(user);
     }
 
@@ -463,7 +463,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         WebUser user = new WebUser();
         Person person = new Person();
         user.setWebUserPerson(person);
-        user.setRole(role);
+//        user.setRole(role);
 
         person.setName(newPersonName);
 
@@ -569,7 +569,7 @@ public class SessionController implements Serializable, HttpSessionListener {
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
                     setActivated(u.isActivated());
-                    setRole(u.getRole());
+//                    setRole(u.getRole());
 
                     String sql;
 
@@ -672,7 +672,7 @@ public class SessionController implements Serializable, HttpSessionListener {
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
                     setActivated(u.isActivated());
-                    setRole(u.getRole());
+//                    setRole(u.getRole());
 
                     String sql;
 

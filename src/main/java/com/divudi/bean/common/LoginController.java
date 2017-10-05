@@ -62,13 +62,13 @@ public class LoginController implements Serializable {
     }
 
     public Date getToDate() {
+        if(toDate==null){
+            toDate=CommonFunctions.getEndOfDay();
+        }
         return toDate;
     }
 
     public void setToDate(Date toDate) {
-        if(toDate==null){
-            toDate=CommonFunctions.getEndOfDay();
-        }
         this.toDate = toDate;
     }
 
@@ -89,6 +89,13 @@ public class LoginController implements Serializable {
         logins = getFacade().findBySQL(sql, m, TemporalType.TIMESTAMP);
     }
 
+    public String fillLoginsLastTen() {
+        String sql;
+        Map m = new HashMap();
+        sql = "select l from Logins l order by l.logedAt desc";
+        logins = getFacade().findBySQL(sql, m, TemporalType.TIMESTAMP,10);
+        return "/admin/users/index";
+    }
     
     public List<Logins> getLogins() {
         return logins;
