@@ -698,7 +698,8 @@ public class PharmacyController implements Serializable {
         Item item;
 
         if (pharmacyItem instanceof Ampp) {
-            item = ((Ampp) pharmacyItem).getAmp();
+            Ampp temAmpp=(Ampp) pharmacyItem;
+            item = temAmpp.getAmp();
         } else {
             item = pharmacyItem;
         }
