@@ -193,6 +193,58 @@ public class BookingPastController implements Serializable {
         }
     }
 
+    public String paidView() {
+        if (preSet()) {
+            getChannelReportController().fillPaidView();
+            return "channel_paid_view";
+        } else {
+            return "";
+        }
+    }
+    
+    public String presentView() {
+        if (preSet()) {
+            getChannelReportController().fillPresentView();
+            return "channel_present_view";
+        } else {
+            return "";
+        }
+    }
+    
+    public String paidAllView() {
+        if (preSet()) {
+            getChannelReportController().fillPaidAllView();
+            return "channel_paid_all_view";
+        } else {
+            return "";
+        }
+    }
+    
+    public String presentAllView() {
+        if (preSet()) {
+            getChannelReportController().fillPresentAllView();
+            return "channel_present_all_view";
+        } else {
+            return "";
+        }
+    }
+    
+    public void markAsPresent() {
+        getSelectedBillSession().setAbsent(false);
+        getSelectedBillSession().setAbsentMarkedAt(new Date());
+        getSelectedBillSession().setAbsentUnmarkedUser(getSessionController().getLoggedUser());
+        getBillSessionFacade().edit(getSelectedBillSession());
+        UtilityController.addSuccessMessage("Marked as Present");
+    }
+
+    public void markAsAbsent() {
+        getSelectedBillSession().setAbsent(true);
+        getSelectedBillSession().setAbsentMarkedAt(new Date());
+        getSelectedBillSession().setAbsentMarkedUser(getSessionController().getLoggedUser());
+        getBillSessionFacade().edit(getSelectedBillSession());
+        UtilityController.addSuccessMessage("Marked as Absent");
+    }
+    
     public Title[] getTitle() {
         return Title.values();
     }
@@ -835,7 +887,6 @@ public class BookingPastController implements Serializable {
             UtilityController.addErrorMessage("Please select Service Session");
             return false;
         }
-
         getChannelReportController().setServiceSession(selectedServiceSession);
         return true;
     }

@@ -14,7 +14,9 @@
             </p:commandButton>
             <p:commandButton ajax="false" action="#{channelReportController.fillNurseView()}" value="Refresh"  ></p:commandButton>
             <p:commandButton ajax="false" action="#{channelReportController.markAsAbsent()}" value="Mark Selected as Absent"  ></p:commandButton>
-            <p:commandButton ajax="false" action="/channel/channel_booking" value="Back" ></p:commandButton>
+            <p:commandButton ajax="false" action="/channel/channel_booking" value="Bookings" ></p:commandButton>
+            <p:commandButton ajax="false" action="/channel/channel_booking_past" value="Past Bookings" rendered="#{webUserController.hasPrivilege('ChannellingPastBooking')}"></p:commandButton>
+
             <p:panel id="nurseView">
                 <f:facet name="header">
                     <h:panelGrid columns="2">
@@ -34,31 +36,31 @@
                     <p:column headerText="No">
                         #{bs.serialNo}&nbsp;&nbsp;<p:inputText style="width: 20px;"/>
                     </p:column>
-                    
+
                     <p:column headerText="Patient Name">#{bs.bill.patient.person.nameWithTitle}</p:column>
-                    
+
                     <p:column headerText="Remark">
                         <p:outputLabel rendered="#{bs.bill.paidAmount eq 0}" value="To Paid" style="color: red;"/>
                         <p:outputLabel rendered="#{bs.bill.paidAmount ne 0}" value="Paid" style="color: green;"/>
                     </p:column>
-                    
-                    
+
+
                     <p:column headerText="C / R" style="text-align: center;">
                         <p:outputLabel value="Cancelled" rendered="#{bs.bill.cancelled eq true}" style="color: red;"/>
                         <p:outputLabel value="Refunded" rendered="#{bs.bill.refunded eq true}" style="color: red;"/>
                         <p:outputLabel value="-" rendered="#{bs.bill.refunded eq false and bs.bill.cancelled eq false}"/>
-                        
+
                     </p:column>
                     <p:column headerText="Agent/Emp" style="text-align: center;">
                         <p:outputLabel value="#{bs.bill.creditCompany.name}" rendered="#{bs.bill.creditCompany ne null}"/>  
                         <p:outputLabel value="(#{bs.bill.creditCompany.institutionCode})" rendered="#{bs.bill.creditCompany ne null}"/>
-                        
+
                         <p:outputLabel value="#{bs.bill.toStaff.person.name}" rendered="#{bs.bill.toStaff ne null}"/>  
                         <p:outputLabel value="(#{bs.bill.toStaff.code})" rendered="#{bs.bill.toStaff ne null}"/>
 
                         <p:outputLabel value="-" rendered="#{bs.bill.toStaff eq null and bs.bill.creditCompany eq null}"/>
 
-                        
+
 
                     </p:column>                
                     <p:column headerText="Agent Ref No" style="text-align: center;">                        

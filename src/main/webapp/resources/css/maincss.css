@@ -1027,3 +1027,7 @@ table.standardTable td {
 .noBorderGrid1.ui-panelgrid .ui-panelgrid-cell {
     border: none;
 }
+
+.ui-datatable.borderless thead {
+  display: none;
+}

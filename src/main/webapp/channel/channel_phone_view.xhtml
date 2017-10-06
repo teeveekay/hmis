@@ -27,7 +27,9 @@
                 <p:commandButton value="Print" ajax="fasle" action="#">
                     <p:printer target="phoneView"/>           
                 </p:commandButton>
-                <p:commandButton ajax="false" action="/channel/channel_booking" value="Back" ></p:commandButton>
+                <p:commandButton ajax="false" action="/channel/channel_booking" value="Bookings" ></p:commandButton>
+                <p:commandButton ajax="false" action="/channel/channel_booking_past" value="Past Bookings" rendered="#{webUserController.hasPrivilege('ChannellingPastBooking')}"></p:commandButton>
+
 
                 <p:dataTable id="phoneView" value="#{channelReportController.billSessionsNurse}" var="bs">
 

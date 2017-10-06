@@ -4,8 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:poue="http://primefaces.org/ui/extensions">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <ui:insert name="title"   >
@@ -478,12 +477,12 @@
                                     <p:menuitem  ajax="false" action="/store/store_admin"  value="Administration" rendered="#{webUserController.hasPrivilege('StoreAdministration')}" ></p:menuitem>
                                 </p:submenu>
 
-                                <p:submenu styleClass="rightBordrOnly" label="Channeling" rendered="#{webUserController.hasPrivilege('Channelling')}">                                
+                                <p:submenu styleClass="rightBordrOnly" label="Channeling" rendered="#{webUserController.hasPrivilege('Channelling')}" icon="ui-icon-person">                                
 
-                                    <p:menuitem  ajax="false"  value="Channel Booking"  action="/channel/channel_booking" actionListener="#{bookingController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingChannelBooking')}" ></p:menuitem>
-                                    <p:menuitem  ajax="false"  value="Channel Future Booking"  action="/channel/channel_booking_future" actionListener="#{bookingController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingFutureChannelBooking')}" ></p:menuitem>
-                                    <p:menuitem  ajax="false"  value="Past Booking"  action="/channel/channel_booking_past" actionListener="#{bookingPastController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingPastBooking')}" ></p:menuitem>
-                                    <p:menuitem  ajax="false"  value="Booked List"  action="/channel/channel_booked_list" actionListener="#{bookingPastController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingBookedList')}" ></p:menuitem>
+                                    <p:menuitem  ajax="false"  value="Channel Booking"  action="/channel/channel_booking" actionListener="#{bookingController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingChannelBooking')}" icon="ui-icon-circle-plus" ></p:menuitem>
+                                    <p:menuitem  ajax="false"  value="Advance Booking"  action="/channel/channel_booking_future" actionListener="#{bookingController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingFutureChannelBooking')}" icon="ui-icon-circle-arrow-e" ></p:menuitem>
+                                    <p:menuitem  ajax="false"  value="Past Booking"  action="/channel/channel_booking_past" actionListener="#{bookingPastController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingPastBooking')}" icon="ui-icon-circle-arrow-w" ></p:menuitem>
+                                    <p:menuitem  ajax="false"  value="Booked List"  action="/channel/channel_booked_list" actionListener="#{bookingPastController.makeNull}" rendered="#{webUserController.hasPrivilege('ChannellingBookedList')}" icon="ui-icon-script"></p:menuitem>
                                     <p:submenu label="Doctor Leave" rendered="#{webUserController.hasPrivilege('ChannellingDoctorLeave')}" >
                                         <p:menuitem  ajax="false"  value="By Date"  action="/channel/channel_doctor_leave_by_date" rendered="#{webUserController.hasPrivilege('ChannellingDoctorLeaveByDate')}" actionListener="#{bookingController.makeNull}" ></p:menuitem>
                                         <p:menuitem  ajax="false"  value="By Service Session"  action="/channel/channel_doctor_leave_by_service_session" rendered="#{webUserController.hasPrivilege('ChannellingDoctorLeaveByServiceSession')}" actionListener="#{bookingController.makeNull}" ></p:menuitem>
@@ -663,8 +662,8 @@
                                     <p:menuitem  ajax="false"  action="/user_preferances" value="Change Preferances"  ></p:menuitem>
                                 </p:submenu>
 
-                                <p:submenu styleClass="rightBordrOnly" label="Admin"  rendered="#{webUserController.hasPrivilege('Admin')}" icon="fa fa-cogs">
-                                    <p:menuitem  ajax="false"  action="#{loginController.fillLoginsLastTen()}" value="Manage Users" rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" icon="fa fa-user"></p:menuitem>
+                                <p:submenu styleClass="rightBordrOnly" label="Admin"  rendered="#{webUserController.hasPrivilege('Admin')}" icon="ui-icon-gear">
+                                    <p:menuitem  ajax="false"  action="#{loginController.fillLoginsLastTen()}" value="Manage Users" rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" icon="ui-icon-person"></p:menuitem>
                                     <p:menuitem  ajax="false"  action="/admin_mange_institutions_index" value="Manage Institutions" rendered="#{webUserController.hasPrivilege('AdminInstitutions')}" ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="/admin_manage_staff_index" value="Manage Staff" rendered="#{webUserController.hasPrivilege('AdminStaff')}" ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="/admin_items" value="Manage Items/Services" rendered="#{webUserController.hasPrivilege('AdminItems')}" ></p:menuitem>
@@ -728,7 +727,7 @@
                                                              return false;
                                                          }"/>
                                     <p:commandButton id="btnLogout" ajax="false" icon="ui-icon-extlink" action="#{sessionController.logout}" />
-                                    <poue:tooltip for="btnLogout" value="df" adjustX="-20" >
+                                    <p:tooltip for="btnLogout" value="df"  >
                                         <h:panelGrid columns="3" >
                                             <h:outputText value="Institution" ></h:outputText>
                                             <p:spacer width="10" height="1" ></p:spacer>
@@ -740,7 +739,7 @@
                                             <p:spacer width="10" height="1" ></p:spacer>
                                             <h:outputText value="#{sessionController.loggedUser.webUserPerson.name}" ></h:outputText>
                                         </h:panelGrid>
-                                    </poue:tooltip>
+                                    </p:tooltip>
                                 </f:facet>
 
                             </p:menubar>

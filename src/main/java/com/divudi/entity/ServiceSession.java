@@ -79,6 +79,17 @@ public class ServiceSession extends Item implements Serializable {
 
     @Transient
     int transRowNumber;
+    @Transient
+    String sessionDateStr;
+
+    public String getSessionDateStr() {
+        if (sessionDate == null) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        String dateStr = sdf.format(sessionDate);
+        return dateStr;
+    }
 
     public SessionNumberGenerator getSessionNumberGenerator() {
         return sessionNumberGenerator;
@@ -396,15 +407,15 @@ public class ServiceSession extends Item implements Serializable {
             sessionText += ses.getTransDisplayCountWithoutCancelRefund();
             sessionText += "</font>";
             sessionText += CommonFunctions.round(ses.totalFee);
-            if(ses.getMaxNo()!=0){
-                
-            }
-                
-        }
-    return sessionText ;
-}
+            if (ses.getMaxNo() != 0) {
 
-public void setSessionText(String sessionText) {
+            }
+
+        }
+        return sessionText;
+    }
+
+    public void setSessionText(String sessionText) {
         this.sessionText = sessionText;
     }
 

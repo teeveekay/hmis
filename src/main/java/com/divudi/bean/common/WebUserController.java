@@ -529,7 +529,7 @@ public class WebUserController implements Serializable {
         current = null;
     }
 
-    public void createTable() {
+    public void listUsers() {
 
         if (selectText.trim().equals("")) {
             items = getFacade().findBySQL("select c from WebUser c where c.retired=false order by c.webUserPerson.name");
