@@ -4,8 +4,7 @@
                 template="/resources/template/template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:poue="http://primefaces.org/ui/extensions">
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
         <h:form>
@@ -28,7 +27,7 @@
                         <p:ajax  event="rowSelect" process="@this" update=":#{p:component('scStaff')}  :#{p:component('tblSessionsOfSelectedConsultant')}" listener="#{bookingController.generateSessions}"/> 
                         <p:column style="text-wrap: avoid; text-overflow: clip; white-space: nowrap;" >
                             <h:outputText id="lblSpeName" value="#{spe.name}" ></h:outputText>
-                            <poue:tooltip for="lblSpeName" value="#{spe.name}"  showDelay="0" hideDelay="0"  atPosition="left bottom" ></poue:tooltip>
+                            <p:tooltip for="lblSpeName" value="#{spe.name}"  showDelay="0" hideDelay="0"   ></p:tooltip>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
@@ -43,9 +42,9 @@
                                  selectionMode="single" >
                         <p:column style="text-wrap: avoid; text-overflow: clip; white-space: nowrap;">
                             <h:outputText id="lblConName" value="#{mys.person.name}" />
-                            <poue:tooltip for="lblConName" value="#{mys.person.nameWithTitle}" 
+                            <p:tooltip for="lblConName" value="#{mys.person.nameWithTitle}" 
                                           showDelay="0" hideDelay="0" 
-                                          atPosition="left bottom" ></poue:tooltip>
+                                           ></p:tooltip>
                         </p:column>
                         <p:ajax  event="rowSelect" 
                                  process="@this" 
@@ -243,7 +242,6 @@
                                          ajax="false" action="#{serviceSessionLeaveController.removeLeaveAndActiveServiceSession(d)}" 
                                          disabled="#{d.retired eq true}"
                                          >
-                            <!--<f:setPropertyActionListener value="#{d}" target="#{serviceSessionLeaveController.current}"/>-->
                         </p:commandButton>
                     </p:column>
 
