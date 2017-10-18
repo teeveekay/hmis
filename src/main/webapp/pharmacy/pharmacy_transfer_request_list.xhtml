@@ -36,20 +36,20 @@
                 <p:dataTable 
                     value="#{searchController.bills}" 
                     var="p"
-                    paginator="true"
+                    paginator="true" 
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                     rowsPerPageTemplate="5,10,15"
                     >
-                    <p:column headerText="Request No">                      
+                    <p:column headerText="Request No" width="100">                      
                         <h:outputLabel value="#{p.deptId}"/>                         
                     </p:column>
-                    <p:column headerText="From Department">                      
+                    <p:column headerText="From Department" width="150">                      
                         <h:outputLabel value="#{p.department.name}"/>                          
                     </p:column> 
-                    <p:column headerText="Requested at"  >
+                    <p:column headerText="Requested at" width="120" >
 
                         <h:outputLabel value="#{p.createdAt}" >
-                            <f:convertDateTime pattern="dd/MMM/yyyy - hh:mm:ss a"/>
+                            <f:convertDateTime pattern="dd/MMM/yyyy hh:mm:ss a"/>
                         </h:outputLabel>
                         <br/>
                         <h:panelGroup rendered="#{p.cancelled}" >
@@ -61,7 +61,7 @@
                         </h:panelGroup>
 
                     </p:column>                 
-                    <p:column headerText="Requested by" >                      
+                    <p:column headerText="Requested by" width="150" >                      
                         <h:outputLabel value="#{p.creater.webUserPerson.name}" >                                      
                         </h:outputLabel>                          
                         <br/>
@@ -71,12 +71,10 @@
                             </h:outputLabel>
                         </h:panelGroup>
                     </p:column>  
-                    <p:column>
-                        <p:commandButton ajax="false" value="View Request" action="pharmacy_reprint_transfer_request">
+                    <p:column headerText="Actions" width="150">
+                        <p:commandButton ajax="false" value="View" action="pharmacy_reprint_transfer_request">
                             <f:setPropertyActionListener value="#{p}" target="#{pharmacyBillSearch.bill}"/>
                         </p:commandButton>
-                    </p:column>
-                    <p:column>
                         <p:commandButton ajax="false" value="Issue" action="pharmacy_transfer_issue"
                                          disabled="#{p.cancelled eq true}">
                             <f:setPropertyActionListener target="#{transferIssueController.requestedBill}" value="#{p}"/>
@@ -84,13 +82,13 @@
                     </p:column>
 
                     <p:column headerText="Issued">                   
-                        <p:dataTable var="b" value="#{p.forwardReferenceBills}">                           
-                            <p:column  >                                                               
+                        <p:dataTable var="b" value="#{p.forwardReferenceBills}" emptyMessage="Not Issued Yet">                           
+                            <p:column width="100" headerText="Issue No" >                                                               
                                 <h:outputLabel  value="#{b.deptId}"/>                                   
                             </p:column>
-                            <p:column >
+                            <p:column width="100" headerText="Issued At">
                                 <h:outputLabel value="#{b.createdAt}" >
-                                    <f:convertDateTime pattern="dd/MMM/yyyy - hh:mm:ss a"/>
+                                    <f:convertDateTime pattern="dd/MMM/yyyy hh:mm:ss a"/>
                                 </h:outputLabel>
                                 <br/>
                                 <h:panelGroup rendered="#{b.cancelled}" >
@@ -101,7 +99,7 @@
                                     </h:outputLabel>
                                 </h:panelGroup>                               
                             </p:column>                             
-                            <p:column >
+                            <p:column width="100" headerText="Issued By">
                                 <h:outputLabel value="#{b.creater.webUserPerson.name}"/>     
                                 <br/>
                                 <h:panelGroup rendered="#{b.cancelled}" >
@@ -110,16 +108,16 @@
                                     </h:outputLabel>
                                 </h:panelGroup>
                             </p:column> 
-                            <p:column >                              
+                            <p:column width="150" headerText="Issued To" >                              
                                 <h:outputLabel value="#{b.toStaff.person.nameWithTitle}"/>                                   
                             </p:column> 
-                            <p:column >
-                                <h:outputLabel value="#{b.netTotal}">
+                            <p:column width="100" headerText="Issue Value">
+                                <h:outputLabel value="#{(b.netTotal lt 0) ? -b.netTotal : b.netTotal}">
                                     <f:convertNumber pattern="#,##0.00" />
                                 </h:outputLabel>                                  
                             </p:column>
-                            <p:column>
-                                <p:commandButton ajax="false" value="View Issued Note" action="pharmacy_reprint_transfer_isssue" >
+                            <p:column headerText="Issue Note" width="100">
+                                <p:commandButton ajax="false" value="View" action="pharmacy_reprint_transfer_isssue" >
                                     <f:setPropertyActionListener target="#{pharmacyBillSearch.bill}" value="#{b}"/>
                                 </p:commandButton>
                             </p:column>

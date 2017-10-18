@@ -70,15 +70,15 @@
 
             <div >
                 <p:dataTable styleClass="noBorder normalFont" rowIndexVar="rowIndex"  value="#{cc.attrs.bill.billItems}" sortBy="#{bip.searialNo}" var="bip" >
-                    <p:column>
+                    <p:column width="50">
                         <f:facet name="header">
                             <h:outputLabel value="No"/>
                         </f:facet>
                         <h:outputLabel value="#{rowIndex+1}"/>
                     </p:column>
 
-                    <p:column>
-                        <f:facet name="header">
+                    <p:column width="100">
+                        <f:facet name="header" >
                             <h:outputLabel value="Code"/>
                         </f:facet>
                         <h:outputLabel value="#{bip.item.code}"/>
