@@ -2083,7 +2083,8 @@ public class SearchController implements Serializable {
                 + "  b.referenceBill is null  "
                 + " and b.toInstitution.institutionType=:insTp "
                 + " and b.createdAt between :fromDate and :toDate "
-                + " and b.retired=false"
+                + " and b.retired=false "
+                + " and b.cancelled!=true "
                 + " and b.billType= :bTp ";
 
         sql += createKeySql(tmp);
@@ -2100,6 +2101,7 @@ public class SearchController implements Serializable {
                 + " and b.toInstitution.institutionType=:insTp "
                 + " and b.createdAt between :fromDate and :toDate "
                 + " and b.retired=false "
+                + " and b.cancelled!=true "
                 + " and b.billType= :bTp  ";
 
         sql += createKeySql(tmp);
@@ -2113,6 +2115,7 @@ public class SearchController implements Serializable {
                 + " and b.referenceBill.cancelled=true "
                 + " and b.createdAt between :fromDate and :toDate "
                 + " and b.retired=false"
+                + " and b.cancelled!=true "                
                 + " and b.billType= :bTp ";
 
         sql += createKeySql(tmp);

@@ -19,6 +19,7 @@ import com.divudi.entity.pharmacy.PharmaceuticalBillItem;
 import com.divudi.facade.BillFacade;
 import com.divudi.facade.BillItemFacade;
 import com.divudi.facade.PharmaceuticalBillItemFacade;
+import com.divudi.facade.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -120,6 +121,19 @@ public class PurchaseOrderController implements Serializable {
     }
     
    
+    public void removeRequest(){
+        if(requestedBill==null){
+            JsfUtil.addErrorMessage("Nothing to Delete");
+            return ;
+        }
+        requestedBill.setRetired(true);
+        requestedBill.setRetiredAt(new Date());
+        requestedBill.setRetirer(getSessionController().getLoggedUser());
+        getBillFacade().edit(requestedBill);
+        bills=new ArrayList<>();
+        JsfUtil.addSuccessMessage("Removed");
+    }
+    
 
     public String approve() {
         if (getAprovedBill().getPaymentMethod() == null) {
