@@ -279,6 +279,7 @@ public class EnumController implements Serializable {
             BillType.PharmacyOrder,
             BillType.PharmacyOrderApprove,
             BillType.PharmacyPre,
+            BillType.PharmacyBhtPre,
             BillType.PharmacyPurchaseBill,
             BillType.PharmacySale,
             BillType.PharmacyAdjustment,
