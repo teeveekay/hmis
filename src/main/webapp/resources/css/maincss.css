@@ -530,6 +530,20 @@ body {
     margin: 0px!important;
 }
 
+
+.alignRight{
+    text-align: right;
+}
+
+
+.alignLeft{
+    text-align: left;
+}
+
+.alignCentre{
+    text-align: center;
+}
+
 .alignTop {
     vertical-align: top;
 }
@@ -1029,5 +1043,18 @@ table.standardTable td {
 }
 
 .ui-datatable.borderless thead {
-  display: none;
+    display: none;
+}
+
+.ui-icon-approved{
+    background-image: url("#{resource['image/approved_icon.png']}") !important;
+    background-size: 25px 25px;
+    background-repeat:no-repeat;
+    width: 10px;
+    height: 10px;
+}
+
+.borderlessGrid.ui-panelgrid>*>tr,
+.borderlessGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
 }

@@ -23,7 +23,7 @@
                 <p:tabView>
                     <p:tab title=" Distributor">                                               
                         <p:autoComplete converter="deal" value="#{purchaseOrderRequestController.currentBill.toInstitution}"  
-                                        forceSelection="true"
+                                        forceSelection="true" maxResults="10"
                                         completeMethod="#{dealerController.completeDealor}"
                                         var="vt" itemLabel="#{vt.name}" itemValue="#{vt}" >
                             <f:ajax event="itemSelect" execute="@this" render=":#{p:component('itemList')}" listener="#{purchaseOrderRequestController.setInsListener}"/>
