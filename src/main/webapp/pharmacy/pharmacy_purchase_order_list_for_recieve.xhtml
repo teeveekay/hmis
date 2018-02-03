@@ -76,7 +76,12 @@
                         </h:outputLabel>
                     </h:panelGroup>                  
                 </p:column>    
-
+                <p:column headerText="Requested">
+                    <h:commandLink action="pharmacy_reprint_po" >
+                        <h:outputLabel  value="#{p.referenceBill.department.name}"/>
+                        <f:setPropertyActionListener target="#{pharmacyBillSearch.bill}" value="#{p}"/>
+                    </h:commandLink>
+                </p:column>
                 <p:column headerText="Distributor">
                     <h:commandLink action="pharmacy_reprint_po" >
                         <h:outputLabel  value="#{p.toInstitution.name}"/>
