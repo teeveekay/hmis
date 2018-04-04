@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputStylesheet library="css" name="printing.css" />
+
+                <h:form>
+                    <p:panelGrid columns="2" >
+                        <h:outputLabel value="From" />
+                        <p:calendar styleClass="noPrintButton" value="#{labReportSearchByDepartmentController.fromDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
+                        </p:calendar>
+                        <h:outputLabel value="To" />
+                        <p:calendar styleClass="noPrintButton" value="#{labReportSearchByDepartmentController.toDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
+                        </p:calendar>
+                        <h:outputLabel  value="Institution" />
+                        <p:autoComplete styleClass="noPrintButton"  value="#{labReportSearchByDepartmentController.institution}" 
+                                        completeMethod="#{institutionController.completeIns}" var="dept" itemValue="#{dept}" 
+                                        itemLabel="#{dept.name}" forceSelection="true" rendered="true"
+                                        requiredMessage="You must select an Institution" >
+                        </p:autoComplete>
+                    </p:panelGrid>
+                    <p:panelGrid columns="4" >
+                        <p:commandButton id="btnRefresh" styleClass="noPrintButton" value="Refresh" ajax="false" 
+                                         action="#{labReportSearchByDepartmentController.createOpdIncomeFromCompaniesAll()}">
+                        </p:commandButton>
+                        <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                            <p:printer target="tbl" />
+                        </p:commandButton>
+                        <p:commandButton value="Excel" ajax="false" styleClass="noPrintButton">
+                            <p:dataExporter type="xlsx" target="tbl" fileName="DepartmentIncome"/>
+                        </p:commandButton>
+                        <p:defaultCommand target="btnRefresh"/>
+                    </p:panelGrid>
+
+                    <p:dataTable id="tbl" 
+                                 value="#{labReportSearchByDepartmentController.billItemSummerries}" var="b" sortBy="#{b.institution.name}" >
+
+                        <f:facet name="header">
+                            <h:outputLabel value="Income Report From Companies : "/>
+                            <h:outputLabel value="#{labReportSearchByDepartmentController.department.name}"  />
+                            <h:outputLabel value="From : " style="white-space: pre-line"/>
+                            <h:outputLabel value="#{labReportSearchByDepartmentController.fromDate}"  >
+                                <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
+                            </h:outputLabel>
+                            <h:outputLabel value="&emsp; &emsp;To : "  />
+                            <h:outputLabel value="#{labReportSearchByDepartmentController.toDate}" >
+                                <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
+                            </h:outputLabel>
+                        </f:facet>
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputLabel value="Company"/>
+                            </f:facet>
+                            <p:outputLabel value="#{b.institution.name}" ></p:outputLabel>
+                        </p:column>
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputLabel value="Investigation/Service"/>
+                            </f:facet>
+                            <p:outputLabel value="#{b.item.name}" ></p:outputLabel>
+                        </p:column>
+
+                        <p:column  style="text-align: right;">
+                            <f:facet name="header">
+                                <h:outputLabel value="Gross Value"/>
+                            </f:facet>
+                            <h:outputLabel value="#{b.grossValue}" >
+                                <f:convertNumber pattern="#,##0.00" />
+                            </h:outputLabel>
+                        </p:column>
+                        <p:column  style="text-align: right;">
+                            <f:facet name="header">
+                                <h:outputLabel value="Discount"/>
+                            </f:facet>
+                            <h:outputLabel value="#{b.discountValue}" >
+                                <f:convertNumber pattern="#,##0.00" />
+                            </h:outputLabel>
+                        </p:column>
+                        <p:column  style="text-align: right;">
+                            <f:facet name="header">
+                                <h:outputLabel value="Netvalue"/>
+                            </f:facet>
+                            <h:outputLabel value="#{b.netValue}" >
+                                <f:convertNumber pattern="#,##0.00" />
+                            </h:outputLabel>
+                        </p:column>
+                        
+                        
+                      
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>

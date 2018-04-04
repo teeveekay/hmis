@@ -59,7 +59,7 @@ public class SecurityController implements Serializable {
         try {
             return en.decrypt(word);
         } catch (Exception ex) {
-            return null;
+            return word;
         }
     }
 }

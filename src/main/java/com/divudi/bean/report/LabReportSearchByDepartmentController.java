@@ -7,8 +7,10 @@ package com.divudi.bean.report;
 import com.divudi.bean.common.SessionController;
 import com.divudi.data.BillType;
 import com.divudi.data.PaymentMethod;
+import com.divudi.data.dataStructure.BillItemSummery;
 import com.divudi.ejb.CommonFunctions;
 import com.divudi.entity.Bill;
+import com.divudi.entity.BillItem;
 import com.divudi.entity.BilledBill;
 import com.divudi.entity.CancelledBill;
 import com.divudi.entity.Department;
@@ -107,8 +109,8 @@ public class LabReportSearchByDepartmentController implements Serializable {
     }
 
     public List<Bill> getBillsList() {
-        if(billsList==null){
-            billsList=new ArrayList<>();
+        if (billsList == null) {
+            billsList = new ArrayList<>();
         }
         return billsList;
     }
@@ -116,8 +118,6 @@ public class LabReportSearchByDepartmentController implements Serializable {
     public void setBillsList(List<Bill> billsList) {
         this.billsList = billsList;
     }
-
-    
 
     public void searchAll() {
         String sql;
@@ -558,6 +558,69 @@ public class LabReportSearchByDepartmentController implements Serializable {
         }
         billsList = getLabBillsOwn();
         calTotals();
+    }
+
+    List<BillItemSummery> billItemSummerries;
+
+    public List<BillItemSummery> getBillItemSummerries() {
+        return billItemSummerries;
+    }
+
+    public void setBillItemSummerries(List<BillItemSummery> billItemSummerries) {
+        this.billItemSummerries = billItemSummerries;
+    }
+
+    public void createOpdIncomeFromCompaniesAll() {
+        BillType billType[] = {BillType.OpdBill};
+        List<BillType> billTypes = Arrays.asList(billType);
+
+        String sql = "select new com.divudi.data.dataStructure.BillItemSummery(bi.item, "
+                + " b.creditCompany, count(bi), sum(bi.grossValue), sum(bi.discount), sum(bi.netValue))"
+                + " from BillItem bi JOIN bi.bill b "
+                + " where b.retired <> true "
+                + " and b.billType in :billType "
+                + " and b.createdAt between :fromDate and :toDate "
+                + " and b.fromInstitution =:ins "
+                + " group by bi.item, b.creditCompany";
+
+        sql = "select new com.divudi.data.dataStructure.BillItemSummery(bi.item, "
+                + " b.creditCompany, count(bi), sum(bi.grossValue), sum(bi.discount), sum(bi.netValue))"
+                + " from BillItem bi JOIN bi.bill b "
+                + " where b.createdAt between :fromDate and :toDate "
+                + " and b.billType in :billType "
+                + " and b.retired <> true "
+                + " and b.cancelled <> true "
+                + " and b.fromInstitution =:ins "
+                + " group by bi.item, b.creditCompany";
+
+        boolean tem = false;
+        if (tem) {
+            BillItem bi = new BillItem();
+            bi.getGrossValue();
+            bi.getDiscount();
+            bi.getNetValue();
+            bi.getItem();
+            bi.isRefunded();
+            Bill b = new Bill();
+            b.getToInstitution();
+            b.isCancelled();
+            b.getCreditCompany();
+        }
+        Map tm = new HashMap();
+        tm.put("fromDate", fromDate);
+        tm.put("toDate", toDate);
+        tm.put("billType", billTypes);
+        tm.put("ins", getInstitution());
+        System.out.println("tm = " + tm);
+        System.out.println("sql = " + sql);
+        List<Object> tos = getBillFacade().findObjectBySQL(sql, tm, TemporalType.DATE);
+        billItemSummerries = new ArrayList<>();
+        for (Object o : tos) {
+            if (o instanceof BillItemSummery) {
+                BillItemSummery tbis = (BillItemSummery) o;
+                billItemSummerries.add(tbis);
+            }
+        }
     }
 
     public List<Bill> getLabBillsOwn() {
