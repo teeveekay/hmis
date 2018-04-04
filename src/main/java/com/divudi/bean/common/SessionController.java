@@ -643,10 +643,12 @@ public class SessionController implements Serializable, HttpSessionListener {
         for (WebUser u : allUsers) {
             String userNameInDatabase = u.getName();
             String decryptedUserName = getSecurityController().decrypt(userNameInDatabase);
+            System.out.println("userNameInDatabase = " + userNameInDatabase);
+            System.out.println("decryptedUserName = " + decryptedUserName);
             if(decryptedUserName==null){
                 decryptedUserName = userNameInDatabase;
             }
-            if (userNameInDatabase.equalsIgnoreCase(userName)) {
+            if (decryptedUserName.equalsIgnoreCase(userName)) {
                 if (getSecurityController().matchPassword(passord, u.getWebUserPassword())) {
                     departments = listLoggableDepts(u);
                     if (departments.isEmpty()) {
