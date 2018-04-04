@@ -111,10 +111,15 @@ public class TransferReceiveController implements Serializable {
             BillItem bItem = new BillItem();
             bItem.setReferanceBillItem(i.getBillItem());
             bItem.copy(i.getBillItem());
-            if (Math.abs(i.getQtyInUnit()) >= Math.abs(i.getStaffStock().getStock())) {
-                bItem.setTmpQty(Math.abs(i.getQtyInUnit()));
+            if (i.getStaffStock() != null) {
+
+                if (Math.abs(i.getQtyInUnit()) >= Math.abs(i.getStaffStock().getStock())) {
+                    bItem.setTmpQty(Math.abs(i.getQtyInUnit()));
+                } else {
+                    bItem.setTmpQty(Math.abs(i.getStaffStock().getStock()));
+                }
             } else {
-                bItem.setTmpQty(Math.abs(i.getStaffStock().getStock()));
+                bItem.setTmpQty(0);
             }
 
             bItem.setSearialNo(getBillItems().size());
@@ -146,8 +151,8 @@ public class TransferReceiveController implements Serializable {
             if (i.getPharmaceuticalBillItem().getQtyInUnit() == 0.0 || i.getItem() instanceof Vmpp || i.getItem() instanceof Vmp) {
                 continue;
             }
-            
-            if(errorCheck(i)){
+
+            if (errorCheck(i)) {
                 continue;
             }
 
@@ -193,8 +198,8 @@ public class TransferReceiveController implements Serializable {
 
             getReceivedBill().getBillItems().add(i);
         }
-        
-        if(getReceivedBill().getBillItems().size()==0 || getReceivedBill().getBillItems() == null){
+
+        if (getReceivedBill().getBillItems().size() == 0 || getReceivedBill().getBillItems() == null) {
             UtilityController.addErrorMessage("Nothing to Recive, Please check Recieved Quantity");
             return;
         }

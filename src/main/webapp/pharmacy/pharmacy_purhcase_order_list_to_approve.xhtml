@@ -56,7 +56,7 @@
 
                             </h:panelGrid>
 
-                            <h:panelGrid columns="1">
+                            <h:panelGrid columns="1" style="width: 300px;">
                                 <p:commandButton icon="fa fa-stack-overflow" value="List All Requests" action="#{searchController.createPoRequestedAndApprovedPharmacy()}" ajax="false" ></p:commandButton>
                                 <p:commandButton icon="fa fa-check" value="List Approved Requests" action="#{searchController.createApprovedPharmacy()}" ajax="false" ></p:commandButton>
                                 <p:commandButton icon="fa fa-bell-o" value="List To Approve Requests" action="#{searchController.createNotApprovedPharmacy()}" ajax="false" ></p:commandButton>
