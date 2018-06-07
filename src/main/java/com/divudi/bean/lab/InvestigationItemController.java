@@ -671,11 +671,11 @@ public class InvestigationItemController implements Serializable {
                     if (nii.getAttributeValue("report_item_type") != null && ReportItemType.valueOf(nii.getAttributeValue("report_item_type")) != null) {
                         ii.setReportItemType(ReportItemType.valueOf(nii.getAttributeValue("report_item_type")));
                     }
-                    ii.setRiFontSize(nii.getAttribute("font_size").getIntValue());
-                    ii.setRiHeight(nii.getAttribute("height").getIntValue());
-                    ii.setRiLeft(nii.getAttribute("left").getIntValue());
-                    ii.setRiTop(nii.getAttribute("top").getIntValue());
-                    ii.setRiWidth(nii.getAttribute("width").getIntValue());
+                    ii.setRiFontSize(nii.getAttribute("font_size").getDoubleValue());
+                    ii.setRiHeight(nii.getAttribute("height").getDoubleValue());
+                    ii.setRiLeft(nii.getAttribute("left").getDoubleValue());
+                    ii.setRiTop(nii.getAttribute("top").getDoubleValue());
+                    ii.setRiWidth(nii.getAttribute("width").getDoubleValue());
 
                     List listiivs = nii.getChildren("investigation_item_value");
                     for (Object listiiv : listiivs) {

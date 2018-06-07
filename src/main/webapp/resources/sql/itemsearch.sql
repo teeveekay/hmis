@@ -1,0 +1,1 @@
+select * from item where `NAME` like 'influ%';

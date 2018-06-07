@@ -28,6 +28,9 @@
                                 #{apt.fullName}
                             </p:column>
                             <p:column>
+                                #{apt.institution.name}
+                            </p:column>
+                            <p:column>
                                 #{apt.department.name}
                             </p:column>
                             <p:column>
@@ -227,6 +230,8 @@
                     <f:facet name="header" >
                         <p:commandButton ajax="false" value="Print" onclick="onSubmitButton();"  >
                             <p:printer target="divPrint" />
+                        </p:commandButton>
+                        <p:commandButton ajax="false" value="Back" action="lab_investigation"  >
                         </p:commandButton>
                         <p:selectOneButton id="btnModes" value="#{investigationItemController.editMode}" >
                             <f:selectItem itemLabel="View Mode" itemValue="View_Mode" ></f:selectItem>

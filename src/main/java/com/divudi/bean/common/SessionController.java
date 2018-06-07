@@ -636,6 +636,24 @@ public class SessionController implements Serializable, HttpSessionListener {
         return false;
     }
 
+    public void decryptAllUsers() {
+        String temSQL;
+        temSQL = "SELECT u FROM WebUser u WHERE u.retired = false";
+        List<WebUser> allUsers = getFacede().findBySQL(temSQL);
+        for (WebUser u : allUsers) {
+            String userNameInDatabase = u.getName();
+            String newUsername = getSecurityController().decrypt(userNameInDatabase);
+            u.setName(newUsername);
+            try {
+                getFacede().edit(u);
+            } catch (Exception e) {
+                u.setName(newUsername + "12345");
+                getFacede().edit(u);
+            }
+        }
+
+    }
+
     private boolean checkUsersWithoutDepartment() {
         String temSQL;
         temSQL = "SELECT u FROM WebUser u WHERE u.retired = false";
@@ -645,7 +663,7 @@ public class SessionController implements Serializable, HttpSessionListener {
             String decryptedUserName = getSecurityController().decrypt(userNameInDatabase);
             System.out.println("userNameInDatabase = " + userNameInDatabase);
             System.out.println("decryptedUserName = " + decryptedUserName);
-            if(decryptedUserName==null){
+            if (decryptedUserName == null) {
                 decryptedUserName = userNameInDatabase;
             }
             if (decryptedUserName.equalsIgnoreCase(userName)) {
