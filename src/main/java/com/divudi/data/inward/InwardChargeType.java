@@ -55,8 +55,7 @@ public enum InwardChargeType {
     TheaterConsumbale("Theater Consumable"),
     @Deprecated
     Investigations("Investigations"),
-    @Deprecated
-    MedicalCare("MedicalCare");
+    MedicalCare("VAT");
 
     private final String nameAsString;
 

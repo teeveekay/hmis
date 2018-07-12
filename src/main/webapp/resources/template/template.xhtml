@@ -852,7 +852,6 @@
                                                              action="#{sessionController.loginActionWithoutDepartment()}" >
                                             </p:commandButton>
                                         </h:panelGrid>
-                                        <h:commandButton value="Decrypt all users" action="#{sessionController.decryptAllUsers()}" ></h:commandButton>
                                     </h:form>
 
                                 </h:panelGroup>
@@ -865,6 +864,9 @@
                                     <p>Your browser does not support iframes.</p>
                                 </iframe>
                             </h:panelGroup>
+                        </p:panel>
+                        <p:panel header="Messages" >
+                            <p:outputLabel value="MOVED TO A NEW SERVER" ></p:outputLabel>
                         </p:panel>
                     </ui:insert>
                 </h:panelGroup>
