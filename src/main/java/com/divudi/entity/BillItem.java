@@ -65,6 +65,8 @@ public class BillItem implements Serializable {
     private double adjustedValue;
     double hospitalFee;
     double staffFee;
+    private double vat;
+    private double vatPlusNetValue;
 //    private double dblValue;
     @ManyToOne
     Item item;
@@ -134,11 +136,15 @@ public class BillItem implements Serializable {
     private List<BillFee> proFees = new ArrayList<>();
     @OneToMany(mappedBy = "parentBillItem")
     private List<BillItem> chiledBillItems;
+
+    @Transient
+    double transCCFee;
+    @Transient
+    double transWithOutCCFee;
+    @Transient
+    private boolean transRefund;
     
-    @Transient
-    double  transCCFee;
-    @Transient
-    double  transWithOutCCFee;
+    
 
     public double getHospitalFee() {
         return hospitalFee;
@@ -266,15 +272,15 @@ public class BillItem implements Serializable {
         //System.out.println("other = " + other);
         //System.out.println("this id = " + this.id);
         //System.out.println("other id = " + other.id);
-        if((this.id == null || this.id == 0) && (other.id==null || other.id == 0) ){            
-          if(this.searialNo==other.searialNo){
-              //System.out.println("this = other");
-              return true;
-          }   else{
-              //System.out.println("this not eq other");
-              return false;
-          }
-          
+        if ((this.id == null || this.id == 0) && (other.id == null || other.id == 0)) {
+            if (this.searialNo == other.searialNo) {
+                //System.out.println("this = other");
+                return true;
+            } else {
+                //System.out.println("this not eq other");
+                return false;
+            }
+
         }
         //System.out.println("not Null");
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
@@ -754,6 +760,30 @@ public class BillItem implements Serializable {
 
     public void setTransWithOutCCFee(double transWithOutCCFee) {
         this.transWithOutCCFee = transWithOutCCFee;
+    }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
+
+    public double getVatPlusNetValue() {
+        return vatPlusNetValue;
+    }
+
+    public void setVatPlusNetValue(double vatPlusNetValue) {
+        this.vatPlusNetValue = vatPlusNetValue;
+    }
+
+    public boolean isTransRefund() {
+        return transRefund;
+    }
+
+    public void setTransRefund(boolean transRefund) {
+        this.transRefund = transRefund;
     }
 
 }

@@ -79,6 +79,9 @@ public class BillFee implements Serializable {
     @ManyToOne
     Bill bill;
     ///////////////
+    private double feeVat;
+    private double feeVatPlusValue;
+
     double feeValue = 0.0;
     Double feeGrossValue;
     double feeDiscount;
@@ -629,4 +632,23 @@ public class BillFee implements Serializable {
         this.settleValue = settleValue;
     }
 
+    public double getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(double feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public double getFeeVatPlusValue() {
+        return feeVatPlusValue;
+    }
+
+    public void setFeeVatPlusValue(double feeVatPlusValue) {
+        this.feeVatPlusValue = feeVatPlusValue;
+    }
+
+    
+    
+    
 }

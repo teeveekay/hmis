@@ -43,7 +43,8 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "bill")
 @NamedQueries({
-    @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b"),
+    @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b")
+    ,
     @NamedQuery(name = "Bill.findById", query = "SELECT b FROM Bill b WHERE b.id = :id")})
 public class Bill implements Serializable {
 
@@ -141,6 +142,9 @@ public class Bill implements Serializable {
     double paidAmount;
     double balance;
     double serviceCharge;
+    private double vat;
+    private double vatPlusNetTotal;
+
     Double tax = 0.0;
     Double cashPaid = 0.0;
     Double cashBalance = 0.0;
@@ -288,7 +292,7 @@ public class Bill implements Serializable {
     double qty;
     @Transient
     double transTotalSaleValue;
-    
+
     //Sms Info
     private Boolean smsed = false;
     @ManyToOne
@@ -297,14 +301,14 @@ public class Bill implements Serializable {
     private Date smsedAt;
     @OneToMany(mappedBy = "bill")
     private List<Sms> sentSmses;
-    
+
     @Transient
-    double  transTotalCCFee;
+    double transTotalCCFee;
     @Transient
-    double  transTotalWithOutCCFee;
+    double transTotalWithOutCCFee;
     @Transient
-    double  transCurrentCCBalance;
-    
+    double transCurrentCCBalance;
+
     public double getTransTotalSaleValue() {
         return transTotalSaleValue;
     }
@@ -312,7 +316,7 @@ public class Bill implements Serializable {
     public void setTransTotalSaleValue(double transTotalSaleValue) {
         this.transTotalSaleValue = transTotalSaleValue;
     }
-    
+
     public double getQty() {
         return qty;
     }
@@ -340,8 +344,6 @@ public class Bill implements Serializable {
     public void setBillTotal(double billTotal) {
         this.billTotal = billTotal;
     }
-    
-    
 
     private boolean paid;
 
@@ -1659,5 +1661,23 @@ public class Bill implements Serializable {
     public void setTransCurrentCCBalance(double transCurrentCCBalance) {
         this.transCurrentCCBalance = transCurrentCCBalance;
     }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
+
+    public double getVatPlusNetTotal() {
+        return vatPlusNetTotal;
+    }
+
+    public void setVatPlusNetTotal(double vatPlusNetTotal) {
+        this.vatPlusNetTotal = vatPlusNetTotal;
+    }
+    
+    
 
 }
