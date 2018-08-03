@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form >
+                   
+                    <p:panel >
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="From" ></p:outputLabel>
+                            <p:calendar value="#{dataCleanController.fromDate}"  pattern="dd MMMM yyyy" navigator="true"  ></p:calendar>
+
+                            <p:outputLabel value="To" ></p:outputLabel>
+                            <p:calendar value="#{dataCleanController.toDate}" pattern="dd MMMM yyyy" navigator="true"  ></p:calendar>
+
+                            <p:spacer></p:spacer>
+                            <p:commandButton ajax="false" 
+                                           action="#{dataCleanController.deleteRecords()}" rendered="true"
+                                           value="Delete Records">
+                            </p:commandButton>
+
+                            <p:outputLabel value="Deleting Segment" ></p:outputLabel>
+                            <p:outputLabel id="seg" value="#{dataCleanController.currentBlock}" ></p:outputLabel>
+
+                            <p:outputLabel value="Deleting Count" ></p:outputLabel>
+                            <p:outputLabel id="cou" value="#{dataCleanController.deletedRecordCount}" ></p:outputLabel>
+
+                        </p:panelGrid>
+
+                    </p:panel>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

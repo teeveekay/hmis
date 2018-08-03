@@ -66,13 +66,18 @@
                                                value="15. Make All Amps with null department type to Pharmacy Type"  onclick="if (!confirm('Really want to do that?'))
                                                            return false"/>
 
+                                <p:commandLink ajax="false" 
+                                               action="/dataAdmin/delete_records" rendered="true"
+                                               value="15. To Delete Records">
+                                </p:commandLink>
+
                             </p:panelGrid>
 
                             <p:panelGrid columns="1"                         >
                                 <p:commandLink ajax="false" action="#{agencyController.randomlySetAgencyBalances}" 
                                                value="1. Randomly Reset Agent Balances to Rs. 50,000.00 and Rs. 30,000.00"  
                                                onclick="if (!confirm('Really want to do that?'))
-                                            return false"/>
+                                                           return false"/>
 
                             </p:panelGrid>
 
