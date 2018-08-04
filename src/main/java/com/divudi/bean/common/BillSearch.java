@@ -174,10 +174,83 @@ public class BillSearch implements Serializable {
     private double refundVat = 0;
     private double refundVatPlusTotal = 0;
 
-    public void fillBillTypeSummery() {
+    private Double creditBillValue;
+    private Double cashBillValue;
+    private Double creditAndCashBillValue;
+    private Double creditBillSettleAsCashValue;
+    private Double totalCashValue;
+
+    public String toFindPharmacyCashCredit() {
+        creditBillValue = null;
+        creditBillSettleAsCashValue = null;
+        cashBillValue = null;
+        creditAndCashBillValue = null;
+        return "/reportPharmacy/deptCreditCashSummery";
+
+    }
+
+    public void findPharmacyCashCredit() {
+        List<BillClassType> bcts = new ArrayList<>();
+        List<BillType> bts = new ArrayList<>();
+
+        bcts.add(BillClassType.BilledBill);
+        bcts.add(BillClassType.CancelledBill);
+        bcts.add(BillClassType.RefundBill);
+
+        bts.add(BillType.PharmacySale);
+        bts.add(BillType.PharmacyWholeSale);
+        cashBillValue = findNetValue(bcts, department, user, bts, fromDate, toDate, PaymentMethod.Cash);
+
+        creditBillValue = findNetValue(bcts, department, user, bts, fromDate, toDate, PaymentMethod.Credit);
+
+        creditAndCashBillValue = creditBillValue + cashBillValue;
+
+        bts = new ArrayList<>();
+        bts.add(BillType.ChannelPaid);
+        creditBillSettleAsCashValue = findNetValue(bcts, department, user, bts, fromDate, toDate, null);
+
+        totalCashValue = cashBillValue + creditBillSettleAsCashValue;
+    }
+
+    public double findNetValue(List<BillClassType> bcts, Department dep, WebUser u, List<BillType> bts, Date fd, Date td, PaymentMethod pm) {
         Map m = new HashMap();
         String j;
-        if (billClassType == null) {
+        j = "select sum(b.netTotal) "
+                + " from Bill b "
+                + " where b.retired=false "
+                + " and b.billTime between :fd and :td ";
+        if (dep == null) {
+            j += " and b.institution=:ins ";
+            m.put("ins", sessionController.getLoggedUser().getInstitution());
+        } else {
+            j += " and b.department=:dep ";
+            m.put("dep", dep);
+        }
+        if (u != null) {
+            j += " and b.creater=:wu ";
+            m.put("wu", u);
+        }
+        if (pm != null) {
+            j += " and b.paymentMethod=:pm ";
+            m.put("pm", pm);
+        }
+        if (bts != null) {
+            j += " and b.billType in :bts ";
+            m.put("bts", bts);
+        }
+        if (bcts != null) {
+            j += " and b.billClassType in :bcts ";
+            m.put("bcts", bcts);
+        }
+        m.put("fd", fd);
+        m.put("td", td);
+        return billFacade.findDoubleByJpql(j, m, TemporalType.TIMESTAMP);
+    }
+
+    public List<BillSummery> fillBillTypeSummery(BillClassType bct, Department dep, WebUser u, BillType bt, Date fd, Date td) {
+        Map m = new HashMap();
+        String j;
+        if (bct == null) {
             j = "select new com.divudi.data.BillSummery(b.paymentMethod, sum(b.total), sum(b.discount), sum(b.netTotal), sum(b.vat), count(b), b.billType) "
                     + " from Bill b "
                     + " where b.retired=false "
@@ -189,27 +262,27 @@ public class BillSearch implements Serializable {
                     + " and b.billTime between :fd and :td ";
         }
 
-        if (department == null) {
+        if (dep == null) {
             j += " and b.institution=:ins ";
             m.put("ins", sessionController.getLoggedUser().getInstitution());
         } else {
             j += " and b.department=:dep ";
-            m.put("dep", department);
+            m.put("dep", dep);
         }
-        if (user != null) {
+        if (u != null) {
             j += " and b.creater=:wu ";
-            m.put("wu", user);
+            m.put("wu", u);
         }
-        if (billType != null) {
+        if (bt != null) {
             j += " and b.billType=:bt ";
-            m.put("bt", billType);
+            m.put("bt", bt);
         }
-        if (billClassType != null) {
+        if (bct != null) {
             j += " and b.billClassType=:bct ";
-            m.put("bct", billClassType);
+            m.put("bct", bct);
         }
 
-        if (billClassType == null) {
+        if (bct == null) {
             j += " group by b.paymentMethod,  b.billType";
         } else {
             j += " group by b.paymentMethod, b.billClassType, b.billType";
@@ -228,18 +301,23 @@ public class BillSearch implements Serializable {
             b.getCreater();
         }
 
-        m.put("fd", fromDate);
-        m.put("td", toDate);
+        m.put("fd", fd);
+        m.put("td", td);
 
         List<Object> objs = billFacade.findObjectBySQL(j, m, TemporalType.TIMESTAMP);
-        billSummeries = new ArrayList<>();
+        List<BillSummery> tbss = new ArrayList<>();
         Long i = 1l;
         for (Object o : objs) {
             BillSummery tbs = (BillSummery) o;
             tbs.setKey(i);
-            billSummeries.add(tbs);
+            tbss.add(tbs);
             i++;
         }
+        return tbss;
+    }
+
+    public void fillBillTypeSummery() {
+        billSummeries = fillBillTypeSummery(billClassType, department, user, billType, fromDate, toDate);
     }
 
     public void clearSearchFIelds() {
@@ -2411,4 +2489,87 @@ public class BillSearch implements Serializable {
         this.billClassType = billClassType;
     }
 
+    public Double getCreditBillValue() {
+        return creditBillValue;
+    }
+
+    public void setCreditBillValue(Double creditBillValue) {
+        this.creditBillValue = creditBillValue;
+    }
+
+    public Double getCashBillValue() {
+        return cashBillValue;
+    }
+
+    public void setCashBillValue(Double cashBillValue) {
+        this.cashBillValue = cashBillValue;
+    }
+
+    public Double getCreditAndCashBillValue() {
+        return creditAndCashBillValue;
+    }
+
+    public void setCreditAndCashBillValue(Double creditAndCashBillValue) {
+        this.creditAndCashBillValue = creditAndCashBillValue;
+    }
+
+    public Double getCreditBillSettleAsCashValue() {
+        return creditBillSettleAsCashValue;
+    }
+
+    public void setCreditBillSettleAsCashValue(Double creditBillSettleAsCashValue) {
+        this.creditBillSettleAsCashValue = creditBillSettleAsCashValue;
+    }
+
+    public PaymentFacade getPaymentFacade() {
+        return paymentFacade;
+    }
+
+    public void setPaymentFacade(PaymentFacade paymentFacade) {
+        this.paymentFacade = paymentFacade;
+    }
+
+    public AgentHistoryFacade getAgentHistoryFacade() {
+        return agentHistoryFacade;
+    }
+
+    public void setAgentHistoryFacade(AgentHistoryFacade agentHistoryFacade) {
+        this.agentHistoryFacade = agentHistoryFacade;
+    }
+
+    public CollectingCentreBillController getCollectingCentreBillController() {
+        return collectingCentreBillController;
+    }
+
+    public void setCollectingCentreBillController(CollectingCentreBillController collectingCentreBillController) {
+        this.collectingCentreBillController = collectingCentreBillController;
+    }
+
+    public double getRefundVat() {
+        return refundVat;
+    }
+
+    public void setRefundVat(double refundVat) {
+        this.refundVat = refundVat;
+    }
+
+    public double getRefundVatPlusTotal() {
+        return refundVatPlusTotal;
+    }
+
+    public void setRefundVatPlusTotal(double refundVatPlusTotal) {
+        this.refundVatPlusTotal = refundVatPlusTotal;
+    }
+
+    public Double getTotalCashValue() {
+        return totalCashValue;
+    }
+
+    public void setTotalCashValue(Double totalCashValue) {
+        this.totalCashValue = totalCashValue;
+    }
+
+    
+    
+    
 }

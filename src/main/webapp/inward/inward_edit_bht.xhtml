@@ -33,36 +33,43 @@
                         <p:commandButton ajax="false" value="Update" action="#{bhtEditController.save}" onclick="onSubmitButton();">
 
                         </p:commandButton>
-                        
-                        
+
+
                         <p:commandButton  value="Clear" action="#{bhtEditController.makeNull}" ajax="false" onclick="onSubmitButton();">
                         </p:commandButton>
-                        
-                       
-                        
+
+
+
                         <h:panelGrid id="panSearch2" columns="2" style="min-width: 100%;" >
                             <p:panel>                                
                                 <p:panel header="Admission">
+                                    <p:panelGrid columns="2" >
+                                        <p:outputLabel  value="Date of Admission"  />
+                                        <p:calendar  value="#{bhtEditController.current.dateOfAdmission}" navigator="true" pattern="dd/MM/yyyy hh mm ss a" >
+                                            <f:ajax event="dateSelect" execute="@this" />
+                                        </p:calendar>
+                                        
+                                        <p:outputLabel  value="Foreigner ?"  />
+                                        <p:selectBooleanCheckbox value="#{bhtEditController.current.foriegner}"
+                                                                 itemLabel="Mark as Foreigner"/>
 
-                                    <p:outputLabel  value="Date of Admission"  />
-                                    <p:calendar  value="#{bhtEditController.current.dateOfAdmission}" navigator="true" pattern="dd/MM/yyyy hh mm ss a" >
-                                        <f:ajax event="dateSelect" execute="@this" />
-                                    </p:calendar>
-                                    <p:selectBooleanCheckbox value="#{bhtEditController.current.foriegner}"
-                                                             itemLabel="Mark as Foreigner"/>
+                                        <p:outputLabel  value="Claimable ?"  />
+                                        <p:selectBooleanCheckbox value="#{bhtEditController.current.claimable}" 
+                                                                 itemLabel="Claimable"/>
 
-                                    <p:selectBooleanCheckbox value="#{bhtEditController.current.claimable}" 
-                                                             itemLabel="Claimable"/>
+                                        <p:outputLabel  value="BHT Number"  />
+                                        <p:inputText value="#{bhtEditController.current.bhtNo}" ></p:inputText>
+                                    </p:panelGrid>
                                 </p:panel>
-                                
+
                                 <p:panel header="Patient Detail">  
-                                    
+
                                     <in:inputPatientDetail patient="#{bhtEditController.current.patient}"/>
-                                    
-                                    
-                                    
+
+
+
                                 </p:panel>
-                                
+
                                 <p:panel header="Hospital">
                                     <h:panelGrid columns="2">
                                         <h:outputLabel value="Speciality"/>
@@ -101,7 +108,7 @@
 
                                 </p:panel>
 
-                                
+
                                 <p:panel header="Gardian Detal">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel   value="Name:" />
@@ -135,17 +142,17 @@
                                         </p:column> 
                                     </p:dataTable>
                                 </p:panel>
-                                
+
                             </p:panel>
                             <p:panel header="Cancel Admission" style="height: 200px;">
                                 <p:inputTextarea value="#{bhtEditController.comment}" id="com" style="margin-top: 20px;margin-left: 110px;float: top;">
                                 </p:inputTextarea>
-                                
+
                                 <p:watermark for="com" value="Comment"/>
                                 <p:commandButton  value="Cancel Admission" action="#{bhtEditController.cancelBht}" style="float: top;margin-top: 10px;margin-left: 110px;" ajax="false" onclick="onSubmitButton();">                            
                                 </p:commandButton>
                             </p:panel>
-                            
+
                         </h:panelGrid>
 
                     </p:panel>

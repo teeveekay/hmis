@@ -1198,36 +1198,70 @@ public class ChannelReportController implements Serializable {
 
     public void createChannelCashierBillList() {
 
+        System.out.println("createChannelCashierBillList sart at " + new Date());
+
         getBilledBillList().setBills(createUserBills(new BilledBill(), getWebUser(), getDepartment()));
+        System.out.println("1 sart at " + new Date());
+
         getCanceledBillList().setBills(createUserBills(new CancelledBill(), getWebUser(), getDepartment()));
+        System.out.println("2 sart at " + new Date());
+
         getRefundBillList().setBills(createUserBills(new RefundBill(), getWebUser(), getDepartment()));
+        System.out.println("3 sart at " + new Date());
 
         getBilledBillList().setAgent(calTotal(new BilledBill(), getWebUser(), getDepartment(), PaymentMethod.Agent));
+        System.out.println("4 sart at " + new Date());
+
         getCanceledBillList().setAgent(calTotal(new CancelledBill(), getWebUser(), getDepartment(), PaymentMethod.Agent));
+        System.out.println("5 sart at " + new Date());
+
         getRefundBillList().setAgent(calTotal(new RefundBill(), getWebUser(), getDepartment(), PaymentMethod.Agent));
+        System.out.println("6 sart at " + new Date());
 
         getBilledBillList().setCash(calTotal(new BilledBill(), getWebUser(), getDepartment(), PaymentMethod.Cash));
+        System.out.println("7 sart at " + new Date());
+
         getCanceledBillList().setCash(calTotal(new CancelledBill(), getWebUser(), getDepartment(), PaymentMethod.Cash));
+        System.out.println("8 sart at " + new Date());
+
         getRefundBillList().setCash(calTotal(new RefundBill(), getWebUser(), getDepartment(), PaymentMethod.Cash));
+        System.out.println("9 sart at " + new Date());
 
         getBilledBillList().setCard(calTotal(new BilledBill(), getWebUser(), getDepartment(), PaymentMethod.Card));
+        System.out.println("10 sart at " + new Date());
+
         getCanceledBillList().setCard(calTotal(new CancelledBill(), getWebUser(), getDepartment(), PaymentMethod.Card));
+        System.out.println("11 sart at " + new Date());
+
         getRefundBillList().setCard(calTotal(new RefundBill(), getWebUser(), getDepartment(), PaymentMethod.Card));
+        System.out.println("12 sart at " + new Date());
 
         getBilledBillList().setSlip(calTotal(new BilledBill(), getWebUser(), getDepartment(), PaymentMethod.Slip));
+        System.out.println("13 sart at " + new Date());
+        
         getCanceledBillList().setSlip(calTotal(new CancelledBill(), getWebUser(), getDepartment(), PaymentMethod.Slip));
+        System.out.println("14 sart at " + new Date());
+        
         getRefundBillList().setSlip(calTotal(new RefundBill(), getWebUser(), getDepartment(), PaymentMethod.Slip));
+        System.out.println("15 sart at " + new Date());
 
         getBilledBillList().setCheque(calTotal(new BilledBill(), getWebUser(), getDepartment(), PaymentMethod.Cheque));
+        System.out.println("16 sart at " + new Date());
+        
         getCanceledBillList().setCheque(calTotal(new CancelledBill(), getWebUser(), getDepartment(), PaymentMethod.Cheque));
+        System.out.println("17 sart at " + new Date());
+        
         getRefundBillList().setCheque(calTotal(new RefundBill(), getWebUser(), getDepartment(), PaymentMethod.Cheque));
+        System.out.println("18 sart at " + new Date());
 
         createSummary();
+        System.out.println("19 sart at " + new Date());
     }
 
     private List<String1Value1> channelSummary;
 
     public void createSummary() {
+        System.out.println("createSummary start " + new Date());
         List<BillsTotals> list2 = new ArrayList<>();
         list2.add(billedBillList);
         list2.add(canceledBillList);
@@ -1279,6 +1313,8 @@ public class ChannelReportController implements Serializable {
         tmp6.setValue(slip + cheque + agent + cash + creditCard);
         channelSummary.add(tmp6);
 
+        System.out.println("createSummary end " + new Date());
+        
     }
 
     public List<String1Value1> getChannelSummary() {
@@ -1290,7 +1326,7 @@ public class ChannelReportController implements Serializable {
     }
 
     public List<Bill> createUserBills(Bill billClass, WebUser webUser, Department department) {
-
+        System.out.println("createUserBills = " + new Date());
         BillType[] billTypes = {BillType.ChannelAgent, BillType.ChannelCash, BillType.ChannelPaid};
         List<BillType> bts = Arrays.asList(billTypes);
 
