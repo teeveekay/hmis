@@ -318,10 +318,35 @@ public class BillController implements Serializable {
 
     }
 
+    public void fixCashReceiveBills() {
+        String j = "Select b from Bill b where b.billType=:bt";
+        Map m = new HashMap();
+        m.put("bt", BillType.CashRecieveBill);
+        List<Bill> bs = getFacade().findBySQL(j, m);
+        for (Bill b : bs) {
+            if (b.getReferenceBill() != null) {
+                System.out.println("b.getFromInstitution() = " + b.getFromInstitution().getName());
+                if (b.getReferenceBill().getToInstitution() != null) {
+                    System.out.println("b.getReferenceBill().getToInstitution() = " + b.getReferenceBill().getToInstitution().getName());
+                    b.setFromInstitution(b.getReferenceBill().getToInstitution());
+                    getFacade().edit(b);
+                } else {
+                    System.out.println("Ref Bill Institution is Null");
+                }
+            } else {
+                System.out.println("No Ref Bill");
+            }
+        }
+    }
+
     public void saveBillPharmacyCredit() {
 
         BilledBill temp = new BilledBill();
+        if (opdBill == null) {
+            UtilityController.addErrorMessage("Please Select a Bill");
+            return;
 
+        }
         if (opdPaymentCredit == 0) {
             UtilityController.addErrorMessage("Please Select Correct Paid Amount");
             return;
@@ -349,7 +374,7 @@ public class BillController implements Serializable {
         temp.setInstitution(getSessionController().getLoggedUser().getDepartment().getInstitution());
 
         temp.setFromDepartment(getSessionController().getLoggedUser().getDepartment());
-        temp.setFromInstitution(getSessionController().getLoggedUser().getDepartment().getInstitution());
+        temp.setFromInstitution(opdBill.getToInstitution());
 
         temp.setToDepartment(getSessionController().getLoggedUser().getDepartment());
 

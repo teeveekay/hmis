@@ -31,6 +31,7 @@
                                             forceSelection="true"
                                             var="w" itemLabel="#{w.webUserPerson.name}" itemValue="#{w}"
                                             value="#{billSearch.user}" ></p:autoComplete>
+
                         </p:panelGrid>
 
                         <p:panelGrid columns="2" >
@@ -49,7 +50,7 @@
                                 </p:outputLabel>
 
                                 <p:outputLabel value="To" ></p:outputLabel>
-                                <p:outputLabel value="#{billSearch.fromDate}" >
+                                <p:outputLabel value="#{billSearch.toDate}" >
                                     <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" ></f:convertDateTime>
                                 </p:outputLabel>
 

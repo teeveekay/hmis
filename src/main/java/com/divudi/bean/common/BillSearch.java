@@ -46,6 +46,7 @@ import com.divudi.facade.ItemBatchFacade;
 import com.divudi.facade.PaymentFacade;
 import com.divudi.facade.PharmaceuticalBillItemFacade;
 import com.divudi.facade.WebUserFacade;
+import com.divudi.facade.util.JsfUtil;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -161,6 +162,9 @@ public class BillSearch implements Serializable {
     private LazyDataModel<BillItem> searchBillItems;
     private LazyDataModel<Bill> lazyBills;
     List<BillSummery> billSummeries;
+    private List<BillSummery> billSummeriesCredit;
+    private List<BillSummery> billSummeriesCreditStaff;
+    private List<BillSummery> billSummeriesCreditSettle;
     ////////////////////
     ///////////////////
     private SearchKeyword searchKeyword;
@@ -189,6 +193,130 @@ public class BillSearch implements Serializable {
 
     }
 
+    public String toFillPharmacyCreditSummery() {
+        billSummeriesCredit = new ArrayList<>();
+        billSummeriesCreditSettle = new ArrayList<>();
+        return "/reportPharmacy/creditSummery";
+    }
+
+    public void findPharmacyCreditSummery() {
+        if(department==null){
+            JsfUtil.addErrorMessage("Please select a Pharmacy");
+            return ;
+        }
+        List<BillType> bts = new ArrayList<>();
+        bts.add(BillType.PharmacySale);
+        bts.add(BillType.PharmacyWholeSale);
+        billSummeriesCredit = findBillSummeriesOfToInstitute(department, bts, fromDate, toDate);
+        billSummeriesCreditStaff = findBillSummeriesOfToStaff(department, bts, fromDate, toDate);
+        
+        bts = new ArrayList<>();
+        bts.add(BillType.CashRecieveBill);
+        billSummeriesCreditSettle = findBillSummeriesOfFromInstitute(department, bts, fromDate, toDate);
+    }
+
+    public List<BillSummery> findBillSummeriesOfToInstitute(Department dep,
+            List<BillType> bts,
+            Date fd, Date td) {
+        Map m = new HashMap();
+        String j;
+        j = "select new com.divudi.data.BillSummery("
+                + " b.toInstitution.name, sum(b.netTotal) "
+                + " ) "
+                + " from Bill b "
+                + " where b.retired=false "
+                + " and b.billTime between :fd and :td ";
+        if (dep != null) {
+            j += " and b.department=:dep ";
+            m.put("dep", dep);
+        }
+
+        j += " and b.billType in :bts ";
+        m.put("bts", bts);
+
+        j += " group by b.toInstitution.name";
+        m.put("fd", fd);
+        m.put("td", td);
+        List<Object> objs = billFacade.findObjectBySQL(j, m, TemporalType.TIMESTAMP);
+        List<BillSummery> tbss = new ArrayList<>();
+        Long i = 1l;
+        for (Object o : objs) {
+            BillSummery tbs = (BillSummery) o;
+            tbs.setKey(i);
+            tbss.add(tbs);
+            i++;
+        }
+        return tbss;
+    }
+    
+    public List<BillSummery> findBillSummeriesOfFromInstitute(Department dep,
+            List<BillType> bts,
+            Date fd, Date td) {
+        Map m = new HashMap();
+        String j;
+        j = "select new com.divudi.data.BillSummery("
+                + " b.fromInstitution.name, sum(b.netTotal) "
+                + " ) "
+                + " from Bill b "
+                + " where b.retired=false "
+                + " and b.billTime between :fd and :td ";
+        if (dep != null) {
+            j += " and b.department=:dep ";
+            m.put("dep", dep);
+        }
+
+        j += " and b.billType in :bts ";
+        m.put("bts", bts);
+
+        j += " group by b.fromInstitution.name";
+        m.put("fd", fd);
+        m.put("td", td);
+        List<Object> objs = billFacade.findObjectBySQL(j, m, TemporalType.TIMESTAMP);
+        List<BillSummery> tbss = new ArrayList<>();
+        Long i = 1l;
+        for (Object o : objs) {
+            BillSummery tbs = (BillSummery) o;
+            tbs.setKey(i);
+            tbss.add(tbs);
+            i++;
+        }
+        return tbss;
+    }
+    
+    public List<BillSummery> findBillSummeriesOfToStaff(Department dep,
+            List<BillType> bts,
+            Date fd, Date td) {
+        Map m = new HashMap();
+        String j;
+        j = "select new com.divudi.data.BillSummery("
+                + " b.toStaff.person.name, sum(b.netTotal) "
+                + " ) "
+                + " from Bill b "
+                + " where b.retired=false "
+                + " and b.billTime between :fd and :td ";
+        if (dep != null) {
+            j += " and b.department=:dep ";
+            m.put("dep", dep);
+        }
+
+        j += " and b.billType in :bts ";
+        m.put("bts", bts);
+
+        j += " group by b.toStaff.person.name ";
+        m.put("fd", fd);
+        m.put("td", td);
+        List<Object> objs = billFacade.findObjectBySQL(j, m, TemporalType.TIMESTAMP);
+        List<BillSummery> tbss = new ArrayList<>();
+        Long i = 1l;
+        for (Object o : objs) {
+            BillSummery tbs = (BillSummery) o;
+            tbs.setKey(i);
+            tbss.add(tbs);
+            i++;
+        }
+        return tbss;
+    }
+
     public void findPharmacyCashCredit() {
         List<BillClassType> bcts = new ArrayList<>();
         List<BillType> bts = new ArrayList<>();
@@ -206,7 +334,8 @@ public class BillSearch implements Serializable {
         creditAndCashBillValue = creditBillValue + cashBillValue;
 
         bts = new ArrayList<>();
-        bts.add(BillType.ChannelPaid);
+        bts.add(BillType.PaymentBill);
+        bts.add(BillType.CashRecieveBill);
         creditBillSettleAsCashValue = findNetValue(bcts, department, user, bts, fromDate, toDate, null);
 
         totalCashValue = cashBillValue + creditBillSettleAsCashValue;
@@ -292,6 +421,7 @@ public class BillSearch implements Serializable {
             Bill b = new Bill();
             b.getPaymentMethod();
             b.getTotal();
+            b.getToStaff().getPerson().getName();
             b.getDiscount();
             b.getNetTotal();
             b.getVat();
@@ -2569,7 +2699,30 @@ public class BillSearch implements Serializable {
         this.totalCashValue = totalCashValue;
     }
 
-    
+    public List<BillSummery> getBillSummeriesCredit() {
+        return billSummeriesCredit;
+    }
+
+    public void setBillSummeriesCredit(List<BillSummery> billSummeriesCredit) {
+        this.billSummeriesCredit = billSummeriesCredit;
+    }
+
+    public List<BillSummery> getBillSummeriesCreditSettle() {
+        return billSummeriesCreditSettle;
+    }
+
+    public void setBillSummeriesCreditSettle(List<BillSummery> billSummeriesCreditSettle) {
+        this.billSummeriesCreditSettle = billSummeriesCreditSettle;
+    }
+
+    public List<BillSummery> getBillSummeriesCreditStaff() {
+        return billSummeriesCreditStaff;
+    }
+
+    public void setBillSummeriesCreditStaff(List<BillSummery> billSummeriesCreditStaff) {
+        this.billSummeriesCreditStaff = billSummeriesCreditStaff;
+    }
+
     
     
 }

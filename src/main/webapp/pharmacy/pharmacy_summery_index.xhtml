@@ -21,7 +21,7 @@
                                     <p:commandButton styleClass="linkButton" ajax="false" value="2) Cashier Summary" action="/reportCashier/report_cashier_summery_by_user" actionListener="#{commonReport.recreteModal}"/>
                                     <p:commandButton styleClass="linkButton" ajax="false" value="3) All Cashier Report" action="/reportCashier/report_cashier_summery_all.xhtml" actionListener="#{cashierReportController.recreteModal}"/>
                                     <p:commandButton styleClass="linkButton" ajax="false" value="4) All Cashier Summary " action="/reportCashier/report_cashier_summery_all_total_only.xhtml" actionListener="#{cashierReportController.recreteModal}"/>
-                                    <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
+                                    <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left; color: red;"
                                                      value="5) Cashier Detailed Report by Department" 
                                                      action="#{billSearch.toFindPharmacyCashCredit()}"/>
                                     
@@ -44,6 +44,12 @@
                                                      value="4) Sale Summary - By Paymentmethod(By Bill) "
                                                      action="pharmacy_report_sale_by_date_summery_payment_method_by_bill.xhtml" 
                                                      actionListener="#{pharmacySaleReport.makeNull}"/>
+                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left; color: red;"
+                                                     value="5) Credit Summery by Pharmacy" 
+                                                     action="#{billSearch.toFillPharmacyCreditSummery()}"/>
+                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left; color: red;"
+                                                     value="FIX" 
+                                                     action="#{billController.fixCashReceiveBills()}"/>
                                 </p:panelGrid>
                             </p:tab>
                             <p:tab title="(3) Sale Detail">

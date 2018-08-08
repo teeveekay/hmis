@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:panel id="reportPrint" header="Pharmacy Credit Details">
+
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel value="From"/>
+                            <p:calendar id="frmDate" value="#{billSearch.fromDate}" navigator="true"  pattern="dd MMMM yyyy HH:mm:ss" >
+                            </p:calendar>
+
+                            <h:outputLabel value="To"/>
+                            <p:calendar id="toDate" value="#{billSearch.toDate}" navigator="true" pattern="dd MMMM yyyy HH:mm:ss" >
+                            </p:calendar>
+
+                            <h:outputLabel  value="Department"/>
+                            <p:autoComplete   value="#{billSearch.department}"  completeMethod="#{departmentController.completeDept}" var="dept" itemValue="#{dept}" itemLabel="#{dept.name}" forceSelection="true" rendered="true" requiredMessage="You must select a department" >
+                            </p:autoComplete>
+
+
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" >
+                            <p:commandButton id="btnRefresh" ajax="false" value="Process"  
+                                             style="float: right;" action="#{billSearch.findPharmacyCreditSummery()}" />
+                            <p:commandButton ajax="false" value="Print"  style="float: right;" >
+                                <p:printer target="details"  />
+                            </p:commandButton>
+                        </p:panelGrid>
+
+                        <p:panel header="Pharmacy Cash/Credit Summery" id="details">
+                            <p:panelGrid columns="2"  >
+                                <p:outputLabel value="From" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.fromDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" ></f:convertDateTime>
+                                </p:outputLabel>
+
+                                <p:outputLabel value="To" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.toDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" ></f:convertDateTime>
+                                </p:outputLabel>
+
+                                <p:outputLabel value="Department" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.department.name}" >
+                                </p:outputLabel>
+
+
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="2"  styleClass="alignTop" >
+                                <h:panelGroup >
+                                    <p:dataTable id="doc" value="#{billSearch.billSummeriesCredit}" var="c">
+                                        <f:facet name="header" >
+                                            <p:outputLabel value="Doctor Credit Bills" ></p:outputLabel>
+                                            <p:spacer height="1" width="30" ></p:spacer>
+                                            <p:commandButton value="Excel" ajax="false" >
+                                                <p:dataExporter target="doc" type="xls" fileName="Doctors-credit-bills"></p:dataExporter>
+                                            </p:commandButton>
+                                        </f:facet>
+                                        <p:column headerText="Doctor" >
+                                            <p:outputLabel value="#{c.name}" ></p:outputLabel>
+                                        </p:column>
+                                        <p:column headerText="Value" >
+                                            <p:outputLabel value="#{c.netTotal}" >
+                                                <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                            </p:outputLabel>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable id="staff" value="#{billSearch.billSummeriesCreditStaff}" var="c">
+                                        <f:facet name="header" >
+                                            <p:outputLabel value="Staff Credit Bills" ></p:outputLabel>
+                                            <p:spacer height="1" width="30" ></p:spacer>
+                                            <p:commandButton value="Excel" ajax="false" >
+                                                <p:dataExporter target="doc" type="xls" fileName="Staff-credit-bills"></p:dataExporter>
+                                            </p:commandButton>
+                                        </f:facet>
+                                        <p:column headerText="Staff" >
+                                            <p:outputLabel value="#{c.name}" ></p:outputLabel>
+                                        </p:column>
+                                        <p:column headerText="Value" >
+                                            <p:outputLabel value="#{c.netTotal}" >
+                                                <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                            </p:outputLabel>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </h:panelGroup>
+
+                                <p:dataTable id="set" value="#{billSearch.billSummeriesCreditSettle}" var="c" >
+                                    <f:facet name="header" >
+                                        <p:outputLabel value="Payments" ></p:outputLabel>
+                                        <p:spacer height="1" width="30" ></p:spacer>
+                                            <p:commandButton value="Excel" ajax="false" >
+                                                <p:dataExporter target="set" type="xls" fileName="Credit-Settle-bills"></p:dataExporter>
+                                            </p:commandButton>
+                                    </f:facet>
+                                    <p:column headerText="Client" >
+                                        <p:outputLabel value="#{c.name}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Value" >
+                                        <p:outputLabel value="#{c.netTotal}" >
+                                            <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                        </p:outputLabel>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:panelGrid>
+
+
+                        </p:panel>
+
+
+
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
