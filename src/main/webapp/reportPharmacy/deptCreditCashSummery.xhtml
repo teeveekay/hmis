@@ -77,6 +77,16 @@
                                 <p:outputLabel value="#{billSearch.totalCashValue}" style="font-weight: bold;">
                                     <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
                                 </p:outputLabel>
+                                <h:panelGroup rendered="false" >
+                                    <p:outputLabel value="Less Return Value" style="font-weight: bold;"></p:outputLabel>
+                                    <p:outputLabel value="#{billSearch.returnValue}" style="font-weight: bold;">
+                                        <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
+                                    </p:outputLabel>
+                                    <p:outputLabel value="Net Cash" style="font-weight: bold;"></p:outputLabel>
+                                    <p:outputLabel value="#{billSearch.netCashBalance}" style="font-weight: bold;">
+                                        <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
+                                    </p:outputLabel>
+                                </h:panelGroup>
                                 <p:spacer></p:spacer>
                                 <p:spacer></p:spacer>
                                 <p:outputLabel value="Credit Bill Value" ></p:outputLabel>

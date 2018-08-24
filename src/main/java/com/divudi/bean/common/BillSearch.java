@@ -183,6 +183,8 @@ public class BillSearch implements Serializable {
     private Double creditAndCashBillValue;
     private Double creditBillSettleAsCashValue;
     private Double totalCashValue;
+    private Double returnValue;
+    private Double netCashBalance;
 
     public String toFindPharmacyCashCredit() {
         creditBillValue = null;
@@ -225,7 +227,7 @@ public class BillSearch implements Serializable {
                 + " ) "
                 + " from Bill b "
                 + " where b.retired=false "
-                + " and b.billTime between :fd and :td ";
+                + " and b.createdAt between :fd and :td ";
         if (dep != null) {
             j += " and b.department=:dep ";
             m.put("dep", dep);
@@ -259,7 +261,7 @@ public class BillSearch implements Serializable {
                 + " ) "
                 + " from Bill b "
                 + " where b.retired=false "
-                + " and b.billTime between :fd and :td ";
+                + " and b.createdAt between :fd and :td ";
         if (dep != null) {
             j += " and b.department=:dep ";
             m.put("dep", dep);
@@ -293,7 +295,7 @@ public class BillSearch implements Serializable {
                 + " ) "
                 + " from Bill b "
                 + " where b.retired=false "
-                + " and b.billTime between :fd and :td ";
+                + " and b.createdAt between :fd and :td ";
         if (dep != null) {
             j += " and b.department=:dep ";
             m.put("dep", dep);
@@ -347,7 +349,7 @@ public class BillSearch implements Serializable {
         j = "select sum(b.netTotal) "
                 + " from Bill b "
                 + " where b.retired=false "
-                + " and b.billTime between :fd and :td ";
+                + " and b.createdAt between :fd and :td ";
         if (dep == null) {
             j += " and b.institution=:ins ";
             m.put("ins", sessionController.getLoggedUser().getInstitution());
@@ -383,12 +385,12 @@ public class BillSearch implements Serializable {
             j = "select new com.divudi.data.BillSummery(b.paymentMethod, sum(b.total), sum(b.discount), sum(b.netTotal), sum(b.vat), count(b), b.billType) "
                     + " from Bill b "
                     + " where b.retired=false "
-                    + " and b.billTime between :fd and :td ";
+                    + " and b.createdAt between :fd and :td ";
         } else {
             j = "select new com.divudi.data.BillSummery(b.paymentMethod, b.billClassType, sum(b.total), sum(b.discount), sum(b.netTotal), sum(b.vat), count(b), b.billType) "
                     + " from Bill b "
                     + " where b.retired=false "
-                    + " and b.billTime between :fd and :td ";
+                    + " and b.createdAt between :fd and :td ";
         }
 
         if (dep == null) {
@@ -2721,6 +2723,22 @@ public class BillSearch implements Serializable {
 
     public void setBillSummeriesCreditStaff(List<BillSummery> billSummeriesCreditStaff) {
         this.billSummeriesCreditStaff = billSummeriesCreditStaff;
+    }
+
+    public Double getReturnValue() {
+        return returnValue;
+    }
+
+    public void setReturnValue(Double returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    public Double getNetCashBalance() {
+        return netCashBalance;
+    }
+
+    public void setNetCashBalance(Double netCashBalance) {
+        this.netCashBalance = netCashBalance;
     }
 
     
