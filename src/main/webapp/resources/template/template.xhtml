@@ -30,8 +30,8 @@
     </h:head>
 
     <h:body>
-        
-        
+
+
         <div id="panelFullSpread" class="fullSpread ui-widget-content " >
             <p:growl id="publicGrowl" autoUpdate="true"   />
             <h:panelGroup >
@@ -64,7 +64,7 @@
                                                     value="CC Billing" 
                                                     rendered="#{webUserController.hasPrivilege('OpdCollectingCentreBilling')}" >
                                         </p:menuitem>
-                                        
+
                                         <p:menuitem ajax="false" action="/collecting_centre/collecting_centre_search_bill_own"
                                                     actionListener="#{searchController.makeListNull}"
                                                     value="CC Bill Search" 
@@ -154,7 +154,7 @@
                                                     value="CC Billing" 
                                                     rendered="#{webUserController.hasPrivilege('LabBilling')}" >
                                         </p:menuitem>
-                                        
+
                                         <p:menuitem ajax="false" action="/collecting_centre/collecting_centre_search_bill_own"
                                                     actionListener="#{searchController.makeListNull}"
                                                     value="CC Bill Search" 
@@ -318,6 +318,11 @@
                                         <p:menuitem ajax="false" action="/dealorPayment/bill_dealor_all" value="Dealer Payment" rendered="#{webUserController.hasPrivilege('PharmacyDealorPayment')}"/>   
                                         <p:menuitem ajax="false" action="/dealorPayment/search_dealor_payment_pre" value="GRN Payment Approve"  actionListener="#{searchController.makeListNull2()}" rendered="#{webUserController.hasPrivilege('PharmacyDealorPayment')}"/>   
                                         <p:menuitem ajax="false" action="/dealorPayment/search_dealor_payment" value="GRN Payment Done Search"  actionListener="#{searchController.makeListNull2()}" rendered="#{webUserController.hasPrivilege('PharmacyDealorPayment')}"/>   
+                                    </p:submenu>
+                                    <p:submenu label="Credit Settle">
+                                        <p:menuitem  ajax="false"  action="/credit/pharmacy_search_bill_to_pay" value="Credit Bill to Pay Search"  />
+                                        <p:menuitem  ajax="false"  action="/credit/pharmacy_search_bill_full_paid" value="Credit Bill Pay Search"  />
+                                        <p:menuitem  ajax="false"  action="/credit/pharmacy_search_bill_full_paid_bills" value="Credit Bill With Payment bills"  />
                                     </p:submenu>
                                     <p:menuitem  ajax="false" action="/pharmacy/pharmacy_search"  value="Search" actionListener="#{billSearch.recreateModel}" rendered="#{webUserController.hasPrivilege('PharmacySearch')}" ></p:menuitem>                                  
                                     <p:menuitem  ajax="false" action="/pharmacy/pharmacy_reports_index"  value="Reports" rendered="#{webUserController.hasPrivilege('PharmacyReports')}" ></p:menuitem>
