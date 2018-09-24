@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form >
+                    <p:panel >
+                        <f:facet name="header" >
+                            <h:outputLabel value="REMOVE ALL STOCKS OF SELECTED DEPARTMENT" style="color: red;background: yellow;" ></h:outputLabel>
+                        </f:facet>
+                        <p:panel >
+                            <h:outputLabel value="Very Dangerous Section. Please do not touch this page without the written permission from the lead software developer." style="font-size: 20px; color: red; background: yellow;" ></h:outputLabel>
+                        </p:panel>
+                        <p:panelGrid columns="1"                         >
+                            <h:outputLabel value="Department" ></h:outputLabel>
+                            <p:autoComplete completeMethod="#{departmentController.completeDept}" var="dept" itemLabel="#{dept.name}" itemValue="#{dept}" forceSelection="true" value="#{pharmacyAdjustmentController.department}"  >
+                            </p:autoComplete>
+                            
+                            <h:outputLabel value="Department Name" ></h:outputLabel>
+                            <p:inputText value="#{pharmacyAdjustmentController.departmentName}" required="true" ></p:inputText>
+                            
+                            
+                            <p:commandButton ajax="false" 
+                                             action="#{pharmacyAdjustmentController.resetAllDepartmentStocks()}" 
+                                             value="Reset All Stocks to Zero" ></p:commandButton>
+                            
+                        </p:panelGrid>
+
+
+                    </p:panel>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

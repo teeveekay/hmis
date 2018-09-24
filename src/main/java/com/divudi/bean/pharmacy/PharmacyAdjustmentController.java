@@ -5,6 +5,7 @@
  */
 package com.divudi.bean.pharmacy;
 
+import com.divudi.bean.common.ApplicationController;
 import com.divudi.bean.common.SessionController;
 import com.divudi.bean.common.UtilityController;
 import com.divudi.data.BillClassType;
@@ -92,6 +93,9 @@ public class PharmacyAdjustmentController implements Serializable {
     BillItem editingBillItem;
 
     Stock stock;
+    private List<Stock> stocks;
+
+    private Item item;
 
     String comment;
 
@@ -108,6 +112,9 @@ public class PharmacyAdjustmentController implements Serializable {
 
     List<BillItem> billItems;
     private boolean printPreview;
+
+    private Department department;
+    private String departmentName;
 
     public Department getFromDepartment() {
         return fromDepartment;
@@ -642,8 +649,7 @@ public class PharmacyAdjustmentController implements Serializable {
 
             getPharmacyBean().resetStock(fromPbi, s, 0.0, fromDepartment);
             getPharmacyBean().addToStock(toPbi, s.getStock(), toDepartment);
-            
-            
+
             i++;
         }
         printPreview = true;
@@ -962,6 +968,161 @@ public class PharmacyAdjustmentController implements Serializable {
 
     public void setYearMonthDay(YearMonthDay yearMonthDay) {
         this.yearMonthDay = yearMonthDay;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String resetAllDepartmentStocks() {
+        if (department == null) {
+            JsfUtil.addErrorMessage("Dept?");
+            return "";
+        }
+        if (!departmentName.equals(department.getName())) {
+            JsfUtil.addErrorMessage("Dept wrong?");
+            return "";
+        }
+        Bill b = saveDeptResetBill();
+        String j = "select s from Stock s "
+                + " where s.department=:dept "
+                + " and s.stock > :stock";
+        Map m = new HashMap();
+        m.put("dept", department);
+        m.put("stock", 0.0);
+        List<Stock> ss = getStockFacade().findBySQL(j, m);
+
+        for (Stock s : ss) {
+            PharmaceuticalBillItem ph = saveDeptResetBillItem(s, 0, b);
+            b.getBillItems().add(getBillItem());
+            getBillFacade().edit(b);
+            getPharmacyBean().resetStock(ph, s, 0, department);
+        }
+        JsfUtil.addSuccessMessage("Adjusted.");
+        clearBill();
+        clearBillItem();
+        listStocks();
+        return "";
+    }
+
+    private Bill saveDeptResetBill() {
+        Bill b = new Bill();
+        b.setBillDate(Calendar.getInstance().getTime());
+        b.setBillTime(Calendar.getInstance().getTime());
+        b.setCreatedAt(Calendar.getInstance().getTime());
+        b.setCreater(getSessionController().getLoggedUser());
+        b.setDeptId(getBillNumberBean().institutionBillNumberGenerator(getSessionController().getDepartment(), BillType.PharmacyAdjustment, BillClassType.BilledBill, BillNumberSuffix.NONE));
+        b.setInsId(getBillNumberBean().institutionBillNumberGenerator(getSessionController().getInstitution(), BillType.PharmacyAdjustment, BillClassType.BilledBill, BillNumberSuffix.NONE));
+        b.setBillType(BillType.PharmacyAdjustment);
+        b.setDepartment(department);
+        b.setInstitution(department.getInstitution());
+        b.setToDepartment(null);
+        b.setToInstitution(null);
+        b.setFromDepartment(department);
+        b.setFromInstitution(department.getInstitution());
+        b.setComments(comment);
+        if (b.getId() == null) {
+            getBillFacade().create(b);
+        } else {
+            getBillFacade().edit(b);
+        }
+        return b;
+    }
+
+    private PharmaceuticalBillItem saveDeptResetBillItem(Stock s, double q, Bill prebill) {
+        billItem = null;
+        BillItem tbi = getBillItem();
+
+        PharmaceuticalBillItem ph = getBillItem().getPharmaceuticalBillItem();
+        tbi.setPharmaceuticalBillItem(null);
+        ph.setStock(s);
+        tbi.setItem(s.getItemBatch().getItem());
+        tbi.setQty(q);
+
+        //pharmaceutical Bill Item
+        ph.setDoe(s.getItemBatch().getDateOfExpire());
+        ph.setFreeQty(0.0f);
+        ph.setItemBatch(s.getItemBatch());
+
+        Stock fetchedStock = getStockFacade().find(s.getId());
+        double stockQty = fetchedStock.getStock();
+        double changingQty;
+
+        changingQty = q - stockQty;
+
+        ph.setQty(changingQty);
+
+        //Rates
+        //Values
+        tbi.setGrossValue(s.getItemBatch().getRetailsaleRate() * q);
+        tbi.setNetValue(q * tbi.getNetRate());
+        tbi.setDiscount(tbi.getGrossValue() - tbi.getNetValue());
+        tbi.setItem(s.getItemBatch().getItem());
+        tbi.setBill(prebill);
+        tbi.setSearialNo(prebill.getBillItems().size() + 1);
+        tbi.setCreatedAt(Calendar.getInstance().getTime());
+        tbi.setCreater(getSessionController().getLoggedUser());
+
+        ph.setBillItem(null);
+        getPharmaceuticalBillItemFacade().create(ph);
+
+        tbi.setPharmaceuticalBillItem(ph);
+
+        getBillItemFacade().create(tbi);
+
+        ph.setBillItem(tbi);
+        getPharmaceuticalBillItemFacade().edit(ph);
+
+        prebill.getBillItems().add(tbi);
+
+        getBillFacade().edit(prebill);
+
+        return ph;
+
+    }
+
+    public void listStocks() {
+        stocks = new ArrayList<>();
+        try {
+            String sql;
+            Map m = new HashMap();
+            m.put("d", getSessionController().getLoggedUser().getDepartment());
+            double d = 0.0;
+            m.put("s", d);
+            m.put("item", item);
+            sql = "select i from Stock i where i.stock >=:s and i.department=:d and i.itemBatch.item=:item order by i.stock desc ";
+            stocks = getStockFacade().findBySQL(sql, m);
+        } catch (Exception e) {
+            System.out.println("ERROR = " + e.getMessage());
+        }
+    }
+
+    public List<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }
