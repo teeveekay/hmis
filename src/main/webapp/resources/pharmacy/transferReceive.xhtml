@@ -49,8 +49,8 @@
                 </div>
 
                 <div>
-                    <h:outputLabel value="Recieved Person : #{cc.attrs.bill.creater.staff.code}"/>
-                    <h:outputLabel value="Issued Person : #{cc.attrs.bill.backwardReferenceBill.creater.staff.code}" style="position: absolute; left: 65%;"/>
+                    <h:outputLabel value="Recieved Person : #{cc.attrs.bill.creater.staff.person.nameWithTitle}"/>
+                    <h:outputLabel value="Issued Person : #{cc.attrs.bill.backwardReferenceBill.creater.staff.person.nameWithTitle}" style="position: absolute; left: 65%;"/>
                 </div>
 
                 <div>
@@ -59,30 +59,35 @@
                 </div>
 
                 <div>
-                    <h:outputLabel value="Recieved Time : #{cc.attrs.bill.createdAt}"/>
-                    <h:outputLabel value="Issue Time : #{cc.attrs.bill.backwardReferenceBill.createdAt}" style="position: absolute; left: 65%;"/>
+                    <div style="float: left;">
+                        <h:outputLabel value="Recieved Time : "></h:outputLabel>
+                        <h:outputLabel value="#{cc.attrs.bill.createdAt}">
+                            <f:convertDateTime pattern="dd-MMM-yyyy mm:hh a " ></f:convertDateTime>
+                        </h:outputLabel>
+                    </div>
+                    <div style="position: absolute; left: 65%;">
+                        <h:outputLabel value="Issued Time : " >
+                        </h:outputLabel>
+                        <h:outputLabel value="#{cc.attrs.bill.backwardReferenceBill.createdAt}" >
+                            <f:convertDateTime pattern="dd-MMM-yyyy mm:hh a " ></f:convertDateTime>
+                        </h:outputLabel>
+                    </div>
+
                 </div>
 
-                <h:outputLabel value="Transporter : #{cc.attrs.bill.fromStaff.person.nameWithTitle}"/>
+                <h:outputLabel value="Transporter : #{cc.attrs.bill.fromStaff.person.nameWithTitle}" style="clear: left; float: left;"/>
 
                 <!--                </h:panelGrid>-->
             </div>
 
-            <div >
+            <div style="float: left; clear: left;">
                 <p:dataTable styleClass="noBorder normalFont" rowIndexVar="rowIndex"  value="#{cc.attrs.bill.billItems}" sortBy="#{bip.searialNo}" var="bip" >
-                    <p:column width="50">
+                    <p:column width="10" style="width: 10px;">
                         <f:facet name="header">
                             <h:outputLabel value="No"/>
                         </f:facet>
                         <h:outputLabel value="#{rowIndex+1}"/>
                     </p:column>
-
-                    <p:column width="100">
-                        <f:facet name="header" >
-                            <h:outputLabel value="Code"/>
-                        </f:facet>
-                        <h:outputLabel value="#{bip.item.code}"/>
-                    </p:column>    
 
                     <p:column>
                         <f:facet name="header">
@@ -91,14 +96,16 @@
                         <h:outputLabel value="#{bip.item.name}"/>
                     </p:column>
 
-                    <p:column width="100">
+                    <p:column width="40" style="width: 40px;">
                         <f:facet name="header">
                             <h:outputLabel value="Expiary"/>
                         </f:facet>
-                        <h:outputLabel value="#{bip.pharmaceuticalBillItem.doe}"/>
+                        <h:outputLabel value="#{bip.pharmaceuticalBillItem.doe}">
+                            <f:convertDateTime pattern="MMM-yy" ></f:convertDateTime>
+                        </h:outputLabel>
                     </p:column>
 
-                    <p:column width="100">
+                    <p:column width="40" style="width: 40px;">
                         <f:facet name="header">
                             <h:outputLabel value="QTY"/>
                         </f:facet>
@@ -107,7 +114,7 @@
                         </h:outputLabel>
                     </p:column>
 
-                    <p:column styleClass="averageNumericColumn" width="120">
+                    <p:column  width="60" style="width: 60px;">
                         <f:facet name="header">
                             <h:outputLabel value="Purchase Rate"/>
                         </f:facet>
@@ -116,7 +123,7 @@
                         </h:outputLabel>
                     </p:column>
 
-                    <p:column styleClass="averageNumericColumn" width="120">
+                    <p:column   width="60" style="width: 60px;">
                         <f:facet name="header">
                             <h:outputLabel value="Purchase Value"/>
                         </f:facet>
@@ -126,7 +133,7 @@
 
                     </p:column>
 
-                    <p:column styleClass="averageNumericColumn" width="120">
+                    <p:column   width="60" style="width: 60px;">
                         <f:facet name="header">
                             <h:outputLabel value="Retail Rate"/>
                         </f:facet>
