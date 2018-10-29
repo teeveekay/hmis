@@ -30,13 +30,13 @@
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="20,50,100"
                                          >
-                                <p:column id="colSelect"  >
+                                <p:column id="colSelect" width="20" >
                                     <f:facet name="header" >
                                         <h:outputText value="No" />
                                     </f:facet>
                                     <p:outputLabel value="#{n+1}"></p:outputLabel>
                                 </p:column>
-                                <p:column headerText="Category" 
+                                <p:column headerText="Category" width="80"
                                           sortBy="#{i.category.name}" 
                                           filterBy="#{i.category.name}" filterMatchMode="contains">
                                     <f:facet name="header" >
@@ -52,13 +52,21 @@
                                     </f:facet>
                                     <p:outputLabel value="#{i.name}"></p:outputLabel>
                                 </p:column>
-                                <p:column headerText="Code" 
+                                <p:column headerText="Code" width="60"
                                           sortBy="#{i.code}"
                                           filterBy="#{i.code}" filterMatchMode="contains">
                                     <f:facet name="header" >
                                         <h:outputText value="Code" />
                                     </f:facet>
                                     <p:outputLabel value="#{i.code}"></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Barcode" width="80"
+                                          sortBy="#{i.barcode}"
+                                          filterBy="#{i.barcode}" filterMatchMode="contains">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Barcode" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{i.barcode}"></p:outputLabel>
                                 </p:column>
                                 <p:column headerText="Generic" 
                                           sortBy="#{i.vmp.name}"
@@ -67,6 +75,34 @@
                                         <h:outputText value="Generic" />
                                     </f:facet>
                                     <p:outputLabel value="#{i.vmp.name}"></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Strength" width="30"
+                                          sortBy="#{i.dblValue}"
+                                          filterBy="#{i.dblValue}" >
+                                    <f:facet name="header" >
+                                        <h:outputText value="Strength" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{i.dblValue}"></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Strength Unit" width="30"
+                                          sortBy="#{i.measurementUnit.name}"
+                                          filterBy="#{i.measurementUnit.name}" filterMatchMode="contains">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Strength Unit" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{i.measurementUnit.name}"></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Pack Size" width="10">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Strength Unit" />
+                                    </f:facet>
+                                    <p:outputLabel value="1"></p:outputLabel>
+                                </p:column>
+                                 <p:column headerText="Issue Unit" width="10">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Issue Unit" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{i.category.name}"></p:outputLabel>
                                 </p:column>
                             </p:dataTable>
                         </p:panel>
