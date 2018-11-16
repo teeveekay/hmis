@@ -4,6 +4,7 @@
  */
 package com.divudi.bean.channel;
 
+import com.divudi.bean.common.ApplicationController;
 import com.divudi.bean.common.BillBeanController;
 import com.divudi.bean.common.DoctorSpecialityController;
 import com.divudi.bean.common.PriceMatrixController;
@@ -134,6 +135,8 @@ public class ChannelBillController implements Serializable {
     PriceMatrixController priceMatrixController;
     @Inject
     DoctorSpecialityController doctorSpecialityController;
+    @Inject
+    ApplicationController applicationController;
     //////////////////////////////
     @EJB
     private BillNumberGenerator billNumberBean;
@@ -1732,6 +1735,12 @@ public class ChannelBillController implements Serializable {
         return savingBill;
     }
 
+    private String generateBillNumberInsIdThroughApplicationBean(Bill bill) {
+        String tid;
+        tid = applicationController.generateBillNumberInsId(bill, getSessionController().getInstitution());
+        return tid;
+    }
+    
     private String generateBillNumberInsId(Bill bill) {
         String suffix = getSessionController().getInstitution().getInstitutionCode();
         BillClassType billClassType = null;
@@ -1749,23 +1758,23 @@ public class ChannelBillController implements Serializable {
                 } else {
                     suffix += "BKSTAFF";
                 }
-                insId = getBillNumberBean().institutionBillNumberGenerator(sessionController.getInstitution(), billType, billClassType, suffix);
+                insId = getApplicationController().institutionBillNumberGenerator(sessionController.getInstitution(), billType, billClassType, suffix);
             } else {
                 suffix += "CHANN";
-                insId = getBillNumberBean().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
+                insId = getApplicationController().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
             }
         }
 
         if (bill instanceof CancelledBill) {
             suffix += "CHANNCAN";
             billClassType = BillClassType.CancelledBill;
-            insId = getBillNumberBean().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
+            insId = getApplicationController().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
         }
 
         if (bill instanceof RefundBill) {
             suffix += "CHANNREF";
             billClassType = BillClassType.RefundBill;
-            insId = getBillNumberBean().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
+            insId = getApplicationController().institutionBillNumberGenerator(sessionController.getInstitution(), bts, billClassType, suffix);
         }
 
         System.out.println("billClassType = " + billClassType);
@@ -1791,23 +1800,23 @@ public class ChannelBillController implements Serializable {
                 } else {
                     suffix += "BKSTAFF";
                 }
-                deptId = getBillNumberBean().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), billType, billClassType, suffix);
+                deptId = getApplicationController().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), billType, billClassType, suffix);
             } else {
                 suffix += "CHANN";
-                deptId = getBillNumberBean().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
+                deptId = getApplicationController().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
             }
         }
 
         if (bill instanceof CancelledBill) {
             suffix += "CHANNCAN";
             billClassType = BillClassType.CancelledBill;
-            deptId = getBillNumberBean().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
+            deptId = getApplicationController().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
         }
 
         if (bill instanceof RefundBill) {
             suffix += "CHANNREF";
             billClassType = BillClassType.RefundBill;
-            deptId = getBillNumberBean().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
+            deptId = getApplicationController().departmentBillNumberGenerator(getSessionController().getInstitution(), getSessionController().getDepartment(), bts, billClassType, suffix);
         }
 
         System.out.println("billClassType = " + billClassType);
@@ -2271,5 +2280,15 @@ public class ChannelBillController implements Serializable {
     public void setCommentR(String commentR) {
         this.commentR = commentR;
     }
+
+    public ApplicationController getApplicationController() {
+        return applicationController;
+    }
+
+    public void setApplicationController(ApplicationController applicationController) {
+        this.applicationController = applicationController;
+    }
+
+
 
 }

@@ -61,6 +61,7 @@ public class BillNumberGenerator {
         this.patientFacade = patientFacade;
     }
 
+//    Copies 1
     public String institutionBillNumberGenerator(Institution ins, BillType billType, BillClassType billClassType, BillNumberSuffix billNumberSuffix) {
 
         BillNumber billNumber = fetchLastBillNumber(ins, billType, billClassType);
@@ -200,6 +201,7 @@ public class BillNumberGenerator {
         return result.toString();
     }
 
+//    Copied 1
     public String institutionBillNumberGenerator(Department dep, BillType billType, BillClassType billClassType, BillNumberSuffix billNumberSuffix) {
 
         BillNumber billNumber = fetchLastBillNumber(dep, billType, billClassType);
