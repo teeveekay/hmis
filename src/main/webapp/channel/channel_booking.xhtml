@@ -755,6 +755,7 @@
 
                                         <div>
                                             <h:panelGroup rendered="#{sessionController.institutionPreference.channelBillPaperType eq 'Paper24_2x9_3'}">
+                                                A
                                                 <ch:channelRecipt_24_2x9_3 bill="#{channelBillController.billSession.billItem.bill}" dup="true"/>                                        
                                             </h:panelGroup>
                                         </div>
@@ -762,6 +763,7 @@
                                         <div >
                                             <h:panelGroup rendered="#{sessionController.institutionPreference.channelBillPaperType eq 'FiveFivePaper'}">
                                                 <h:panelGroup rendered="#{!sessionController.institutionPreference.pharmacyBillPrabodha}" > 
+                                                    B
                                                     <ch:channelRecipt bill="#{channelBillController.billSession.billItem.bill}" dup="true"/>
         <!--                                            <ch:channelRecipt bill="#{channelBillController.billSession.billItem.bill}" dup="true"/>-->
                                                 </h:panelGroup>
@@ -770,10 +772,12 @@
                                         <div >
                                             <h:panelGroup rendered="#{sessionController.institutionPreference.channelBillPaperType eq 'PosPaper'}">
                                                 <h:panelGroup rendered="#{sessionController.institutionPreference.pharmacyBillPrabodha}" > 
+                                                    C
                                                     <ch:channelReciptPosDouble bill="#{channelBillController.billSession.billItem.bill}" dup="true"/>
                                                 </h:panelGroup>
 
                                                 <h:panelGroup rendered="#{!sessionController.institutionPreference.pharmacyBillPrabodha}" > 
+
                                                     <ch:channelReciptPos bill="#{channelBillController.billSession.billItem.bill}" dup="true"/>
                                                 </h:panelGroup>
 
@@ -945,26 +949,13 @@
                                                 <p:commandButton value="Print" ajax="false" action="#" disabled="#{channelBillController.billSession.billItem.bill.balance ne 0.0}">
                                                     <p:printer target="panelAddedBillPrintSettle" ></p:printer>
                                                 </p:commandButton>
+
+<!--                                                <p:commandButton ajax="false" value="Refresh" >
+                                                </p:commandButton>-->
+
                                                 <h:panelGroup id="panelAddedBillPrintSettle" styleClass="noBorder" >
                                                     <div >
-                                                        <h:panelGroup rendered="#{sessionController.institutionPreference.opdBillPaperType eq 'FiveFivePaper'}">
-                                                            <h:panelGroup rendered="#{!sessionController.institutionPreference.pharmacyBillPrabodha}" > 
-                                                                <ch:channelRecipt bill="#{channelBillController.billSession.billItem.bill}" dup="false"/>
-        <!--                                                        <ch:channelRecipt bill="#{channelBillController.billSession.billItem.bill}" dup="false"/>-->
-                                                            </h:panelGroup>
-                                                        </h:panelGroup>
-                                                    </div>
-                                                    <div >
-                                                        <h:panelGroup rendered="#{sessionController.institutionPreference.opdBillPaperType eq 'PosPaper'}">
-                                                            <h:panelGroup rendered="#{sessionController.institutionPreference.pharmacyBillPrabodha}" > 
-                                                                <ch:channelReciptPosDouble bill="#{channelBillController.billSession.billItem.bill}" dup="false"/>
-                                                            </h:panelGroup>
-
-                                                            <h:panelGroup rendered="#{!sessionController.institutionPreference.pharmacyBillPrabodha}" > 
-                                                                <ch:channelReciptPos bill="#{channelBillController.billSession.billItem.bill}" dup="false"/>
-                                                            </h:panelGroup>
-
-                                                        </h:panelGroup>
+                                                        <ch:channelReciptPos bill="#{channelBillController.billSession.billItem.bill}" dup="false"/>
                                                     </div>
                                                 </h:panelGroup>
                                             </p:dialog>

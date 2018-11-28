@@ -345,20 +345,31 @@ public class ApplicationController {
 
     public BillNumber getDepBillNumberFromTheList(Institution ins, Department dept, BillClassType billClassType) {
         BillNumber temBillNumber = null;
-        for (BillNumber bn : getDepBillNumbers()) {
-            boolean matching = true;
-            if (!bn.getToDepartment().equals(dept)) {
-                matching = false;
+        try {
+            for (BillNumber bn : getDepBillNumbers()) {
+                boolean matching = true;
+                if (bn.getToDepartment() != null) {
+                    if (!bn.getToDepartment().equals(dept)) {
+                        matching = false;
+                    }
+                }
+                if (bn.getDepartment() != null) {
+                    if (!bn.getDepartment().equals(dept)) {
+                        matching = false;
+                    }
+                }
+                if (!bn.getInstitution().equals(ins)) {
+                    matching = false;
+                }
+                if (!bn.getBillClassType().equals(billClassType)) {
+                    matching = false;
+                }
+                if (matching) {
+                    temBillNumber = bn;
+                }
             }
-            if (!bn.getInstitution().equals(ins)) {
-                matching = false;
-            }
-            if (!bn.getBillClassType().equals(billClassType)) {
-                matching = false;
-            }
-            if (matching) {
-                temBillNumber = bn;
-            }
+        } catch (Exception e) {
+            return null;
         }
         return temBillNumber;
     }
