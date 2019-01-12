@@ -1,1 +1,1 @@
-update reportitem set `CSSFONTFAMILY` = 'Arial' where `CSSFONTFAMILY` is null or `CSSFONTFAMILY` = '' ;
+update reportitem set `CSSFONTFAMILY` = 'Arial Narrow' where `CSSFONTFAMILY` = 'Arial' ;
