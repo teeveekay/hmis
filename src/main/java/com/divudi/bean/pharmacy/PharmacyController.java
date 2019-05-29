@@ -994,6 +994,7 @@ public class PharmacyController implements Serializable {
 
     }
 
+    
     public void createInstitutionStock() {
         //   //System.err.println("Institution Stock");
         List<Institution> insList = getCompany();

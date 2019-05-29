@@ -111,6 +111,10 @@
                     <p:column headerText="Code" styleClass="shortNumericColumn"  >  
                         #{bi.item.code} 
                     </p:column>
+                    
+                     <p:column headerText="Current Stock" styleClass="shortNumericColumn"  >  
+                        #{stockController.departmentItemStock(bi.item)} 
+                    </p:column>
 
                     <p:column headerText="Qty" styleClass="averageNumericColumn" > 
                         <p:inputText autocomplete="off"  id="qty" value="#{bi.tmpQty}" style="width:100%" label="Qty">  

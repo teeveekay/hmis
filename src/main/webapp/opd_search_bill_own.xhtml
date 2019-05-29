@@ -78,7 +78,7 @@
                             <p:column headerText="Billed At"  >                                
                                 <h:outputLabel value="#{bill.institution.name} - #{bill.department.name}" />
                             </p:column>
-                            <p:column headerText="Billed at"  >
+                            <p:column headerText="Billed Date/Time"  >
                                 <h:outputLabel value="#{bill.createdAt}" >
                                     <f:convertDateTime pattern="dd/MMM/yyyy - hh:mm:ss a"/>
                                 </h:outputLabel>
@@ -148,26 +148,28 @@
                                 </h:outputLabel>
 
                             </p:column>
-                            <p:column headerText="Discount" styleClass="averageNumericColumn">
+                            <p:column headerText="Discount" styleClass="averageNumericColumn" sortBy="#{bill.discount}">
 
                                 <h:outputLabel value="#{bill.discount}" >
                                     <f:convertNumber pattern="#,##0.00"/>
                                 </h:outputLabel>
-
+                                
                             </p:column>
                             <p:column headerText="Net Value" styleClass="averageNumericColumn">
-
                                 <h:outputLabel value="#{bill.netTotal}" >
                                     <f:convertNumber pattern="#,##0.00"/>
                                 </h:outputLabel>
-
-                            </p:column>                         
+                            </p:column>    
+                             <p:column headerText="Discount Scheme" styleClass="averageNumericColumn" sortBy="#{bill.paymentScheme.name}">
+                                <h:outputLabel value="#{bill.paymentScheme.name}" ></h:outputLabel>
+                            </p:column>
                             <p:column headerText="Comments" >
                                 <h:outputLabel rendered="#{bill.refundedBill ne null}" value="#{bill.refundedBill.comments}" >
                                 </h:outputLabel>
                                 <h:outputLabel  rendered="#{bill.cancelledBill ne null}" value="#{bill.cancelledBill.comments}" >
                                 </h:outputLabel>
                             </p:column>
+                            
                         </p:dataTable>
 
 

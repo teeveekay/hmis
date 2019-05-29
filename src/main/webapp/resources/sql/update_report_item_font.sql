@@ -1,1 +1,1 @@
-update reportitem set `CSSFONTFAMILY` = 'Arial Narrow' where `CSSFONTFAMILY` = 'Arial' ;
+update item set `USERCHANGABLE` = '0' where `DTYPE` = 'Investigation';
