@@ -294,7 +294,127 @@ public enum Privileges {
     
     
    
+    //Main Menu Privileges
+
+    //Submenu Privileges
+    OpdCollectingCentreBillingMenu,
+    OpdCollectingCentreBillSearch,
+
+
+    InwardFinalBillCancel,
+    InwardOutSideMarkAsUnPaid,
+
+    InwardPharmacyMenu,
+    InwardPharmacyIssueRequest,
+    InwardPharmacyIssueRequestSearch,
+    InwardBillSettleWithoutCheck,
+
+
+    LabReportEdit,
+    LabReportPrint,
+    AdminReportSearch,
+    LabReportSearchByDepartment,
+    LabSummeries,
+
+
+    LabReportSearchByLoggedInstitution,
+
+    LabReports,
+    LabItems,
+    LabItemFeeUpadate,
+    LabItemFeeDelete,
+    LabLists,
+    LabSetUp,
+    LabInwardBilling,
+    LabInwardSearchServiceBill,
+    LabCollectingCentreBilling,
+    LabCCBilling,
+    LabCCBillingSearch,
+    LabReportSearch,
+    LabReporting,
+    //dont remove
+
+
+    ChannellingChannelShedulRemove,
+    ChannellingChannelShedulName,
+    ChannellingChannelShedulStartingNo,
+    ChannellingChannelShedulRoomNo,
+    ChannellingChannelShedulMaxRowNo,
+
+    ChannellingEditSerialNo,
+    ChannellingEditPatientDetails,
+    ChannellingPrintInPastBooking,
+    ChannellingEditCreditLimitUserLevel,
+    ChannellingEditCreditLimitAdminLevel,
+    ChannelReports,
+    ChannelSummery,
+    ChannelManagement,
+    ChannelAgencyAgencies,
+    ChannelAgencyCreditLimitUpdate,
+    ChannelAgencyCreditLimitUpdateBulk,
+    ChannelAddChannelBookToAgency,
+    ChannelManageSpecialities,
+    ChannelManageConsultants,
+    ChannelEditingAppoinmentCount,
+    ChannelAddChannelingConsultantToInstitutions,
+    ChannelFeeUpdate,
+    ChannelCrdeitNote,
+    ChannelCrdeitNoteSearch,
+    ChannelDebitNote,
+    ChannelDebitNoteSearch,
+    ChannelCashCancelRestriction,
+
+    ChannelBookingBokking,
+    ChannelBookingReprint,
+    ChannelBookingCancel,
+    ChannelBookingRefund,
+    ChannelBookingSettle,
+    ChannelBookingSearch,
+    ChannelBookingViews,
+    ChannelBookingDocPay,
+    ChannelBookingRestric,
+    ChannelCashierTransaction,
+    ChannelCashierTransactionIncome,
+    ChannelCashierTransactionIncomeSearch,
+    ChannelCashierTransactionExpencess,
+    ChannelCashierTransactionExpencessSearch,
+    ChannelActiveVat,
     
+    
+
+    MemberShipAdd,
+    MemberShipEdit,
+    MembershipReports,
+    MembershipDiscountManagement,
+    MembershipAdministration,
+    
+
+    MemberShipMemberDeActive,
+    MemberShipMemberReActive,
+    
+
+    HrReports,
+    HrReportsLevel1,
+    HrReportsLevel2,
+    HrReportsLevel3,
+
+    HrGenerateSalarySpecial,
+    HrAdvanceSalary,
+    HrPrintSalary,
+    HrWorkingTime,
+    HrRosterTable,
+    HrUploadAttendance,
+    HrAnalyseAttendenceByRoster,
+    HrAnalyseAttendenceByStaff,
+    HrForms,
+    HrLeaveForms,
+    HrAdditionalForms,
+    HrEditRetiedDate,
+    HrRemoveResignDate,
+    
+  
+    ChangePreferece,
+    SendBulkSMS,
     
     
     

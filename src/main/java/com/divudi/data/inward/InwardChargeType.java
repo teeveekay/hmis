@@ -55,7 +55,15 @@ public enum InwardChargeType {
     TheaterConsumbale("Theater Consumable"),
     @Deprecated
     Investigations("Investigations"),
-    MedicalCare("VAT");
+    MedicalCare("VAT"),
+    VAT("VAT 15%"),
+    AccessoryCharges("Accessory Charges"),
+    EyeLence("Eye Lence"),
+    HospitalSupportService("Hospital Support Service"),
+    ExtraMedicine("Extra Medicine"),
+    DialysisTreatment("Dialysis Treatment Charges"),
+    
+    ;
 
     private final String nameAsString;
 
@@ -71,4 +79,10 @@ public enum InwardChargeType {
     public String getLabel() {
         return toString();
     }
+    
+    
+    
+    
+    
+    
 }
