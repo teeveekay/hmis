@@ -131,7 +131,7 @@ public class FinalVariables {
         
         return 0.0;
 //        
-//        //VAT 15% Only Vat Value
+//        //Vat 8% Only Vat Value
 //        if (sessionController.getLoggedPreference().getApplicationInstitution() == ApplicationInstitution.Ruhuna) {
 ////            return 0.152;
 //             return 0.15;
@@ -149,7 +149,7 @@ public class FinalVariables {
         
         return 1;
 //        
-//        //VAT 15% With Total
+//        //Vat 8% With Total
 //        if (sessionController.getLoggedPreference().getApplicationInstitution() == ApplicationInstitution.Ruhuna) {
 ////            return 1.152;
 //             return 1.15;

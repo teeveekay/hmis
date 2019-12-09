@@ -1462,7 +1462,7 @@ public class ChannelReportTempController implements Serializable {
             nowDate = cal.getTime();
         }
         row = new ChannelSummeryDateRangeRow();
-        row.setDate("VAT 15%");
+        row.setDate("VAT 8%");
         row.setTotalHosFee(fetchTotalUserRowVat(user));
         row.setBold(false);
         rows.add(row);
