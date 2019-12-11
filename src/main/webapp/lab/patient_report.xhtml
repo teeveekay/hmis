@@ -241,9 +241,9 @@
                                                                 </h:panelGroup>
                                                                 <h:panelGroup rendered="#{pvm.investigationItem.ixItemValueType eq 'Varchar'}">
                                                                     <p:selectOneMenu id="cmbMicStrVal" value="#{pvm.strValue}" editable="true"  style="min-width: 300px!important;" disabled="#{patientReportController.currentPatientReport.approved}">
-                                                                        <f:selectItem itemLabel="SENSITIVE" itemValue="SENSITIVE" ></f:selectItem>
-                                                                        <f:selectItem itemLabel="RESISTANT" itemValue="Resistant" ></f:selectItem>
-                                                                        <f:selectItem itemLabel="INTERMEDIATE" itemValue="Intermediate" ></f:selectItem>
+                                                                        <f:selectItem itemLabel="Sensitive" itemValue="Sensitive" ></f:selectItem>
+                                                                        <f:selectItem itemLabel="Resistant" itemValue="Resistant" ></f:selectItem>
+                                                                        <f:selectItem itemLabel="Intermediate" itemValue="Intermediate" ></f:selectItem>
                                                                         <f:ajax event="change"  execute="@this" 
                                                                                 listener="#{patientReportController.savePatientReportItemValues()}" ></f:ajax>
                                                                     </p:selectOneMenu>
@@ -259,11 +259,6 @@
                                     </p:panel>
                                     <p:panel header="Report"    
                                              rendered="#{patientReportController.currentPatientReport.transInvestigation.reportType eq 'PathologyOrHaematology'}" >
-
-
-                                        AAAA
-                                        #{patientReportController.currentPatientReport.transInvestigation.reportType}
-                                        BBBB
                                         <h:panelGrid columns="4" >
                                             <p:outputLabel value="Search a Template" ></p:outputLabel>
                                             <p:autoComplete id="acTemplate" 
@@ -446,7 +441,7 @@
                                 <div id="divReportM"   class="labReport" >
                                     <ez:common_report commonReportFormat="#{patientReportController.currentPatientReport.reportFormat}"
                                                       patientReport="#{patientReportController.currentPatientReport}"/>
-                                    <div style="position: absolute; top: 38%; width: 97%; left: 1%; text-align: center; font-family:Cambria, Georgia, serif; font-size: 16px; height: 70%; vertical-align: top;" >
+                                    <div style="position: absolute; top: 38%; width: 97%; left: 1%; text-align: center; font-family:Cambria, Georgia, serif; font-size: 18px; height: 70%; vertical-align: top;" >
                                         <div id="ixName" >
                                             <h:outputLabel value="#{patientReportController.currentPatientReport.patientInvestigation.investigation.printName}" 
                                                            style="font-weight: bold;font-size: 18px!important; "/>
