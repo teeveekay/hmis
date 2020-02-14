@@ -460,11 +460,16 @@
 
 
                     <h:panelGrid columns="2">
-                        <p:panel rendered="#{bhtSummeryController.patientEncounter.admissionType.admissionTypeEnum ne 'DayCase' and sessionController.userPreference.applicationInstitution ne 'Ruhuna'}">                            
+                        <p:panel rendered="#{bhtSummeryController.patientEncounter.admissionType.admissionTypeEnum ne 'DayCase'}">                            
                             <h:panelGrid columns="1">
                                 <p:commandButton value="Print Patient Copy" ajax="false">
+                                    <p:printer target="claimablePatientCopySingle" ></p:printer>
+                                </p:commandButton> 
+                                
+                                 <p:commandButton value="Print Patient Copy (3 Pages)" ajax="false">
                                     <p:printer target="claimablePatientCopy" ></p:printer>
-                                </p:commandButton>                               
+                                </p:commandButton>
+                                
                                 <p:commandButton value="Print Duplicate Copy" ajax="false" >
                                     <p:printer target="claimableDuplicate" ></p:printer>
                                 </p:commandButton> 
@@ -533,6 +538,10 @@
 
                     <h:panelGroup id="claimablePatientCopy" styleClass="noBorder" rendered="#{sessionController.userPreference.applicationInstitution ne 'Ruhuna'}">                  
                         <bi:finalBill   bill="#{bhtSummeryController.current}" showProfessional="true"/>
+                    </h:panelGroup>
+                    
+                     <h:panelGroup id="claimablePatientCopySingle" styleClass="noBorder" rendered="#{sessionController.userPreference.applicationInstitution ne 'Ruhuna'}">                  
+                         <bi:finalBillSinglePage   bill="#{bhtSummeryController.current}" showProfessional="true"/>
                     </h:panelGroup>
 
                     <h:panelGroup id="claimableDuplicate" styleClass="noBorder" rendered="#{sessionController.userPreference.applicationInstitution ne 'Ruhuna'}">                    
