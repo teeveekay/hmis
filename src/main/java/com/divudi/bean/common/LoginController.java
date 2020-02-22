@@ -62,13 +62,13 @@ public class LoginController implements Serializable {
     }
 
     public Date getToDate() {
+        if(toDate==null){
+            toDate=CommonFunctions.getEndOfDay();
+        }
         return toDate;
     }
 
     public void setToDate(Date toDate) {
-        if(toDate==null){
-            toDate=CommonFunctions.getEndOfDay();
-        }
         this.toDate = toDate;
     }
 

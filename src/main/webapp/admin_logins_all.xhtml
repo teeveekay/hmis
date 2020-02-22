@@ -14,44 +14,44 @@
                 <h:form>
                     <p:panel id="panelReport" >
                         <f:facet name ="header" >
-                            <h:outputLabel styleClass="noPrintButton"  value="Logins Report" />
-                            <p:calendar styleClass="noPrintButton" value="#{loginController.fromDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
+                            <h:outputLabel   value="Logins Details" />
+                        </f:facet>
+                        
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel value="From" />
+                            <p:calendar  value="#{loginController.fromDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
                             </p:calendar>
-                            <p:calendar styleClass="noPrintButton" value="#{loginController.toDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
+                            <h:outputLabel value="To" />
+                            <p:calendar  value="#{loginController.toDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
                             </p:calendar>
+                        </p:panelGrid>
 
+                        <p:panelGrid columns="3" >
                             <p:commandButton id="btnRefresh" actionListener="#{loginController.fillLogins()}"
-                                             styleClass="noPrintButton" value="Process"
+                                              value="Process"
                                              ajax="false" 
                                              onclick="onSubmitButton();">                               
                             </p:commandButton>
-                            <p:defaultCommand target="btnRefresh"/>
-                            
-                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
-                                <p:printer target="panelReport" />
+                            <p:commandButton  value="Print" ajax="false" >
+                                <p:printer target="tblLogins" />
                             </p:commandButton>
-                            
-                        </f:facet>
+                            <p:commandButton  value="Excel" ajax="false" >
+                                <p:dataExporter target="tblLogins" type="xls" fileName="logins.xls" ></p:dataExporter>
+                            </p:commandButton>
+                        </p:panelGrid>
 
-
-                        <p:panel styleClass="printBlock" >
-                            <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 18px;" /> 
-                            <br/>
-                            <h:outputLabel value="Login Details Report" />
-                            <br/>
-                            <h:outputLabel value="From : " />
-                            <h:outputLabel value="#{loginController.fromDate}"  >
-                                <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
-                            </h:outputLabel>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <h:outputLabel value="To : "  ></h:outputLabel>
-                            <h:outputLabel value="#{loginController.toDate}" >
-                                <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
-                            </h:outputLabel>
-
-                        </p:panel>
-
-                        <p:dataTable value="#{loginController.logins}" var="b" >
+                        <p:dataTable id="tblLogins" value="#{loginController.logins}" var="b" >
+                            <f:facet name="header">
+                                <h:outputLabel value="Login Details Report " />
+                                <h:outputLabel value="From : " />
+                                <h:outputLabel value="#{loginController.fromDate}"  >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
+                                </h:outputLabel>
+                                <h:outputLabel value=" To : "  ></h:outputLabel>
+                                <h:outputLabel value="#{loginController.toDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm:ss a" />
+                                </h:outputLabel>
+                            </f:facet>
                             <p:column headerText="Institution" >
                                 <h:outputLabel value="#{b.institution.name}" ></h:outputLabel>
                             </p:column>
