@@ -53,7 +53,7 @@ public class SmsController implements Serializable {
 
     @Inject
     SessionController sessionController;
-    @Inject
+    @EJB
     CommonFunctions commonFunctions;
 
     List<Sms> smses;

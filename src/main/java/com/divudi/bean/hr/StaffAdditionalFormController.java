@@ -12,6 +12,7 @@ import com.divudi.data.SystemTimeStamp;
 import com.divudi.data.hr.DayType;
 import com.divudi.data.hr.ReportKeyWord;
 import com.divudi.data.hr.Times;
+import com.divudi.ejb.CommonFunctions;
 import com.divudi.ejb.HumanResourceBean;
 import com.divudi.entity.Department;
 import com.divudi.entity.Staff;
@@ -29,7 +30,7 @@ import com.divudi.facade.SalaryCycleFacade;
 import com.divudi.facade.ShiftFacade;
 import com.divudi.facade.StaffShiftFacade;
 import com.divudi.facade.util.JsfUtil;
-import com.divudi.java.CommonFunctions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;

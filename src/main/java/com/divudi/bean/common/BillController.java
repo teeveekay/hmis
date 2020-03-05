@@ -1395,7 +1395,7 @@ public class BillController implements Serializable {
                 UtilityController.addErrorMessage("Can not bill without Patient Name, Age or Sex.");
                 return true;
             }
-            if (!com.divudi.java.CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
+            if (!CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
                 UtilityController.addErrorMessage("Mismatch in Title and Gender. Please Check the Title, Age and Sex");
                 return true;
             }

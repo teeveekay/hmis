@@ -504,7 +504,7 @@ public class CreditCompanyDueController implements Serializable {
 
     public Date getFromDate() {
         if (fromDate == null) {
-            fromDate = com.divudi.java.CommonFunctions.getStartOfMonth(new Date());
+            fromDate = CommonFunctions.getStartOfMonth(new Date());
         }
         return fromDate;
     }
@@ -822,13 +822,13 @@ public class CreditCompanyDueController implements Serializable {
             for (PatientEncounter b : lst) {
 //                newIns.setTotal(newIns.getTotal() + b.getCreditUsedAmount());
 //                newIns.setPaidTotal(newIns.getPaidTotal() + b.getCreditPaidAmount());
-                b.getFinalBill().setNetTotal(com.divudi.java.CommonFunctions.round(b.getFinalBill().getNetTotal()));
+                b.getFinalBill().setNetTotal(CommonFunctions.round(b.getFinalBill().getNetTotal()));
                 b.setCreditPaidAmount(Math.abs(b.getCreditPaidAmount()));
-                b.setCreditPaidAmount(com.divudi.java.CommonFunctions.round(b.getCreditPaidAmount()));
-                b.getFinalBill().setPaidAmount(com.divudi.java.CommonFunctions.round(b.getFinalBill().getPaidAmount()));
+                b.setCreditPaidAmount(CommonFunctions.round(b.getCreditPaidAmount()));
+                b.getFinalBill().setPaidAmount(CommonFunctions.round(b.getFinalBill().getPaidAmount()));
                 b.setTransPaid(b.getFinalBill().getPaidAmount()+b.getCreditPaidAmount());
                 System.out.println("b.getTransPaid() = " + b.getTransPaid());
-                b.setTransPaid(com.divudi.java.CommonFunctions.round(b.getTransPaid()));
+                b.setTransPaid(CommonFunctions.round(b.getTransPaid()));
                 System.out.println("b.getTransPaid() = " + b.getTransPaid());
                 
                 System.out.println("b.getFinalBill().getNetTotal() = " + b.getFinalBill().getNetTotal());
@@ -838,8 +838,8 @@ public class CreditCompanyDueController implements Serializable {
                 newIns.setPaidTotal(newIns.getPaidTotal() + b.getTransPaid());
 
             }
-            newIns.setTotal(com.divudi.java.CommonFunctions.round(newIns.getTotal()));
-            newIns.setPaidTotal(com.divudi.java.CommonFunctions.round(newIns.getPaidTotal()));
+            newIns.setTotal(CommonFunctions.round(newIns.getTotal()));
+            newIns.setPaidTotal(CommonFunctions.round(newIns.getPaidTotal()));
             institutionEncounters.add(newIns);
         }
         commonController.printReportDetails(fromDate, toDate, startTime, "Reports/Inward Dues And Access/excess/excess Search(/faces/credit/credit_company_inward_access.xhtml)");

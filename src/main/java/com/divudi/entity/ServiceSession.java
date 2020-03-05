@@ -4,7 +4,8 @@
  */
 package com.divudi.entity;
 
-import com.divudi.java.CommonFunctions;
+
+import com.divudi.ejb.CommonFunctions;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

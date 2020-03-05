@@ -6,7 +6,6 @@
 package com.divudi.bean.common;
 
 import com.divudi.bean.pharmacy.PharmacySaleBhtController;
-import com.divudi.data.ApplicationInstitution;
 import com.divudi.data.BillNumberSuffix;
 import com.divudi.data.BillType;
 import com.divudi.data.DepartmentType;
@@ -48,8 +47,6 @@ import com.divudi.facade.PatientInvestigationFacade;
 import com.divudi.facade.PatientReportFacade;
 import com.divudi.facade.StockFacade;
 import com.divudi.facade.util.JsfUtil;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -82,8 +79,6 @@ public class SearchController implements Serializable {
     /**
      * EJBs
      */
-    @EJB
-    private CommonFunctions commonFunctions;
     @EJB
     private BillFacade billFacade;
     @EJB
@@ -7515,7 +7510,7 @@ public class SearchController implements Serializable {
 
     public Date getToDate() {
         if (toDate == null) {
-            toDate = getCommonFunctions().getEndOfDay(new Date());
+            toDate = CommonFunctions.getEndOfDay(new Date());
         }
         return toDate;
     }
@@ -7526,7 +7521,7 @@ public class SearchController implements Serializable {
 
     public Date getFromDate() {
         if (fromDate == null) {
-            fromDate = getCommonFunctions().getStartOfDay(new Date());
+            fromDate = CommonFunctions.getStartOfDay(new Date());
         }
         return fromDate;
     }
@@ -7546,13 +7541,6 @@ public class SearchController implements Serializable {
         this.searchKeyword = searchKeyword;
     }
 
-    public CommonFunctions getCommonFunctions() {
-        return commonFunctions;
-    }
-
-    public void setCommonFunctions(CommonFunctions commonFunctions) {
-        this.commonFunctions = commonFunctions;
-    }
 
     public List<Bill> getBills() {
         return bills;
@@ -7647,9 +7635,6 @@ public class SearchController implements Serializable {
         return pharmacyBean;
     }
 
-    public void setPharmacyBean(PharmacyBean pharmacyBean) {
-        this.pharmacyBean = pharmacyBean;
-    }
 
     public BillType getBillType() {
         return billType;

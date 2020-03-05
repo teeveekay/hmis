@@ -90,7 +90,7 @@ public class BookingPastController implements Serializable {
     private ChannelSearchController channelSearchController;
     @Inject
     DoctorSpecialityController doctorSpecialityController;
-    @Inject
+    @EJB
     CommonFunctions commonFunctions;
     ///////////////////
     @EJB

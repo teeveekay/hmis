@@ -415,7 +415,7 @@ public class StaffLeaveApplicationFormController implements Serializable {
             System.out.println("s.getWorkedFromDate() = " + s.getWorkedFromDate());
             System.out.println("s.getWorkedToDate() = " + s.getWorkedToDate());
             System.out.println("s.getDayOffPhFromDate() = " + s.getDayOffPhFromDate());
-            Date nowDate = com.divudi.java.CommonFunctions.getEndOfDay();
+            Date nowDate = CommonFunctions.getEndOfDay();
             if (nowDate.getTime() > s.getDayOffPhToDate().getTime()) {
                 double d = (nowDate.getTime() - s.getDayOffPhToDate().getTime()) / (1000 * 60 * 60 * 24);
                 if (d > 3) {
@@ -988,7 +988,7 @@ public class StaffLeaveApplicationFormController implements Serializable {
 
     public Date getFromDate() {
         if (fromDate == null) {
-            fromDate = com.divudi.java.CommonFunctions.getStartOfMonth(new Date());
+            fromDate = CommonFunctions.getStartOfMonth(new Date());
         }
         return fromDate;
     }
@@ -999,7 +999,7 @@ public class StaffLeaveApplicationFormController implements Serializable {
 
     public Date getToDate() {
         if (toDate == null) {
-            toDate = com.divudi.java.CommonFunctions.getEndOfMonth(new Date());
+            toDate = CommonFunctions.getEndOfMonth(new Date());
         }
         return toDate;
     }

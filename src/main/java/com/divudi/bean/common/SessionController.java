@@ -10,7 +10,6 @@ package com.divudi.bean.common;
 import com.divudi.bean.pharmacy.PharmacySaleController;
 import com.divudi.data.DepartmentType;
 import com.divudi.data.Privileges;
-import com.divudi.ejb.ApplicationEjb;
 import com.divudi.ejb.CashTransactionBean;
 import com.divudi.entity.Bill;
 import com.divudi.entity.Department;
@@ -78,8 +77,6 @@ public class SessionController implements Serializable, HttpSessionListener {
     private CashTransactionBean cashTransactionBean;
     @EJB
     DepartmentFacade departmentFacade;
-    @EJB
-    ApplicationEjb applicationEjb;
     @EJB
     PersonFacade personFacade;
     @EJB
@@ -373,7 +370,8 @@ public class SessionController implements Serializable, HttpSessionListener {
 
     private boolean login() {
 
-        getApplicationEjb().recordAppStart();
+//        getApplicationEjb().recordAppStart();
+        getApplicationController().recordStart();
 
         if (userName.trim().equals("")) {
             UtilityController.addErrorMessage("Please enter a username");
@@ -408,7 +406,8 @@ public class SessionController implements Serializable, HttpSessionListener {
 
     private boolean loginWithoutDepartment() {
 
-        getApplicationEjb().recordAppStart();
+//        getApplicationEjb().recordAppStart();
+        getApplicationController().recordStart();
 
         if (userName.trim().equals("")) {
             UtilityController.addErrorMessage("Please enter a username");
@@ -891,7 +890,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         insPre = getUserPreferenceFacade().findFirstBySQL(sql, m);
 
         if (getDepartment().getDepartmentType() == DepartmentType.Pharmacy) {
-            long i = searchController.createInwardBHTForIssueBillCount();
+            long i = getSearchController().createInwardBHTForIssueBillCount();
             if (i > 0) {
                 UtilityController.addSuccessMessage("This Phrmacy Has " + i + " BHT Request Today.");
             }
@@ -974,13 +973,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         return departmentFacade.findBySQL(sql, m);
     }
 
-    public ApplicationEjb getApplicationEjb() {
-        return applicationEjb;
-    }
 
-    public void setApplicationEjb(ApplicationEjb applicationEjb) {
-        this.applicationEjb = applicationEjb;
-    }
 
     public ApplicationController getApplicationController() {
         return applicationController;

@@ -1849,9 +1849,6 @@ public class PharmacySaleController implements Serializable {
         return pharmacyBean;
     }
 
-    public void setPharmacyBean(PharmacyBean pharmacyBean) {
-        this.pharmacyBean = pharmacyBean;
-    }
 
     public Patient getNewPatient() {
         if (newPatient == null) {

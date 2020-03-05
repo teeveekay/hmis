@@ -419,7 +419,7 @@ public class BillPackageController implements Serializable {
                 return true;
             }
 
-            if (!com.divudi.java.CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
+            if (!CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
                 UtilityController.addErrorMessage("Check Title,Age,Sex");
                 return true;
             }

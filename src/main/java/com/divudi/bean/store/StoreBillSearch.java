@@ -71,7 +71,8 @@ public class StoreBillSearch implements Serializable {
     private Date toDate;
     //  private String comment;
     WebUser user;
-    StoreBean storeBean;
+    @EJB
+    private StoreBean storeBean;
     ////////////////
     List<BillItem> refundingItems;
     List<Bill> bills;
@@ -100,8 +101,8 @@ public class StoreBillSearch implements Serializable {
     private CommonFunctions commonFunctions;
     @EJB
     private BillNumberGenerator billNumberBean;
-    @Inject
-    StoreBean StoreBean;
+//    @Inject
+//    StoreBean StoreBean;
     @EJB
     EjbApplication ejbApplication;
     ///////////////////
@@ -2392,13 +2393,7 @@ public class StoreBillSearch implements Serializable {
         this.pharmaceuticalBillItemFacade = pharmaceuticalBillItemFacade;
     }
 
-    public StoreBean getStoreBean() {
-        return StoreBean;
-    }
-
-    public void setStoreBean(StoreBean StoreBean) {
-        this.StoreBean = StoreBean;
-    }
+   
 
     public ItemBatchFacade getItemBatchFacade() {
         return itemBatchFacade;
@@ -2437,6 +2432,10 @@ public class StoreBillSearch implements Serializable {
 
     public void setSelectedBills(List<Bill> selectedBills) {
         this.selectedBills = selectedBills;
+    }
+
+    public StoreBean getStoreBean() {
+        return storeBean;
     }
 
 }

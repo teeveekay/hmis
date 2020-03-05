@@ -789,7 +789,7 @@ public class StaffLeaveFromLateAndEarlyController implements Serializable {
 
     public Date getFromDate() {
         if (fromDate == null) {
-            fromDate = com.divudi.java.CommonFunctions.getStartOfMonth(new Date());
+            fromDate = CommonFunctions.getStartOfMonth(new Date());
         }
         return fromDate;
     }
@@ -800,7 +800,7 @@ public class StaffLeaveFromLateAndEarlyController implements Serializable {
 
     public Date getToDate() {
         if (toDate == null) {
-            toDate = com.divudi.java.CommonFunctions.getEndOfMonth(new Date());
+            toDate = CommonFunctions.getEndOfMonth(new Date());
         }
         return toDate;
     }

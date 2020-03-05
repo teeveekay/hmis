@@ -8,6 +8,7 @@ package com.divudi.bean.common;
 import com.divudi.data.BillType;
 import com.divudi.data.PaymentMethod;
 import com.divudi.data.dataStructure.StringsDoublesRow;
+import com.divudi.ejb.CommonFunctions;
 import com.divudi.ejb.RevenueBean;
 import com.divudi.entity.BilledBill;
 import com.divudi.entity.CancelledBill;
@@ -15,7 +16,7 @@ import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
 import com.divudi.entity.PreBill;
 import com.divudi.entity.RefundBill;
-import com.divudi.java.CommonFunctions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

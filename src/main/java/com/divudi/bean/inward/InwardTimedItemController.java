@@ -664,7 +664,7 @@ public class InwardTimedItemController implements Serializable {
 
     public Date getFrmDate() {
         if (frmDate == null) {
-            frmDate = com.divudi.java.CommonFunctions.getStartOfMonth(new Date());
+            frmDate = CommonFunctions.getStartOfMonth(new Date());
         }
         return frmDate;
     }

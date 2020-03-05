@@ -10,11 +10,9 @@
     <h:body>
         <ui:composition template="/resources/template/template.xhtml">
             <ui:define name="content">
-                <h:panelGroup rendered="#{!webUserController.hasPrivilege('AdminManagingUsers')}" >
-                    You are NOT authorized
-                </h:panelGroup>
+               
 
-                <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
+                <h:panelGroup  >
 
                     <h:form>
 

@@ -77,7 +77,7 @@ public class SheduleController implements Serializable {
      */
     @Inject
     private SessionController sessionController;
-    @Inject
+    @EJB
     CommonFunctions commonFunctions;
     /**
      * Class Variables

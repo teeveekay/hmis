@@ -430,7 +430,7 @@ public class BillPackageMedicalController implements Serializable {
                 return true;
             }
 
-            if (!com.divudi.java.CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
+            if (!CommonFunctions.checkAgeSex(getNewPatient().getPerson().getDob(), getNewPatient().getPerson().getSex(), getNewPatient().getPerson().getTitle())) {
                 UtilityController.addErrorMessage("Check Title,Age,Sex");
                 return true;
             }
@@ -1162,7 +1162,7 @@ public class BillPackageMedicalController implements Serializable {
 
     public Date getFrmDate() {
         if (frmDate == null) {
-            frmDate = com.divudi.java.CommonFunctions.getStartOfMonth(new Date());
+            frmDate = CommonFunctions.getStartOfMonth(new Date());
         }
         return frmDate;
     }

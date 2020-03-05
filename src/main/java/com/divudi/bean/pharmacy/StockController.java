@@ -70,7 +70,7 @@ public class StockController implements Serializable {
         this.itemFacade = itemFacade;
     }
 
-    @Inject
+    @EJB
     StoreBean storeBean;
 
     public StoreBean getStoreBean() {

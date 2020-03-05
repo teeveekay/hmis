@@ -81,7 +81,7 @@ public class BhtEditController implements Serializable {
 
     @Inject
     InwardStaffPaymentBillController inwardStaffPaymentBillController;
-    @Inject
+    @EJB
     CommonFunctions commonFunctions;
 
     YearMonthDay yearMonthDay;
