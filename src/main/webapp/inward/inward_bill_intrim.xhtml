@@ -26,7 +26,7 @@
                         <p:commandButton ajax="false"  value="To Print Intrim Bill" action="#{bhtSummeryController.toPrintItrim()}" onclick="onSubmitButton();" />
 
                     </f:facet>
-                    <h:panelGrid columns="3" style="min-width: 100%;">
+                    <h:panelGrid columns="3" style="min-width: 100%;" styleClass="alignTop">
                         <p:panel header="BHT">
                             <p:autoComplete converter="admis" widgetVar="aPt" id="acPt" forceSelection="true" 
                                             value="#{bhtSummeryController.patientEncounter}"
@@ -34,10 +34,7 @@
                                             var="myItem" itemValue="#{myItem}" 
                                             itemLabel="#{myItem.bhtNo}" 
                                             size="30"  >
-                                <p:ajax event="itemSelect" 
-                                        process="@this" 
-                                        update="@all" 
-                                        listener="#{bhtSummeryController.createTables()}"/>
+                                
                                 <p:column>
                                     #{myItem.bhtNo}
                                 </p:column>
@@ -51,10 +48,12 @@
                                     <h:outputLabel value="Discharged"  rendered="#{myItem.discharged}"/>
                                 </p:column>
                             </p:autoComplete>   
+                            <p:commandButton ajax="false" value="Display Details"
+                                        action="#{bhtSummeryController.createTables()}"/>
                             <h:panelGroup id="panSearch2">
                                 <in:bhtDetail admission="#{bhtSummeryController.patientEncounter}"/>
                             </h:panelGroup>
-
+                            
                         </p:panel>
 
 
@@ -529,11 +528,20 @@
 
 
                         <p:tab id="tabPro" title="Professional Fee"  >
-                            <p:dataTable  scrollable="true" scrollHeight="300"  
-                                          value="#{bhtSummeryController.profesionallFee}" var="pf"
+                            
+                            <p:commandButton value="Export" ajax="false" >
+                                <p:dataExporter target="tblProfessionalFees" type="xls" fileName="Professional Fees" ></p:dataExporter>
+                            </p:commandButton>
+                            
+                            <p:dataTable  scrollable="true" scrollHeight="300"  id="tblProfessionalFees" rowIndexVar="n"
+                                          value="#{bhtSummeryController.profesionallFee}" var="pf" rowKey="#{pf.id}"
                                           rowStyleClass="#{pf.bill.billClass eq 'class com.divudi.entity.BilledBill' ? '':'noDisplayRow'}">
+                                 <p:column headerText="No">
+                                     <p:outputLabel value="#{n+1}" ></p:outputLabel>
+                                    
+                                </p:column>
                                 <p:column headerText="Name">
-                                    #{pf.staff.person.nameWithTitle}
+                                    <p:outputLabel value="#{pf.staff.person.nameWithTitle}" ></p:outputLabel>
                                 </p:column>
                                 <p:column headerText="Fee Value" style="text-align: right;">
                                     <h:outputLabel value="#{pf.feeValue}">
