@@ -33,7 +33,8 @@
 
                         <h:panelGrid columns="2" styleClass="alignTop" >
                             <h:panelGrid id="actions" columns="1"  >
-                                <p:commandButton styleClass="linkButton"  ajax="false" value="Remove" onclick="if (!confirm('Are you sure you want to Cancel This Bill ?'))
+                                <p:commandButton styleClass="linkButton"  ajax="false" value="Remove" 
+                                                 onclick="if (!confirm('Are you sure you want to Cancel This Bill ?'))
                                         return false;" action="#{webUserController.removeUser}">
                                 </p:commandButton>
                                 <p:commandButton disabled="#{webUserController.selected == null}" styleClass="linkButton" value="Manage User" action="#{webUserController.toManageUser()}" ajax="false" />

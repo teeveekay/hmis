@@ -16,7 +16,7 @@
                         <f:facet name ="header" >
                             <h:outputLabel   value="Logins Details" />
                         </f:facet>
-                        
+
                         <p:panelGrid columns="2" >
                             <h:outputLabel value="From" />
                             <p:calendar  value="#{loginController.fromDate}" pattern="dd MMMM yyyy hh:mm:ss a" >
@@ -28,7 +28,7 @@
 
                         <p:panelGrid columns="3" >
                             <p:commandButton id="btnRefresh" actionListener="#{loginController.fillLogins()}"
-                                              value="Process"
+                                             value="Process"
                                              ajax="false" 
                                              onclick="onSubmitButton();">                               
                             </p:commandButton>
@@ -36,11 +36,15 @@
                                 <p:printer target="tblLogins" />
                             </p:commandButton>
                             <p:commandButton  value="Excel" ajax="false" >
-                                <p:dataExporter target="tblLogins" type="xls" fileName="logins.xls" ></p:dataExporter>
+                                <p:dataExporter target="tblLogins" type="xls" fileName="logins" ></p:dataExporter>
                             </p:commandButton>
                         </p:panelGrid>
 
-                        <p:dataTable id="tblLogins" value="#{loginController.logins}" var="b" >
+                        <p:dataTable id="tblLogins" value="#{loginController.logins}" var="b" 
+                                     rowKey="#{b.id}"
+                                     paginator="true"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50">
                             <f:facet name="header">
                                 <h:outputLabel value="Login Details Report " />
                                 <h:outputLabel value="From : " />
@@ -74,6 +78,11 @@
                             <p:column headerText="Log out at">
                                 <h:outputLabel value="#{b.logoutAt}" >
                                     <f:convertDateTime pattern="dd MM yy hh:mm:ss a" />
+                                </h:outputLabel>
+                            </p:column>
+                             <p:column headerText="Duration (Minutes)">
+                                 <h:outputLabel value="#{(b.logoutAt.time - b.logedAt.time)/(1000*60)}" >
+                                     <f:convertNumber pattern="#" ></f:convertNumber>
                                 </h:outputLabel>
                             </p:column>
                             <p:column headerText="IP">

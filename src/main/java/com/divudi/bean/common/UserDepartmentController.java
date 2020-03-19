@@ -246,6 +246,9 @@ public  class UserDepartmentController implements Serializable {
     }
 
     public Institution getCurrentInstituion() {
+        if(currentInstituion==null){
+            currentInstituion = getSessionController().getInstitution();
+        }
         return currentInstituion;
     }
 

@@ -120,6 +120,7 @@ public class WebUserController implements Serializable {
         for (WebUser s : itemsToRemove) {
             s.setRetired(true);
             s.setRetireComments("Bulk Remove");
+            s.setRetiredAt(new Date());
             s.setRetirer(getSessionController().getLoggedUser());
             try {
                 getFacade().edit(s);
@@ -175,10 +176,10 @@ public class WebUserController implements Serializable {
             UtilityController.addErrorMessage("Select a user to remove");
             return;
         }
-        selected.getWebUserPerson().setRetired(true);
-        selected.getWebUserPerson().setRetirer(getSessionController().getLoggedUser());
-        selected.getWebUserPerson().setRetiredAt(Calendar.getInstance().getTime());
-        getPersonFacade().edit(selected.getWebUserPerson());
+//        selected.getWebUserPerson().setRetired(true);
+//        selected.getWebUserPerson().setRetirer(getSessionController().getLoggedUser());
+//        selected.getWebUserPerson().setRetiredAt(Calendar.getInstance().getTime());
+//        getPersonFacade().edit(selected.getWebUserPerson());
 
         selected.setName(selected.getId().toString());
         selected.setRetired(true);
@@ -224,10 +225,10 @@ public class WebUserController implements Serializable {
 
         for (WebUserPrivilege w : getSessionController().getUserPrivileges()) {
             Privileges p = null;
-            try{
-                p=Privileges.valueOf(privilege);
-            }catch(Exception e){
-                hasPri=false;
+            try {
+                p = Privileges.valueOf(privilege);
+            } catch (Exception e) {
+                hasPri = false;
                 return hasPri;
             }
             if (w.getPrivilege() != null && w.getPrivilege().equals(p)) {
@@ -772,8 +773,8 @@ public class WebUserController implements Serializable {
         listWebUserDashboards();
         return "/admin_manage_dashboards";
     }
-    
-    public String BackToAdminManageUsers(){
+
+    public String BackToAdminManageUsers() {
         return "/admin_manage_users";
     }
 
@@ -795,7 +796,7 @@ public class WebUserController implements Serializable {
         JsfUtil.addSuccessMessage("Added");
         listWebUserDashboards();
     }
-    
+
     public void removeWebUserDashboard() {
         if (webUserDashboard == null) {
             JsfUtil.addErrorMessage("Dashboard ?");
@@ -809,7 +810,7 @@ public class WebUserController implements Serializable {
         JsfUtil.addSuccessMessage("Removed");
         listWebUserDashboards();
     }
-    
+
     public List<WebUserDashboard> listWebUserDashboards(WebUser wu) {
         List<WebUserDashboard> wuds = new ArrayList<>();
         if (wu == null) {
@@ -824,7 +825,7 @@ public class WebUserController implements Serializable {
         wuds = getWebUserDashboardFacade().findBySQL(j, m);
         return wuds;
     }
-    
+
     public void listWebUserDashboards() {
         webUserDashboards = listWebUserDashboards(current);
     }
@@ -909,9 +910,6 @@ public class WebUserController implements Serializable {
         return webUserDashboardFacade;
     }
 
-    
-    
-    
     @FacesConverter("webUs")
     public static class WebUserControllerConverter implements Converter {
 

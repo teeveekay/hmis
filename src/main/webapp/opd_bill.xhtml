@@ -17,7 +17,6 @@
 
             <ui:define name="content">
 
-
                 <h:panelGroup rendered="#{!(webUserController.hasPrivilege('OpdBilling') or webUserController.hasPrivilege('LabCashier'))}" >
                     You are NOT authorized
                 </h:panelGroup>
@@ -694,7 +693,7 @@
 
 
 
-                        <h:panelGroup rendered="#{sessionController.loggedPreference.opdBillPaperType eq 'FiveFivePaper'}">
+                        <h:panelGroup >
                             <div class="nonPrintBlock">
                                 <p:commandButton value="Print ." ajax="false" action="#"  >
                                     <p:printer target="fiveFivePaperWithHeadings" ></p:printer>
