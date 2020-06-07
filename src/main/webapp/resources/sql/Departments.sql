@@ -1,1 +1,1 @@
-select * from item where name like '%ezumi 40mg%';
+select `ID`,`NAME`,`RETIRED` from department where name like 'Hospital Pharmacy';

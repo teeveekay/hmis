@@ -1,4 +1,2 @@
-select item.`NAME`, itembatch.`BATCHNO` ,itembatch.`ITEM_ID`, stock.`STOCK` from stock 
-join itembatch on stock.`ITEMBATCH_ID` = itembatch.`ID` 
-join item on itembatch.`ITEM_ID` = item.`ID`
-where `STOCK`=420;
+update stock set `STOCK`=0.0 where `DEPARTMENT_ID` = 2;
+select id,`STOCK`, `ITEMBATCH_ID`, `CODE`,`DEPARTMENT_ID` from stock where `DEPARTMENT_ID` = 2 order by stock desc;
