@@ -53,7 +53,7 @@
                                     <h:outputLabel value="#{reportsStock.department.name} Stock"/>                                     
                                 </f:facet>
 
-                                <p:column headerText="Item"
+                                <p:column headerText="Item" 
                                           sortBy="#{i.itemBatch.item.name}"
                                           filterBy="#{i.itemBatch.item.name}"
                                           filterMatchMode="contains">
@@ -63,7 +63,7 @@
                                     <h:outputLabel value="#{i.itemBatch.item.name}" style="width: 100px!important;" ></h:outputLabel>
                                 </p:column>
 
-                                <p:column headerText="Code"
+<!--                                <p:column headerText="Code" style="width: 8em;"
                                           sortBy="#{i.itemBatch.item.code}"
                                           filterBy="#{i.itemBatch.item.code}"
                                           filterMatchMode="contains"
@@ -73,7 +73,7 @@
                                         <h:outputLabel value="Code"/>
                                     </f:facet>
                                     <h:outputLabel value="#{i.itemBatch.item.code}" style="width: 100px!important;" ></h:outputLabel>
-                                </p:column>
+                                </p:column>-->
 
                                 <p:column headerText="Quantity" 
                                           style="text-align: right;"
@@ -159,20 +159,20 @@
                                     </f:facet>
 
                                 </p:column>
-                                <p:column headerText="Comments" 
+<!--                                <p:column headerText="Comments" 
                                           style="text-align: right;">
                                     <f:facet name="header">
                                         <h:outputLabel value="Comments"/>                                     
                                     </f:facet>
-                                    <p:inputText value="#{i.code}" maxlength="254">
+                                    <p:inputText value="#{i.code}" >
                                         <f:ajax event="blur" execute="@this" listener="#{reportsStock.addComment(i)}"></f:ajax>
                                     </p:inputText>
-                                </p:column>
+                                </p:column>-->
 
 
                                 <p:columnGroup type="footer">
                                     <p:row>
-                                        <p:column colspan="5" footerText="Total">
+                                        <p:column colspan="4" footerText="Total">
                                             <f:facet name="footer">
                                                 <h:outputLabel value="Total" />
                                             </f:facet>
@@ -184,7 +184,7 @@
                                                 </h:outputLabel>
                                             </f:facet>
                                         </p:column>
-                                        <p:column></p:column>
+                                        <p:column ></p:column>
                                         <p:column style="text-align: right;" footerText="#{reportsStock.stockSaleValue}">
                                             <f:facet name="footer" >
                                                 <h:outputLabel value="#{reportsStock.stockSaleValue}" >
@@ -194,7 +194,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                        <p:column colspan="9" >
+                                        <p:column colspan="7" >
                                             <f:facet name="footer" >
                                                 <h:outputLabel value="Printed At " ></h:outputLabel>
                                                 <h:outputLabel value="#{sessionController.currentDate}" >

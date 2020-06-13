@@ -14,12 +14,22 @@
 
     }
 
+
+    .ppposbill{
+        position: relative!important;  
+        margin-top: -2cm!important;       
+        width: 100%;
+        padding: 0px!important;
+        margin: 0px!important;
+        border: none!important;
+    }
+
     .fiveinchbill{
         position: relative!important;
         padding: 5px!important;
         width: 12cm!important;
         height: 14cm!important;
-         
+
         font-family: sans-serif!important; 
         font-size: 11px!important; 
         margin: auto!important; 
@@ -34,21 +44,21 @@
         padding: 5px!important;
         width: 24.2cm!important;
         height: 9.3cm!important;
-         
+
         font-family: sans-serif!important; 
         margin: auto!important; 
         background-size: 100% auto!important; 
         /*        border: 1px solid!important;*/
         text-transform: capitalize!important;
     }
-    
+
     .channelCoop{
-         
+
         border: 1px solid!important;
         padding: 5px!important;
         width: 12cm!important;
         height: 9.5cm!important;
-         
+
         margin: auto!important; 
     }
 
@@ -96,6 +106,14 @@
 
     }
 
+    .ppinstitutionName{
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.4rem;
+        font-weight: bolder;
+        font-family: Times, "Times New Roman", serif;
+    }
+
     .institutionContact{
         position: relative!important;
         text-align: center!important;   
@@ -131,6 +149,15 @@
         page-break-after:always!important;
     }
 
+    .ppposbill{
+        position: relative!important;
+        width:400px!important; 
+        margin: auto!important; 
+        background-size: 100% auto!important; 
+        border: 1px solid!important;
+        page-break-after:always!important;
+    }
+
     .posbillBreak{
         position: relative!important;
 
@@ -152,7 +179,7 @@
         padding: 5px!important;
         width: 24.2cm!important;
         height: 9.3cm!important;
-         
+
         font-family: sans-serif!important; 
         margin: auto!important; 
         background-size: 100% auto!important; 
@@ -162,13 +189,13 @@
 
     .channelCoop{
         position: relative!important;
-         
+
         font-family: sans-serif!important; 
         border: 1px solid!important;
         padding: 5px!important;
         width: 12cm!important;
         height: 9.5cm!important;
-         
+
         margin: auto!important; 
         background-size: 100% auto!important;
     }
@@ -211,11 +238,28 @@
 
     }
 
+    .ppinstitutionName{
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.4rem;
+        font-weight: bolder;
+        font-family: Times, "Times New Roman", serif;
+
+
+    }
+
     .institutionContact{
         position: relative!important;
         text-align: center!important;   
-        font-size: 12px!important;
+        font-size: 1.5rem!important;
         font-family:monospace;
+    }
+    
+    .ppinstitutionContact{
+        position: relative!important;
+        text-align: center!important;   
+        font-size: 0.9rem;
+        font-family: Times, "Times New Roman", serif;
     }
 
     .billDetails{
@@ -233,6 +277,13 @@
     text-align: center!important;   
     font-size: 12px!important;
     font-family:monospace;
+}
+
+.ppinstitutionContact{
+    position: relative!important;
+    text-align: center!important;   
+    font-size: 0.9rem;
+    font-family: Times, "Times New Roman", serif;
 }
 
 .billDetails{
@@ -282,6 +333,12 @@
 }
 
 
+.ppitemsBlock{
+    font-size: 1rem;
+    font-family:monospace;
+    text-transform: capitalize!important;
+}
+
 itemsBlockRight{
     text-align: right!important;   
     font-size: 13px!important;
@@ -323,6 +380,13 @@ itemsBlockRight{
     font-size: 12px!important;
     font-weight: bold;
 }
+
+.ppheadingBill{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 
 .headingBillFiveFive{
     text-align: center!important;

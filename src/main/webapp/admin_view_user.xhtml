@@ -12,9 +12,11 @@
         <ui:composition template="/resources/template/template.xhtml">
 
             <ui:define name="content">
-               
+                <h:panelGroup rendered="#{!webUserController.hasPrivilege('AdminManagingUsers')}" >
+                    <h:outputLabel value="You are NOT authorized"/>
+                </h:panelGroup>
 
-                <h:panelGroup  >
+                <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
                     <h:form  >
                         <p:panelGrid columns="5" >
                             <p:outputLabel value="Search Users" ></p:outputLabel>
