@@ -1416,6 +1416,14 @@ public class BhtSummeryController implements Serializable {
     }
 
     public boolean checkBill() {
+        
+        boolean skipChecking = true;
+        
+        if(skipChecking){
+            return true;
+        }
+        
+        
         if (getInwardBean().checkByBillFee(getPatientEncounter(), new BilledBill(), BillType.InwardBill)) {
             UtilityController.addErrorMessage("Some Inward Service Bills Are Not Checked ");
             return true;
