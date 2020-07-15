@@ -6,7 +6,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:st="http://java.sun.com/jsf/composite/store">
-
+    <h:head >
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    </h:head>
     <h:body>
 
         <ui:composition template="/resources/template/template.xhtml">
@@ -17,32 +20,35 @@
                     <p:panel  >
                         <f:facet name="header" >
                             <h:outputLabel value="Purchase Reprint" ></h:outputLabel>
-                            <hr/>
-                            <p:commandButton value="Reprint" ajax="false" >
-                                <p:printer target="gpBillPreview" ></p:printer>
-                            </p:commandButton>                         
                         </f:facet>
 
-                        <p:commandButton value="Cancel" ajax="false" action="store_cancel_purchase" disabled="#{storeBillSearch.bill.cancelled}">                           
-                             
-                        </p:commandButton>     
-                        <p:commandButton  value="Return" ajax="false" action="store_return_purchase" disabled="#{storeBillSearch.bill.cancelled}" >
-                            <f:setPropertyActionListener target="#{storePurchaseReturnController.bill}"  value="#{storeBillSearch.bill}"/>
-                        </p:commandButton>
+                        <h:panelGrid columns="6" >
+                            <p:commandButton value="Reprint" ajax="false" >
+                                <p:printer target="gpBillPreview" ></p:printer>
+                            </p:commandButton>   
+                            <p:commandButton value="To Cancel" ajax="false" action="store_cancel_purchase" disabled="#{storeBillSearch.bill.cancelled}">                           
+                            </p:commandButton>     
+                            <p:commandButton  value="To Return" ajax="false" action="store_return_purchase" disabled="#{storeBillSearch.bill.cancelled}" >
+                                <f:setPropertyActionListener target="#{storePurchaseReturnController.bill}"  value="#{storeBillSearch.bill}"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+
+
+
+                        <h:panelGroup >
+                            <h:panelGroup id="gpBillPreview" >
+                                <st:purhcase bill="#{storeBillSearch.bill}" />
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+
+
                     </p:panel>
 
 
 
 
-                    <h:panelGroup >
 
-                        <h:panelGroup id="gpBillPreview" >
-                            <st:purhcase bill="#{storeBillSearch.bill}" />
-                            
-
-                        </h:panelGroup>
-
-                    </h:panelGroup>
 
 
                 </h:form>
