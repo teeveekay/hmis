@@ -60,8 +60,16 @@
                         <br/>
                         <h:outputLabel value="Current Stock" ></h:outputLabel>
                         <h:outputLabel value="" ></h:outputLabel>
+                        
+                        <p:commandButton value="Download" ajax="false" >
+                            <p:dataExporter target="tbl" type="xls" fileName="error" ></p:dataExporter>
+                        </p:commandButton>
 
-                        <p:dataTable value="#{pharmacyErrorChecking.billItems}" var="pb"  rowIndexVar="i"
+                        <p:dataTable value="#{pharmacyErrorChecking.billItems}" 
+                                     id="tbl"
+                                     var="pb"
+                                     rowIndexVar="i"
+                                     rowKey="#{pb.id}"
                                      rows="100"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -123,6 +131,20 @@
 
                             <p:column headerText="PH Free Qty"  sortBy="#{pb.pharmaceuticalBillItem.freeQtyInUnit}" filterBy="#{pb.pharmaceuticalBillItem.freeQtyInUnit}" filterMatchMode="contains" >
                                 <h:outputLabel value="#{pb.pharmaceuticalBillItem.freeQtyInUnit}" >
+                                </h:outputLabel>
+                            </p:column>
+
+
+                            <p:column headerText="Rate"  sortBy="#{pb.rate}" 
+                                      filterBy="#{pb.rate}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{pb.rate}" >
+                                </h:outputLabel>
+                            </p:column>
+
+
+                            <p:column headerText="Retail Rate"  sortBy="#{pb.pharmaceuticalBillItem.retailRate}" 
+                                      filterBy="#{pb.pharmaceuticalBillItem.retailRate}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{pb.pharmaceuticalBillItem.retailRate}" >
                                 </h:outputLabel>
                             </p:column>
 

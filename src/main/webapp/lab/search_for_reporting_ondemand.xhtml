@@ -10,7 +10,7 @@
         <ui:composition template="/resources/template/template.xhtml">
             <ui:define name="content">
                 <h:form>
-                    <p:panelGrid columns="2" styleClass="alignTop" >
+                    <p:panelGrid columns="2" styleClass="alignTop" style="width: 99%;margin: auto;" >
                         <p:panelGrid columns="1" >
 
                             <p:commandButton id="btnSearch3" ajax="false" value="Dept Search" action="#{searchController.createPatientInvestigationsTableLogin()}" style="width: 97%; margin: auto;" />
@@ -92,7 +92,7 @@
 
 
                         <p:dataTable  id="tblBills" value="#{searchController.patientInvestigations}" 
-                                      var="pi" rowIndexVar="i"
+                                      var="pi" rowIndexVar="i" style="width: 99%;"
                                       rowKey="#{pi.id}"
 
                                       rows="20"
