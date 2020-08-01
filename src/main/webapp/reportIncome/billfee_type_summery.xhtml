@@ -39,6 +39,20 @@
                                         <f:selectItem itemLabel="All Types" ></f:selectItem>
                                         <f:selectItems value="#{enumController.billClassTypes}" ></f:selectItems>
                                     </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="Item"/>
+                                    <p:autoComplete id="cmbItem"  placeholder="All Items"
+                                                    forceSelection="true" inputStyle="width:190px;"
+                                                    completeMethod="#{itemController.completeItem}" styleClass="noPrintButton"
+                                                    var="i" itemLabel="#{i.name}" itemValue="#{i}"
+                                                    value="#{billSearch.item}" >
+                                        <p:column headerText="Name">
+                                            <p:outputLabel value="#{i.name}" ></p:outputLabel>
+                                        </p:column>
+                                        <p:column headerText="Department">
+                                            <p:outputLabel value="#{i.department.name}" ></p:outputLabel>
+                                        </p:column>
+                                    </p:autoComplete>
 
                                     <h:outputLabel value="User"/>
                                     <p:autoComplete id="cmbUser" converter="webUs" placeholder="All Users"
@@ -46,6 +60,7 @@
                                                     completeMethod="#{webUserController.completeUser}" styleClass="noPrintButton"
                                                     var="w" itemLabel="#{w.webUserPerson.name}" itemValue="#{w}"
                                                     value="#{billSearch.user}" >
+                                        
                                     </p:autoComplete>
                                 </h:panelGrid>
                                 <h:panelGrid columns="3" >

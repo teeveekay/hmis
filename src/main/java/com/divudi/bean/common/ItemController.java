@@ -606,24 +606,6 @@ public class ItemController implements Serializable {
 
     public List<Item> completeItem(String query) {
         return completeItem(query, null, null, 20);
-//        List<Item> suggestions;
-//        String sql;
-//        HashMap hm = new HashMap();
-//        if (query == null) {
-//            suggestions = new ArrayList<>();
-//        } else {
-//            sql = "select c from Item c "
-//                    + " where c.retired=false"
-//                    + "  and (upper(c.name) like :q"
-//                    + "  or upper(c.barcode) like :q"
-//                    + "  or upper(c.code) like :q )"
-//                    + " order by c.name";
-//            hm.put("q", "%" + query.toUpperCase() + "%");
-//////System.out.println(sql);
-//            suggestions = getFacade().findBySQL(sql, hm, 20);
-//        }
-//        return suggestions;
-//
     }
 
     List<Item> itemList;

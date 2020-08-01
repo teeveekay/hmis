@@ -31,6 +31,7 @@ import com.divudi.entity.BillItem;
 import com.divudi.entity.CancelledBill;
 import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
+import com.divudi.entity.Item;
 import com.divudi.entity.LazyBill;
 import com.divudi.entity.Payment;
 import com.divudi.entity.RefundBill;
@@ -158,6 +159,7 @@ public class BillSearch implements Serializable {
     private WebUser user;
     private BillType billType;
     private BillClassType billClassType;
+    private Item item;
     ////////////////
     private List<Bill> billsToApproveCancellation;
     private List<Bill> billsApproving;
@@ -316,6 +318,10 @@ public class BillSearch implements Serializable {
         if (user != null) {
             j += " and b.creater=:wu ";
             m.put("wu", user);
+        }
+        if (item != null) {
+            j += " and bf.billItem.item=:item ";
+            m.put("item", item);
         }
         if (billType != null) {
             j += " and b.billType=:bt ";
@@ -2591,6 +2597,8 @@ public class BillSearch implements Serializable {
     public String getEncryptedPatientReportId() {
         return encryptedPatientReportId;
     }
+    
+    
 
     public void setEncryptedPatientReportId(String encryptedPatientReportId) {
         this.encryptedPatientReportId = encryptedPatientReportId;
@@ -2606,6 +2614,14 @@ public class BillSearch implements Serializable {
 
     public SecurityController getSecurityController() {
         return securityController;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }
