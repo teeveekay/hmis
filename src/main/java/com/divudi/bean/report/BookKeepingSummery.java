@@ -1473,7 +1473,6 @@ public class BookKeepingSummery implements Serializable {
         Date fd = getCommonFunctions().getStartOfDay(date);
         Date td = getCommonFunctions().getEndOfDay(date);
 
-
         Map m = new HashMap();
         m.put("fd", fd);
         m.put("td", td);
@@ -1521,7 +1520,6 @@ public class BookKeepingSummery implements Serializable {
                 + " from Bill b "
                 + " where b.retired=false "
                 + " and b.createdAt between :fd and :td ";
-
 
         Map m = new HashMap();
         m.put("fd", fd);
@@ -1690,7 +1688,6 @@ public class BookKeepingSummery implements Serializable {
         List<BookKeepingSummeryRow> bookKeepingSummery = new ArrayList<>();
         totalRegentFee = 0;
 
-
         for (Item item : getItems(billClassType, billTypes, feeTypes,
                 department, institution, fDate, tDate, cancelled, refunded)) {
 
@@ -1746,7 +1743,6 @@ public class BookKeepingSummery implements Serializable {
             Object[] obj = getBillFeeFacade().findAggregate(sql, hm, TemporalType.TIMESTAMP);
 
             System.out.println("obj = " + obj);
-
 
             BookKeepingSummeryRow bkr = new BookKeepingSummeryRow();
 
@@ -2282,7 +2278,7 @@ public class BookKeepingSummery implements Serializable {
                 + " bi.bill.billClassType "
                 + " from BillFee bf join bf.billItem bi join bi.item i join i.category c "
                 + " where bi.bill.institution=:ins "
-//                + " and bf.department.institution=:ins "
+                //                + " and bf.department.institution=:ins "
                 + " and bi.bill.billType= :bTp  "
                 + " and bi.bill.createdAt between :fromDate and :toDate "
                 + " and bi.bill.paymentMethod in :pms "
@@ -2998,7 +2994,6 @@ public class BookKeepingSummery implements Serializable {
         Date fd = getCommonFunctions().getStartOfDay(date);
         Date td = getCommonFunctions().getEndOfDay(date);
 
-
         Map m = new HashMap();
         m.put("fd", fd);
         m.put("td", td);
@@ -3473,7 +3468,9 @@ public class BookKeepingSummery implements Serializable {
     public void createOutSideFeeWithPro() {
         outSideFees = new ArrayList<>();
         List<Object[]> list = getBillBean().fetchOutSideDepartment(getFromDate(), getToDate(), getInstitution());
-
+        if (list == null) {
+            return;
+        }
         for (Object[] obj : list) {
             String1Value2 newRow = new String1Value2();
             Department department = (Department) obj[0];
@@ -3510,7 +3507,9 @@ public class BookKeepingSummery implements Serializable {
 
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchDepartmentSale(getFromDate(), getToDate(), getInstitution(), BillType.PharmacySale);
-
+        if (list == null) {
+            return;
+        }
         for (Object[] obj : list) {
             String1Value2 newRow = new String1Value2();
             Department department = ((Department) obj[0]);
@@ -3536,7 +3535,9 @@ public class BookKeepingSummery implements Serializable {
 
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchDepartmentSale(getFromDate(), getToDate(), getInstitution(), BillType.PharmacyWholeSale);
-
+        if (list == null) {
+            return;
+        }
         for (Object[] obj : list) {
             String1Value2 newRow = new String1Value2();
             Department department = ((Department) obj[0]);
@@ -3562,7 +3563,9 @@ public class BookKeepingSummery implements Serializable {
 
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchDepartmentSaleCredit(getFromDate(), getToDate(), getInstitution(), BillType.PharmacySale);
-
+        if (list == null) {
+            return;
+        }
         for (Object[] obj : list) {
             String1Value2 newRow = new String1Value2();
             Department department = ((Department) obj[0]);
@@ -3588,7 +3591,9 @@ public class BookKeepingSummery implements Serializable {
 
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchDepartmentSaleCredit(getFromDate(), getToDate(), getInstitution(), BillType.PharmacyWholeSale);
-
+        if (list == null) {
+            return;
+        }
         for (Object[] obj : list) {
             String1Value2 newRow = new String1Value2();
             Department department = ((Department) obj[0]);
@@ -3615,21 +3620,24 @@ public class BookKeepingSummery implements Serializable {
         //System.err.println("DEP " + d.getName());
         List<Object[]> list = getBillBean().fetchChannelBills(getFromDate(), getToDate(), getInstitution());
 
-        for (Object[] obj : list) {
-            String1Value2 newRow = new String1Value2();
-            Department department = ((Department) obj[0]);
-            Double value = (Double) obj[1];
+        if (list != null) {
 
-            if (department != null) {
-                newRow.setString(department.getName());
-            }
+            for (Object[] obj : list) {
+                String1Value2 newRow = new String1Value2();
+                Department department = ((Department) obj[0]);
+                Double value = (Double) obj[1];
 
-            if (value != null) {
-                newRow.setValue1(value);
-            }
+                if (department != null) {
+                    newRow.setString(department.getName());
+                }
 
-            if (value != null) {
-                getChannelBills().add(newRow);
+                if (value != null) {
+                    newRow.setValue1(value);
+                }
+
+                if (value != null) {
+                    getChannelBills().add(newRow);
+                }
             }
         }
 
@@ -3657,7 +3665,6 @@ public class BookKeepingSummery implements Serializable {
             PaymentMethod paymentMethod = (PaymentMethod) obj[1];
             double grantDbl = (Double) obj[2];
 
-
             //HEADER
 //            String3Value2 newRow = new String3Value2();
 //            newRow.setString1(admissionType.getName() + " : ");
@@ -3679,6 +3686,10 @@ public class BookKeepingSummery implements Serializable {
         inwardCollections = new ArrayList<>();
 
         List<Object[]> list = getBillBean().calInwardPaymentTotal(fromDate, toDate, institution);
+
+        if (list == null) {
+            return;
+        }
 
         for (Object[] obj : list) {
             AdmissionType admissionType = (AdmissionType) obj[0];
@@ -3927,7 +3938,7 @@ public class BookKeepingSummery implements Serializable {
 //            UtilityController.addErrorMessage("Date Range is too Long");
 //            return;
 //        }
-        PaymentMethod[] paymentMethods = {PaymentMethod.Cash, PaymentMethod.Cheque, PaymentMethod.Slip, PaymentMethod.Card,PaymentMethod.OnlineSettlement};
+        PaymentMethod[] paymentMethods = {PaymentMethod.Cash, PaymentMethod.Cheque, PaymentMethod.Slip, PaymentMethod.Card, PaymentMethod.OnlineSettlement};
         createOPdListWithProDayEndTable(Arrays.asList(paymentMethods));
         opdCashVatTotal = createOPdListWithProDayEndTableTotal(Arrays.asList(paymentMethods));
         createOPdListWithProDayEndTableCredit(Arrays.asList(new PaymentMethod[]{PaymentMethod.Credit,}));
@@ -4428,7 +4439,6 @@ public class BookKeepingSummery implements Serializable {
             }
         }
 
-
         commonController.printReportDetails(fromDate, toDate, startTime, "Reports/Institution reports/Credit company/Credit company break down/Process Credit Items Paid(/faces/reportInstitution/report_credit_category.xhtml)");
     }
 
@@ -4737,7 +4747,7 @@ public class BookKeepingSummery implements Serializable {
         sql = "select sum(bf.feeValue) "
                 + " from BillFee bf join bf.billItem bi join bi.item i join i.category c "
                 + " where bi.bill.institution=:ins "
-//                + " and bf.department.institution=:ins "
+                //                + " and bf.department.institution=:ins "
                 + " and bi.bill.billType= :bTp  "
                 + " and bi.bill.createdAt between :fromDate and :toDate "
                 + " and bi.bill.paymentMethod in :pms "
@@ -4799,7 +4809,7 @@ public class BookKeepingSummery implements Serializable {
         sql = "select distinct(c) "
                 + " from BillFee bf join bf.billItem bi join bi.item i join i.category c "
                 + " where bi.bill.institution=:ins "
-//                + " and bf.department.institution=:ins "
+                //                + " and bf.department.institution=:ins "
                 + " and bi.bill.billType= :bTp  "
                 + " and bi.bill.createdAt between :fromDate and :toDate "
                 + " and bi.bill.paymentMethod in :pms"
@@ -4816,7 +4826,7 @@ public class BookKeepingSummery implements Serializable {
         return cats;
     }
 
-    public List<Category> fetchCategories(List<PaymentMethod> paymentMethods, Date fd, Date td,Institution institution) {
+    public List<Category> fetchCategories(List<PaymentMethod> paymentMethods, Date fd, Date td, Institution institution) {
         List<Category> cats = new ArrayList<>();
         String sql;
         Map m = new HashMap();
@@ -4836,7 +4846,7 @@ public class BookKeepingSummery implements Serializable {
 
         m.put("toDate", td);
         m.put("fromDate", fd);
-        
+
         m.put("bTp", BillType.OpdBill);
         m.put("pms", paymentMethods);
 
