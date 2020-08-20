@@ -21,7 +21,7 @@
 
                 <h:form id="bill" >
                     <p:commandButton id="nullButton2" value="No Action" action="#" style="display: none;" ></p:commandButton>
-                    <p:defaultCommand  target="btnAdd" />  
+                    <!--<p:defaultCommand  target=":bill:btnAdd" />-->  
 
                     <p:panel rendered="#{!pharmacySaleController.billPreview}"  >
                         <h:panelGroup id="panelError" >
@@ -47,7 +47,7 @@
                                 <h:panelGrid columns="1" >
                                     <h:panelGrid columns="6" >
                                         <h:panelGrid columns="1" >
-                                            <p:outputLabel value="Medicines/Devices" ></p:outputLabel>
+                                            <p:outputLabel value="Medicines" ></p:outputLabel>
                                             <style>
                                                 .ui-autocomplete-input {width:350px!important;display: block;}
                                                 .ui-autocomplete{display: block!important;}

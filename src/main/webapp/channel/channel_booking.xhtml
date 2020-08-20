@@ -590,7 +590,7 @@
 
                         <h:panelGroup id="panelAddedBillPrint" styleClass="noBorder" rendered="#{channelBillController.settleSucessFully}" >
                             <div>
-                                <h:panelGroup rendered="#{sessionController.loggedPreference.channelBillPaperType eq 'FiveFivePaper' and sessionController.loggedPreference.applicationInstitution eq 'Ruhuna'}" >
+                                <h:panelGroup  >
                                     <ch:channelRecipt bill="#{channelBillController.printingBill}" dup="false" />
                                 </h:panelGroup>
                             </div>
@@ -878,7 +878,7 @@
                             <div style="width: 780px!important;height: 330px!important;overflow:scroll!important;" >
                                 <h:panelGroup id="panelAddedBillPrintRe" styleClass="noBorder" >
                                     <div>
-                                        <h:panelGroup rendered="#{sessionController.loggedPreference.channelBillPaperType eq 'FiveFivePaper' and sessionController.loggedPreference.applicationInstitution eq 'Ruhuna'}" >
+                                        <h:panelGroup  >
                                             <ch:channelRecipt bill="#{channelBillController.billSession.billItem.bill}" dup="true"  
                                                               />
                                         </h:panelGroup>
