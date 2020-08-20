@@ -110,7 +110,7 @@ public class Lims {
             @PathParam("username") String username,
             @PathParam("password") String password) {
         // System.out.println("password = " + password);
-        System.out.println("generateSamplesFromBill");
+//        System.out.println("generateSamplesFromBill");
         boolean failed = false;
         JSONArray array = new JSONArray();
         JSONObject jSONObjectOut = new JSONObject();
