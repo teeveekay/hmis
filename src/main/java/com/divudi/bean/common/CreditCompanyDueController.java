@@ -386,7 +386,6 @@ public class CreditCompanyDueController implements Serializable {
 
             double finalValue = (b.getNetTotal() + b.getPaidAmount());
 
-            System.err.println("DayCount " + dayCount);
 
             if (dayCount < 30) {
                 dataTable5Value.setValue1(dataTable5Value.getValue1() + finalValue);
@@ -411,7 +410,6 @@ public class CreditCompanyDueController implements Serializable {
 
             double finalValue = (b.getNetTotal() + b.getPaidAmount());
 
-            System.err.println("DayCount " + dayCount);
 
             if (dayCount < 30) {
                 dataTable5Value.setValue1(dataTable5Value.getValue1() + finalValue);
@@ -436,7 +434,6 @@ public class CreditCompanyDueController implements Serializable {
 
             double finalValue = (b.getNetTotal() + b.getPaidAmount());
 
-            System.err.println("DayCount " + dayCount);
 
             if (dayCount < 30) {
                 dataTable5Value.setValue1(dataTable5Value.getValue1() + finalValue);

@@ -3382,7 +3382,6 @@ public class CommonReport implements Serializable {
             sql = "select b from Bill b where b.deptId=:bn ";
 //            d = getBillFacade().findDateByJpql(sql, m);
             b = getBillFacade().findBySQL(sql, m);
-            System.err.println("m = " + m);
         }
         if (!b.isEmpty()) {
             d = b.get(0).getCreatedAt();

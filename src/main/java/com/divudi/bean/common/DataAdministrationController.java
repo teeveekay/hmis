@@ -329,7 +329,6 @@ public class DataAdministrationController {
         for (Bill cb : bills) {
             // System.out.println("cb = " + cb);
             for (BillItem bi : cb.getBillItems()) {
-                System.err.println("**************");
                 // System.out.println("bi = " + bi);
                 // System.out.println("bi.getRetiredAt() = " + bi.getRetiredAt());
                 // System.out.println("bi.isRetired() = " + bi.isRetired());
@@ -385,7 +384,6 @@ public class DataAdministrationController {
             i.setVatable(true);
             i.setVatPercentage(15.0);
             itemFacade.edit(i);
-            System.err.println("**** " + j + " ****");
             // System.out.println("i.getName() = " + i.getName());
             // System.out.println("i.getVatPercentage() = " + i.getVatPercentage());
             j++;
@@ -849,7 +847,6 @@ public class DataAdministrationController {
         bills = new ArrayList<>();
         System.err.println("Time 1 = " + new Date());
         List<Object> objects = fetchAllBilledBillTypes();
-        System.err.println("Time 2 = " + new Date());
         for (Object ob : objects) {
             BillType bt = (BillType) ob;
             System.err.println("Time l1 = " + new Date());
@@ -858,7 +855,6 @@ public class DataAdministrationController {
             if (b != null) {
                 bills.add(b);
             }
-            System.err.println("Time l3 = " + new Date());
             b = fetchBill(bt, false);
             if (b != null) {
                 bills.add(b);
@@ -871,13 +867,11 @@ public class DataAdministrationController {
         System.err.println("Time 1 = " + new Date());
         BillListWithTotals totals = billEjb.findBillsAndTotals(fromDate, toDate, new BillType[]{reportKeyWord.getBillType()}, null, null, null, null);
         // System.out.println("totals.getBills() = " + totals.getBills().size());
-        System.err.println("Time 2 = " + new Date());
         for (Bill b : totals.getBills()) {
 //            System.err.println("Time For In = " + new Date());
             for (Bill bb : totals.getBills()) {
                 try {
                     if (b.getInsId().equals(bb.getInsId()) && !b.getId().equals(bb.getId())) {
-                        System.err.println("********");
                         // System.out.println("b.getInsId() = " + b.getInsId());
                         bills.add(b);
                     }
@@ -894,7 +888,6 @@ public class DataAdministrationController {
         System.err.println("Time 1 = " + new Date());
         BillListWithTotals totals = billEjb.findBillsAndTotals(fromDate, toDate, new BillType[]{reportKeyWord.getBillType()}, null, null, null, null);
         // System.out.println("totals.getBills() = " + totals.getBills().size());
-        System.err.println("Time 2 = " + new Date());
         for (Bill b : totals.getBills()) {
             bills.add(b);
         }

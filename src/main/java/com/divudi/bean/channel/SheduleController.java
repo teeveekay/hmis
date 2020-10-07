@@ -552,7 +552,6 @@ public class SheduleController implements Serializable {
     }
 
     public void saveSelected() {
-        System.err.println("1 " + getItemFees().size());
         //// System.out.println("session name"+current.getName());
         if (checkError()) {
             return;
@@ -621,6 +620,10 @@ public class SheduleController implements Serializable {
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
             System.err.println("Time stage 3.2 = " + new Date());
             if (tmp.isEmpty()) {
                 return;
@@ -628,10 +631,9 @@ public class SheduleController implements Serializable {
             System.err.println("Time stage 4.1 = " + new Date());
             generateDailyServiceSessionsFromWeekdaySessionsNewByServiceSessionId(tmp, null);
             System.err.println("Time stage 4.2 = " + new Date());
+//            generateSessionEvents(serviceSessions);
+//            generateSessionEvents(serviceSessions);
 
-            System.err.println("Time stage 5 = " + new Date());
-//            generateSessionEvents(serviceSessions);
-//            generateSessionEvents(serviceSessions);
         }
     }
 
@@ -898,7 +900,6 @@ public class SheduleController implements Serializable {
                 + " order by f.id";
         m.put("fType", feeType);
         list = serviceSessionFacade.findBySQL(sql, m);
-        System.err.println("********");
         // System.out.println("m = " + m);
         // System.out.println("sql = " + sql);
         return list;
@@ -919,12 +920,10 @@ public class SheduleController implements Serializable {
                     itemFee.setSpeciality(ss.getStaff().getSpeciality());
                     itemFee.setStaff(ss.getStaff());
                 } else {
-                    System.err.println("**** No Specility****");
                     // System.out.println("ss.getName() = " + ss.getName());
                     return;
                 }
             } catch (Exception e) {
-                System.err.println("**** No Specility****");
                 // System.out.println("ss.getName() = " + ss.getName());
                 return;
             }
@@ -934,7 +933,6 @@ public class SheduleController implements Serializable {
 
     public void createFeesForServiceSessionList(List<ServiceSession> serviceSessions, String name, FeeType ft) {
         for (ServiceSession ss : serviceSessions) {
-            System.err.println("*********");
             // System.out.println("s.getName() = " + ss.getName());
             createFee(ss, name, ft);
         }

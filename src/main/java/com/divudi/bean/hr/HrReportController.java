@@ -1222,7 +1222,6 @@ public class HrReportController implements Serializable {
                 }
                 if (ss.getBankBranch().getInstitution().equals(b)) {
                     System.err.println("ss.getBankBranch().getInstitution().getName() = " + ss.getBankBranch().getInstitution().getName());
-                    System.err.println("b.getName() = " + b.getName());
                     if (otPayment && netSalary) {
                         nettotal += ss.getTransNetSalry();
                         netot += (ss.getTransExtraDutyValue() + ss.getOverTimeValue());
@@ -1843,7 +1842,6 @@ public class HrReportController implements Serializable {
         staffShiftExtraDuties = humanResourceBean.fetchStaffShiftExtraDuty(getSalaryCycle().getWorkedFromDate(), getSalaryCycle().getWorkedToDate(), getReportKeyWord().getStaff());
         System.err.println("Sh Extra Duty " + staffShiftExtraDuties);
         staffLeavesNoPay = humanResourceBean.fetchStaffLeaveAddedLeaveList(getReportKeyWord().getStaff(), LeaveType.No_Pay, getSalaryCycle().getSalaryFromDate(), getSalaryCycle().getSalaryToDate());
-        System.err.println("User Leave " + staffLeavesNoPay);
         staffLeaveSystem = humanResourceBean.fetchStaffLeaveSystemList(getReportKeyWord().getStaff(), getSalaryCycle().getSalaryFromDate(), getSalaryCycle().getSalaryToDate());
 
         calculateWorkedTime();
@@ -3206,8 +3204,6 @@ public class HrReportController implements Serializable {
 
             List<Object[]> list = fetchWorkedTimeByDateOnly(stf); // Added by Buddhika
 
-            System.err.println("list = " + list);
-
 //            fetchWorkedTimeTemporary(stf); // For Testing
             int i = 0;
             for (Object[] obj : list) {
@@ -3239,7 +3235,6 @@ public class HrReportController implements Serializable {
                 }
                 Double leavedTimeValue = (Double) obj[5] != null ? (Double) obj[5] : 0;
 
-                System.err.println("Staff " + stf.getCodeInterger() + " :Value : " + value);
                 if (ss.getShift() != null && ss.getShift().getLeaveHourHalf() != 0 && leavedTimeValue > 0) {
                     // System.out.println("value = " + value);
                     // System.out.println("leavedTimeValue = " + leavedTimeValue);
@@ -3340,7 +3335,6 @@ public class HrReportController implements Serializable {
         toCal.set(Calendar.MILLISECOND, 999);
 
         System.err.println("FROM " + frmCal.getTime());
-        System.err.println("TO " + toCal.getTime());
 
         overTimeAllMonths = new ArrayList<>();
         summeryForMonths = new ArrayList<>();
@@ -3365,7 +3359,6 @@ public class HrReportController implements Serializable {
             frmCal.add(Calendar.DATE, 7);
             toCal.add(Calendar.DATE, 7);
             System.err.println("FROM " + frmCal.getTime());
-            System.err.println("TO " + toCal.getTime());
         }
 
         commonController.printReportDetails(fromDate, toDate, startTime, "HR/Reports/Summery/minute summery(/faces/hr/hr_report_month_end_work_time_miniuts_summery.xhtml)");
@@ -3373,9 +3366,8 @@ public class HrReportController implements Serializable {
 
     public List<WeekDayWork> createMonthEndWorkTimeReport(Date frDate, Date tDate, int j) {
         Long dateCount = commonFunctions.getDayCount(frDate, tDate);
-
-        System.err.println(dateCount);
 //        double numOfWeeks = dateCount / 7.0;
+
 
         List<Staff> staffList = fetchStaff(frDate, tDate);
         weekDayWorks = new ArrayList<>();
@@ -3386,7 +3378,6 @@ public class HrReportController implements Serializable {
 
             List<Object[]> list = fetchWorkedTimeByDateOnly(stf, frDate, tDate);
 
-            System.err.println("list = " + list.size());
 
 //            fetchWorkedTimeTemporary(stf); // For Testing
             int i = 0;
@@ -3477,7 +3468,6 @@ public class HrReportController implements Serializable {
                     }
                 }
 
-                System.err.println("Staff " + stf.getCodeInterger() + " :Value : " + value);
                 switch (dayOfWeek) {
                     case Calendar.SUNDAY:
                         weekDayWork.setSunDay(value);
@@ -3602,7 +3592,6 @@ public class HrReportController implements Serializable {
             UtilityController.addErrorMessage("Check Date Range .Date range should be within 8 days");
             return;
         }
-        System.err.println("Date Count is " + dateCount);
 
         List<Staff> staffList = fetchStaff();
         weekDayWorks = new ArrayList<>();
@@ -3637,7 +3626,6 @@ public class HrReportController implements Serializable {
                 double workedWithinTimeFrameVarified = getHumanResourceBean().calculateWorkTimeForOverTimeByDate(frmCal.getTime(), toCal.getTime(), stf);
                 value = workedWithinTimeFrameVarified;
 
-                System.err.println("From " + frmCal.getTime() + " to " + toCal.getTime() + " workedtime varified is " + workedWithinTimeFrameVarified / (60 * 60));
 
                 Integer dayOfWeek = frmCal.get(Calendar.DAY_OF_WEEK) + 1;
 
@@ -4432,7 +4420,6 @@ public class HrReportController implements Serializable {
         bankViseSalaryAndOts = new ArrayList<>();
         totalValue = 0.0;
         for (Institution i : createBanks()) {
-            System.err.println("i = " + i);
             if (i != null) {
                 double netTotal = createBankTotal(i);
                 // System.out.println("i.getName() = " + i.getName());
@@ -5015,7 +5002,6 @@ public class HrReportController implements Serializable {
             for (StaffSalaryComponant p : s.getStaffSalaryComponants()) {
                 if (p.getStaffPaysheetComponent().getPaysheetComponent().getComponentType() == PaysheetComponentType.BasicSalary) {
                     s.setBasicVal(p.getStaffPaysheetComponent().getStaffPaySheetComponentValue());
-                    System.err.println("s.getBasicVal() = " + s.getBasicVal());
                 }
             }
             LocalDate JoinDate = new LocalDate(s.getStaff().getDateJoined());

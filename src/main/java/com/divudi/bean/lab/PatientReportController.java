@@ -210,7 +210,6 @@ public class PatientReportController implements Serializable {
             Date expiaryDate;
             try {
                 String ed = encryptedExpiary;
-                System.err.println("1 " + encryptedExpiary);
                 ed = securityController.decrypt(ed);
                 if (ed == null) {
                     return;
@@ -1626,7 +1625,6 @@ public class PatientReportController implements Serializable {
             r = new PatientReport();
             r.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             r.setCreater(getSessionController().getLoggedUser());
-            System.err.println("getSessionController().getLoggedUser() = " + getSessionController().getLoggedUser());
             r.setItem(ix);
             r.setDataEntryDepartment(sessionController.getLoggedUser().getDepartment());
             r.setDataEntryInstitution(sessionController.getLoggedUser().getInstitution());
@@ -1758,7 +1756,6 @@ public class PatientReportController implements Serializable {
         j = "select pr from PatientReport pr"
                 + " where pr.item=:ix "
                 + " order by pr.id desc";
-        System.err.println("j = " + j);
         pr = getFacade().findFirstBySQL(j, m);
         return pr;
     }

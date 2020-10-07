@@ -716,7 +716,6 @@ public class CashierReportController implements Serializable {
             double uCredit = 0;
             double uSlip = 0;
             for (BillType btp : getEnumController().getCashFlowBillTypes()) {
-                System.err.println("btp = " + btp);
                 BillsTotals newB = calculateBillTotalsByPaymentMethod(btp, "Billed", new BilledBill(), webUser);
                 BillsTotals newC = calculateBillTotalsByPaymentMethod(btp, "Cancelled", new CancelledBill(), webUser);
                 BillsTotals newR = calculateBillTotalsByPaymentMethod(btp, "Refunded", new RefundBill(), webUser);

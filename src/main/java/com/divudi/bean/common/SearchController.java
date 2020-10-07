@@ -5345,7 +5345,6 @@ public class SearchController implements Serializable {
     }
 
     public void createSearchBill() {
-        System.err.println("****");
         if (getSearchKeyword().getInsId() == null && getSearchKeyword().getDeptId() == null
                 && getSearchKeyword().getBhtNo() == null && getSearchKeyword().getRefBillNo() == null) {
             JsfUtil.addErrorMessage("Enter BHT No or Bill No");
@@ -7123,7 +7122,6 @@ public class SearchController implements Serializable {
             FileOutputStream out = new FileOutputStream(f);
             int read = 0;
             byte[] bytes = new byte[1024];
-            System.err.println("in 4");
             while ((read = in.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }

@@ -644,7 +644,6 @@ public class StaffSalaryController implements Serializable {
 //            //// System.out.println("i = " + i);
             double workedWithinTimeFrameVarified = getHumanResourceBean().calculateWorkTimeForOverTime(frmCal.getTime(), toCal.getTime(), getCurrent().getStaff());
 
-            System.err.println("FROM " + i + frmCal.getTime());
 
             //The below line was commented by safrin. Buddhiks uncommented it. Please double check.
 //            workedWithinTimeFrameVarified += getHumanResourceBean().calculateLeaveTimeForOverTime(frmCal.getTime(), toCal.getTime(), getCurrent().getStaff());
@@ -717,7 +716,6 @@ public class StaffSalaryController implements Serializable {
 //            workedWithinTimeFrameVarified += getHumanResourceBean().calculateLeaveTimeForOverTime(frmCal.getTime(), toCal.getTime(), getCurrent().getStaff());
             double otSec = humanResourceBean.getOverTimeFromRoster(getCurrent().getStaff().getWorkingTimeForOverTimePerWeek(), 1, workedWithinTimeFrameVarified);
 
-            System.err.println("OT Min : " + otSec / 60);
 
             overTimeSec += otSec;
             frmCal.add(Calendar.DATE, 7);
@@ -1039,7 +1037,6 @@ public class StaffSalaryController implements Serializable {
             if (staffSalaryComponant.getStaffPaysheetComponent().getPaysheetComponent().isIncludedForNoPay()
                     && staffSalaryComponant.getStaffPaysheetComponent().getPaysheetComponent().getComponentType() != PaysheetComponentType.BasicSalary
                     && staffSalaryComponant.getStaffPaysheetComponent().getPaysheetComponent().getComponentType().is(PaysheetComponentType.addition)) {
-                System.err.println("*******************");
                 // System.out.println("staffSalaryComponant.getComponantValue() = " + staffSalaryComponant.getComponantValue());
                 if (staffSalaryComponant.getStaffPaysheetComponent().getPaysheetComponent().getComponentType() == PaysheetComponentType.PerformanceAllowance) {
                     double d = (staffSalaryComponant.getStaffPaysheetComponent().getStaffPaySheetComponentValue() * (staffSalaryComponant.getStaffPaysheetComponentPercentage().getStaffPaySheetComponentValue() / 100));
@@ -1201,6 +1198,7 @@ public class StaffSalaryController implements Serializable {
             getCurrent().setExtraDutySleepingDayMinute(extraTimeMinute);
             //Set Holiday Allowance
             //Set Holiday Allowance
+            //Set Holiday Allowance
 
             //Set Holiday Allowance
             System.err.println("Salary OT");
@@ -1213,7 +1211,6 @@ public class StaffSalaryController implements Serializable {
             getCurrent().setPoyaCount(count);
 
             count = setDayOffSleepingDayAllowance(PaysheetComponentType.DayOffAllowance, DayType.DayOff);
-            System.err.println("count(DayType.DayOff) = " + count);
             getCurrent().setDayOffCount(count);
 
             count = setDayOffSleepingDayAllowance(PaysheetComponentType.SleepingDayAllowance, DayType.SleepingDay);
@@ -1355,7 +1352,6 @@ public class StaffSalaryController implements Serializable {
         }
 
         System.err.println("staffShiftEarlyIn.size()" + staffShiftEarlyIn.size());
-        System.err.println("Late in Shift Reference Count " + staffShiftLateInTenMinuteLinked.size());
         if (staffShiftLateInTenMinuteLinked.size() >= shiftCount) {
             stfCurrent.setReferenceStaffShiftLateIn(stfCurrent);
             stfCurrent.setConsiderForLateIn(true);
@@ -1424,7 +1420,6 @@ public class StaffSalaryController implements Serializable {
         if (staffShiftEarlyOut == null) {
             return;
         }
-        System.err.println("staffShiftEarlyOut.size()" + staffShiftEarlyOut.size());
         if (staffShiftEarlyOut.size() != 2) {
             return;
         }

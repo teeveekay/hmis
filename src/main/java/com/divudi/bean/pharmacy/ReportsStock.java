@@ -341,7 +341,6 @@ public class ReportsStock implements Serializable {
         List<PharmaceuticalBillItem> list = getPharmaceuticalBillItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 
         for (PharmaceuticalBillItem b : list) {
-            System.err.println("Item Name " + b.getBillItem().getItem().getName());
             StockHistory sh = getPreviousStockHistoryByBatch(b.getItemBatch(), b.getBillItem().getBill().getDepartment(), b.getBillItem().getCreatedAt());
             PharmaceuticalBillItem phi = getPreviousPharmacuticalBillByBatch(b.getStock().getItemBatch(), b.getBillItem().getBill().getDepartment(), b.getBillItem().getCreatedAt());
 
@@ -463,7 +462,6 @@ public class ReportsStock implements Serializable {
                 if (calcualtedQty != curHistory) {
                     System.err.println("Itm " + ph.getBillItem().getItem().getName());
                     System.err.println("Prv History Qty " + preHistoryQty);
-                    System.err.println("Prv Qty " + previousPh.getQtyInUnit());
                     st.setCalculated(calculatedStock);
                     tmpStockList.add(st);
                 } else {

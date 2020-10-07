@@ -1159,7 +1159,6 @@ public class StaffAdditionalFormController implements Serializable {
         staffShiftExtra.setShiftStartTime(currentAdditionalForm.getFromTime());
         staffShiftExtra.setShiftEndTime(currentAdditionalForm.getToTime());
         System.err.println("staffShiftExtra.getDayType() = " + staffShiftExtra.getDayType());
-        System.err.println("dayType = " + dayType);
         staffShiftExtra.setDayType(dayType);
         staffShiftFacade.edit(staffShiftExtra);
 

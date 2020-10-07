@@ -447,7 +447,6 @@ public class ChannelBean {
 
     public List<ServiceSession> generateDailyServiceSessionsFromWeekdaySessionsNew(List<ServiceSession> inputSessions, Date d) {
         int sessionDayCount = 0;
-        System.err.println("Passing Sessions " + inputSessions.size());
         List<ServiceSession> createdSessions = new ArrayList<>();
 
         if (inputSessions == null || inputSessions.isEmpty()) {
@@ -592,7 +591,6 @@ public class ChannelBean {
         Date toDate = c.getTime();
         Integer tmp = 0;
         int rowIndex = 0;
-        System.err.println("Time 1 = " + new Date());
         List<ServiceSession> sessions = new ArrayList<>();
         int finalSessionDayCount = getFinalVariables().getSessionSessionDayCounterLargestById(inputSessions);
         while (toDate.after(nowDate) && sessionDayCount < finalSessionDayCount) {

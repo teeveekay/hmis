@@ -1276,7 +1276,6 @@ public class PharmacySaleController3 implements Serializable {
 
     public void settleBillWithPay() {
         System.err.println("3.Pharmacy Bill Start - = " + new Date());
-        System.err.println("3.sessionController.getLoggedUser().getWebUserPerson().getName() = " + sessionController.getLoggedUser().getWebUserPerson().getName());
         
         editingQty = null;
 

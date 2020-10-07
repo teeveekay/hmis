@@ -198,7 +198,6 @@ public class BillSearch implements Serializable {
             Date expiaryDate;
             try {
                 String ed = encryptedExpiary;
-                System.err.println("1 " + encryptedExpiary);
                 ed = securityController.decrypt(ed);
                 if (ed == null) {
                     return;
@@ -627,7 +626,6 @@ public class BillSearch implements Serializable {
             BillItem rbi = getBillItemFacade().findFirstBySQL(sql);
 
             if (rbi != null) {
-                System.err.println("rbi = " + rbi.getId());
                 UtilityController.addErrorMessage("This Bill Item Already Refunded");
                 return false;
             }

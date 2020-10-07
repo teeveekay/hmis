@@ -288,7 +288,6 @@ public class PriceMatrixController implements Serializable {
         // System.out.println("getOpdMemberDisCount");
         OpdMemberShipDiscount opdMemberShipDiscount = null;
 
-        System.err.println(paymentMethod);
         //Get Discount From Parent Category    
         if (opdMemberShipDiscount == null && category != null && category.getParentCategory() != null) {
             // System.out.println("Get Discount From Parent Category");
@@ -340,9 +339,8 @@ public class PriceMatrixController implements Serializable {
     public OpdMemberShipDiscount getOpdMemberDisCount(PaymentMethod paymentMethod, MembershipScheme membershipScheme, Department department) {
         // System.out.println("getOpdMemberDisCount");
         OpdMemberShipDiscount opdMemberShipDiscount = null;
+        //Get Discount From Parent Category
 
-        System.err.println(paymentMethod);
-        //Get Discount From Parent Category    
         
 
         //Get Discount From Department
@@ -399,10 +397,9 @@ public class PriceMatrixController implements Serializable {
         if (item != null) {
             category = item.getCategory();
         }
+        // System.err.println(paymentScheme);
+        // System.err.println(paymentScheme);
 
-        System.err.println(paymentMethod);
-        // System.err.println(paymentScheme);
-        // System.err.println(paymentScheme);
 
         //Get Discount From Item        
         paymentSchemeDiscount = fetchPaymentSchemeDiscount(paymentMethod, item);

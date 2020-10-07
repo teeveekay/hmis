@@ -410,19 +410,16 @@ public class InstitutionController implements Serializable {
         }
 
         if (current.getStandardCreditLimit() != scl) {
-            System.err.println("Update Standard Credit Limit");
             createAgentCreditLimitUpdateHistory(current, scl, current.getStandardCreditLimit(), historyType, "Standard Credit Limit");
             UtilityController.addSuccessMessage("Standard Credit Limit Updated");
         }
 
         if (current.getAllowedCredit() != acl) {
-            System.err.println("Update Allowed Credit Limit");
             createAgentCreditLimitUpdateHistory(current, acl, current.getAllowedCredit(), historyType, "Allowed Credit Limit");
             UtilityController.addSuccessMessage("Allowed Credit Limit Updated");
         }
 
         if (current.getMaxCreditLimit() != mcl) {
-            System.err.println("Update Max Credit Limit");
             createAgentCreditLimitUpdateHistory(current, mcl, current.getMaxCreditLimit(), historyType, "Max Credit Limit");
             UtilityController.addSuccessMessage("Max Credit Limit Updated");
         }

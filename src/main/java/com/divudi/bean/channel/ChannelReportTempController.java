@@ -409,7 +409,6 @@ public class ChannelReportTempController implements Serializable {
         Date fd = commonFunctions.getStartOfMonth(fromDate);
         Date td = commonFunctions.getEndOfMonth(commonFunctions.getStartOfMonth(toDate));
         System.err.println("td = " + td);
-        System.err.println("fd = " + fd);
 
         String sql;
         Map m = new HashMap();
@@ -511,7 +510,6 @@ public class ChannelReportTempController implements Serializable {
         Date fd = commonFunctions.getStartOfMonth(fromDate);
         Date td = commonFunctions.getEndOfMonth(commonFunctions.getStartOfMonth(toDate));
         System.err.println("td = " + td);
-        System.err.println("fd = " + fd);
 
         String sql;
         Map m = new HashMap();

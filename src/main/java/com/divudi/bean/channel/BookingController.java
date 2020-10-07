@@ -1047,7 +1047,6 @@ public class BookingController implements Serializable {
             System.err.println("Time stage 2.2 = " + new Date());
             System.err.println("Fetch Sessions " + tmp.size());
             calculateFee(tmp, channelBillController.getPaymentMethod());
-            System.err.println("Time stage 3 Calculate = " + new Date());
             serviceSessions = getChannelBean().generateDailyServiceSessionsFromWeekdaySessionsNew(tmp, sessionStartingDate);
             generateSessionEvents(serviceSessions);
             checkDoctorArival(serviceSessions);
@@ -1082,16 +1081,19 @@ public class BookingController implements Serializable {
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
 //            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
+//            calculateFeeBySessionIdList(tmp, channelBillController.getPaymentMethod());
             System.err.println("Time stage 3.2 = " + new Date());
 
             System.err.println("Time stage 4.1 = " + new Date());
             serviceSessions = getChannelBean().generateDailyServiceSessionsFromWeekdaySessionsNewByServiceSessionId(tmp, sessionStartingDate);
             System.err.println("Fetch Created Sessions " + serviceSessions.size());
             System.err.println("Time stage 4.2 = " + new Date());
+//            generateSessionEvents(serviceSessions);
+//            generateSessionEvents(serviceSessions);
 
-            System.err.println("Time stage 5 = " + new Date());
-//            generateSessionEvents(serviceSessions);
-//            generateSessionEvents(serviceSessions);
         }
     }
 

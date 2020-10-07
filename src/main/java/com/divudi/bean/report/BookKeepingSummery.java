@@ -843,8 +843,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -1105,7 +1103,6 @@ public class BookKeepingSummery implements Serializable {
             System.err.println("Fee Value " + r[3].toString());
             if (r[4] != null) {
             }
-            System.err.println("Bill Class Type = " + bct);
 
             if (pre == null) {
                 //First Time in the Loop
@@ -1845,8 +1842,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -2093,8 +2088,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -2352,8 +2345,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -2579,8 +2570,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0 || countCancelled < count) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -2837,8 +2826,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 
@@ -3167,8 +3154,6 @@ public class BookKeepingSummery implements Serializable {
             } else if (countCancelled == 0) {
                 countCancelled = count;
             } //// System.out.println("cancelled = " + countCancelled);
-
-            System.err.println("Count " + count);
             if (r[4] != null) {
             }
 

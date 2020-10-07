@@ -687,7 +687,6 @@ public class ShiftFingerPrintAnalysisController implements Serializable {
             list.add(fingerPrintRecordOut);
         }
 
-        System.err.println("2 " + fingerPrintRecordIn + " : " + fingerPrintRecordOut);
 
         FingerPrintRecord fpr = null;
         // System.out.println("ss.getStartRecord() = " + ss.getStartRecord());

@@ -106,7 +106,6 @@ public class EmailManagerEjb {
             System.err.println("Starting 2 " + messageHtml);
             multipart.addBodyPart(msbp1);
 
-            System.err.println("Starting 3" + attachmentFile1Path);
             if (attachmentFile1Path != null) {
                 File f = new File(attachmentFile1Path);
                 if (f.exists() && !f.isDirectory()) {

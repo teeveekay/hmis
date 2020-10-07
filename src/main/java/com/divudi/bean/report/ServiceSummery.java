@@ -745,7 +745,6 @@ public class ServiceSummery implements Serializable {
 
         for (BillFee bf : billFees) {
 
-            System.err.println("**");
             // System.out.println("bf.getBillItem().getBill().getInsId() = " + bf.getBillItem().getBill().getInsId());
             // System.out.println("bf.getFee().getFeeType() = " + bf.getFee().getFeeType());
             // System.out.println("bf.getFee().getId() = " + bf.getFee().getId());
@@ -753,7 +752,6 @@ public class ServiceSummery implements Serializable {
             ItemFee itemFee = itemFeeFacade.findFirstBySQL(sql);
 
             if (itemFee != null) {
-                System.err.println("**");
             }
             bf.getFee().setFeeType(FeeType.OwnInstitution);
             feeFacade.edit(bf.getFee());
@@ -1386,7 +1384,6 @@ public class ServiceSummery implements Serializable {
 
         List<BillFee> bfs = getBillFeeFacade().findBySQL(jpql, temMap, TemporalType.TIMESTAMP);
         for (BillFee bf : bfs) {
-            System.err.println("*****");
             // System.out.println("bf.getDepartment() = " + bf.getDepartment().getName());
             if (!bf.getDepartment().equals(bf.getBill().getToDepartment())) {
             }
