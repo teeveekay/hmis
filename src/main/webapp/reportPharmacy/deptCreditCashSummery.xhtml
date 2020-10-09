@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/resources/template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:panel id="reportPrint" header="Pharmacy Cash/Credit Summery">
+
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel value="From"/>
+                            <p:calendar id="frmDate" value="#{billSearch.fromDate}" navigator="true"  pattern="dd MMMM yyyy HH:mm:ss" >
+                            </p:calendar>
+
+                            <h:outputLabel value="To"/>
+                            <p:calendar id="toDate" value="#{billSearch.toDate}" navigator="true" pattern="dd MMMM yyyy HH:mm:ss" >
+                            </p:calendar>
+
+                            <h:outputLabel  value="Department"/>
+                            <p:autoComplete   value="#{billSearch.department}"  completeMethod="#{departmentController.completeDept}" var="dept" itemValue="#{dept}" itemLabel="#{dept.name}" forceSelection="true" rendered="true" requiredMessage="You must select a department" >
+                            </p:autoComplete>
+
+                            <h:outputLabel  value="User"/>
+                            <p:autoComplete converter="webUs" completeMethod="#{webUserController.completeUser}" 
+                                            forceSelection="true"
+                                            var="w" itemLabel="#{w.webUserPerson.name}" itemValue="#{w}"
+                                            value="#{billSearch.user}" ></p:autoComplete>
+
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" >
+                            <p:commandButton id="btnRefresh" ajax="false" value="Process"  
+                                             style="float: right;" action="#{billSearch.findPharmacyCashCredit}" />
+                            <p:commandButton ajax="false" value="Print"  style="float: right;" >
+                                <p:printer target="details"  />
+                            </p:commandButton>
+                        </p:panelGrid>
+
+                        <p:panel header="Pharmacy Cash/Credit Summery" id="details">
+                            <p:panelGrid columns="2"  >
+                                <p:outputLabel value="From" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.fromDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" ></f:convertDateTime>
+                                </p:outputLabel>
+
+                                <p:outputLabel value="To" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.toDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm a" ></f:convertDateTime>
+                                </p:outputLabel>
+
+                                <p:outputLabel value="Department" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.department.name}" >
+                                </p:outputLabel>
+
+                                <p:outputLabel value="User" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.user.webUserPerson.nameWithTitle}" >
+                                </p:outputLabel>
+                                <p:spacer></p:spacer>
+                                <p:spacer></p:spacer>
+
+
+                                <p:outputLabel value="Cash Sale Value" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.cashBillValue}" >
+                                    <f:convertNumber pattern="#,##0.00" ></f:convertNumber>
+                                </p:outputLabel>
+                                <p:outputLabel value="Credit Bill Settled as Cash" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.creditBillSettleAsCashValue}" >
+                                    <f:convertNumber pattern="#,##0.00" ></f:convertNumber>
+                                </p:outputLabel>
+                                <p:outputLabel value="Total Cash Reserved" style="font-weight: bold;"></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.totalCashValue}" style="font-weight: bold;">
+                                    <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
+                                </p:outputLabel>
+                                <h:panelGroup rendered="false" >
+                                    <p:outputLabel value="Less Return Value" style="font-weight: bold;"></p:outputLabel>
+                                    <p:outputLabel value="#{billSearch.returnValue}" style="font-weight: bold;">
+                                        <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
+                                    </p:outputLabel>
+                                    <p:outputLabel value="Net Cash" style="font-weight: bold;"></p:outputLabel>
+                                    <p:outputLabel value="#{billSearch.netCashBalance}" style="font-weight: bold;">
+                                        <f:convertNumber pattern="#,##0.00"  ></f:convertNumber>
+                                    </p:outputLabel>
+                                </h:panelGroup>
+                                <p:spacer></p:spacer>
+                                <p:spacer></p:spacer>
+                                <p:outputLabel value="Credit Bill Value" ></p:outputLabel>
+                                <p:outputLabel value="#{billSearch.creditBillValue}" >
+                                    <f:convertNumber pattern="#,##0.00" ></f:convertNumber>
+                                </p:outputLabel>
+                            </p:panelGrid>
+
+                        </p:panel>
+
+
+
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

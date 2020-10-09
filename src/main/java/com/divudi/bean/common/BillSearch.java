@@ -189,6 +189,90 @@ public class BillSearch implements Serializable {
     String encryptedPatientReportId;
     String encryptedExpiary;
 
+    private Double creditBillValue;
+    private Double cashBillValue;
+    private Double creditAndCashBillValue;
+    private Double creditBillSettleAsCashValue;
+    private Double totalCashValue;
+    private Double returnValue;
+    private Double netCashBalance;
+
+    public String toFindPharmacyCashCredit() {
+        creditBillValue = null;
+        creditBillSettleAsCashValue = null;
+        cashBillValue = null;
+        creditAndCashBillValue = null;
+        return "/reportPharmacy/deptCreditCashSummery";
+
+    }
+    
+    
+    public void findPharmacyCashCredit() {
+        List<BillClassType> bcts = new ArrayList<>();
+        List<BillType> bts = new ArrayList<>();
+
+        bcts.add(BillClassType.BilledBill);
+        bcts.add(BillClassType.CancelledBill);
+        bcts.add(BillClassType.RefundBill);
+
+        bts.add(BillType.PharmacySale);
+        bts.add(BillType.PharmacyWholeSale);
+        cashBillValue = findNetValue(bcts, department, user, bts, fromDate, toDate, PaymentMethod.Cash);
+
+        creditBillValue = findNetValue(bcts, department, user, bts, fromDate, toDate, PaymentMethod.Credit);
+
+        creditAndCashBillValue = creditBillValue + cashBillValue;
+
+        bts = new ArrayList<>();
+        bts.add(BillType.PaymentBill);
+        bts.add(BillType.CashRecieveBill);
+        creditBillSettleAsCashValue = findNetValue(bcts, department, user, bts, fromDate, toDate, null);
+
+        totalCashValue = cashBillValue + creditBillSettleAsCashValue;
+    }
+    
+    public double findNetValue(List<BillClassType> bcts, Department dep, WebUser u, List<BillType> bts, Date fd, Date td, PaymentMethod pm) {
+        Map m = new HashMap();
+        String j;
+        j = "select sum(b.netTotal) "
+                + " from Bill b "
+                + " where b.retired=false "
+                + " and b.createdAt between :fd and :td ";
+        if (dep == null) {
+            j += " and b.institution=:ins ";
+            m.put("ins", sessionController.getLoggedUser().getInstitution());
+        } else {
+            j += " and b.department=:dep ";
+            m.put("dep", dep);
+        }
+        if (u != null) {
+            j += " and b.creater=:wu ";
+            m.put("wu", u);
+        }
+        if (pm != null) {
+            j += " and b.paymentMethod=:pm ";
+            m.put("pm", pm);
+        }
+        if (bts != null) {
+            j += " and b.billType in :bts ";
+            m.put("bts", bts);
+        }
+        if (bcts != null) {
+            j += " and b.billClassType in :bcts ";
+            m.put("bcts", bcts);
+        }
+        m.put("fd", fd);
+        m.put("td", td);
+        return billFacade.findDoubleByJpql(j, m, TemporalType.TIMESTAMP);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     public void preparePatientReportByIdForRequests() {
         bill = null;
         if (encryptedPatientReportId == null) {
@@ -2620,6 +2704,102 @@ public class BillSearch implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public PaymentFacade getPaymentFacade() {
+        return paymentFacade;
+    }
+
+    public void setPaymentFacade(PaymentFacade paymentFacade) {
+        this.paymentFacade = paymentFacade;
+    }
+
+    public AgentHistoryFacade getAgentHistoryFacade() {
+        return agentHistoryFacade;
+    }
+
+    public void setAgentHistoryFacade(AgentHistoryFacade agentHistoryFacade) {
+        this.agentHistoryFacade = agentHistoryFacade;
+    }
+
+    public CollectingCentreBillController getCollectingCentreBillController() {
+        return collectingCentreBillController;
+    }
+
+    public void setCollectingCentreBillController(CollectingCentreBillController collectingCentreBillController) {
+        this.collectingCentreBillController = collectingCentreBillController;
+    }
+
+    public double getRefundVat() {
+        return refundVat;
+    }
+
+    public void setRefundVat(double refundVat) {
+        this.refundVat = refundVat;
+    }
+
+    public double getRefundVatPlusTotal() {
+        return refundVatPlusTotal;
+    }
+
+    public void setRefundVatPlusTotal(double refundVatPlusTotal) {
+        this.refundVatPlusTotal = refundVatPlusTotal;
+    }
+
+    public Double getCreditBillValue() {
+        return creditBillValue;
+    }
+
+    public void setCreditBillValue(Double creditBillValue) {
+        this.creditBillValue = creditBillValue;
+    }
+
+    public Double getCashBillValue() {
+        return cashBillValue;
+    }
+
+    public void setCashBillValue(Double cashBillValue) {
+        this.cashBillValue = cashBillValue;
+    }
+
+    public Double getCreditAndCashBillValue() {
+        return creditAndCashBillValue;
+    }
+
+    public void setCreditAndCashBillValue(Double creditAndCashBillValue) {
+        this.creditAndCashBillValue = creditAndCashBillValue;
+    }
+
+    public Double getCreditBillSettleAsCashValue() {
+        return creditBillSettleAsCashValue;
+    }
+
+    public void setCreditBillSettleAsCashValue(Double creditBillSettleAsCashValue) {
+        this.creditBillSettleAsCashValue = creditBillSettleAsCashValue;
+    }
+
+    public Double getTotalCashValue() {
+        return totalCashValue;
+    }
+
+    public void setTotalCashValue(Double totalCashValue) {
+        this.totalCashValue = totalCashValue;
+    }
+
+    public Double getReturnValue() {
+        return returnValue;
+    }
+
+    public void setReturnValue(Double returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    public Double getNetCashBalance() {
+        return netCashBalance;
+    }
+
+    public void setNetCashBalance(Double netCashBalance) {
+        this.netCashBalance = netCashBalance;
     }
 
 }

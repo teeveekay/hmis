@@ -24,7 +24,9 @@
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="5) Cashier Detailed Report by Department" 
                                                      action="/reportCashier/report_cashier_detailed_by_department.xhtml" actionListener="#{commonReport.recreteModal}"/>
-
+                                    <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left; color: red;"
+                                                     value="6) Cashier Summery Report by Department" 
+                                                     action="#{billSearch.toFindPharmacyCashCredit()}"/>
                                 </h:panelGrid>
                             </p:tab>  
                             <p:tab title="2) Sale Summary">
@@ -104,7 +106,7 @@
                                                      value="1) GRN Payment Summary" action="pharmacy_report_grnPayment_detail.xhtml" actionListener="#{pharmacySaleReport.makeNull}"/>
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="2) GRN Payment Summary By Supplier" action="pharmacy_report_grnPayment_detail_by_supplier.xhtml" actionListener="#{pharmacySaleReport.makeNull}"/>
-                                
+
                                 </h:panelGrid>
                             </p:tab>  
                             <p:tab title="7) DEAPRTMENT ISSUE">
@@ -152,7 +154,7 @@
                                                      value="1) Transfer Issue Summary Report By Date" action="pharmacy_report_issue_by_date_summery.xhtml" actionListener="#{pharmacySaleReport.makeNull}"/>
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="2) Transfer Recive Vs BHT Issue Quntity Totals By Item" action="/pharmacy/pharmacy_report_transfer_receive_item_count_bht_issue_count" />
-                                
+
                                 </h:panelGrid>
                             </p:tab>  
                             <p:tab title="10) Category-vice Movement Report">
@@ -161,21 +163,21 @@
                                                      value="1) Movement Report Stock By Date" action="pharmacy_report_category_vice_movement.xhtml" />
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="2)Movement Report Stock By Date-By Batch" action="pharmacy_report_category_vice_movement_item_batch.xhtml" />
-                                
+
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="11)Summary All Report">
                                 <h:panelGrid columns="1" styleClass="alignTop">
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="1) Pharmacy All Report" action="pharmacy_report_summery_all.xhtml" />
-                                
+
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="12)Pharmacy Return Without Traising">
                                 <h:panelGrid columns="1" styleClass="alignTop">
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="1) Pharmacy Return Without Traising" action="pharmacy_report_grn_detail_1.xhtml" />
-                                
+
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="13) Pharmacy All Sale Report">
@@ -184,18 +186,18 @@
                                                      value="1) Pharmacy Sale Report" action="pharmacy_bill_report.xhtml" />
                                     <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="2) Pharmacy Whole Sale Report" action="/pharmacy_wholesale/pharmacy_whole_bill_report.xhtml" />
-                                
+
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="14)Pharmacy WholeSale Repot">
                                 <h:panelGrid columns="1" styleClass="alignTop">
-                                   <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
+                                    <p:commandButton styleClass="linkButton" ajax="false" style="text-align: left"
                                                      value="1) Pharmacy WholeSale Credit Bills" action="/pharmacy_wholesale/pharmacy_report_credit" />
-                                 
+
                                 </h:panelGrid>
                             </p:tab>
                         </p:tabView>
-                        
+
                     </p:panel>
                 </h:form>
             </ui:define>
