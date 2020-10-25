@@ -100,84 +100,9 @@
                     </div>
                 </h:panelGroup>
 
-
-
-
-                <p:panel rendered ="#{sessionController.logged and sessionController.department eq null}" 
-                         styleClass="verticalAndHorizontalCentering">
-                    <h:form id="formDept" >
-
-                        <p:panel header="Select Department" >
-                            <h:panelGrid columns="3" >
-                                <h:outputText value="Department" ></h:outputText>
-                                <p:spacer height="1" width="30" ></p:spacer>
-                                <p:selectOneMenu value="#{sessionController.department}" required="true" var="d" >
-                                    <f:selectItems value="#{sessionController.departments}"
-                                                   var="dept"
-                                                   itemLabel="#{dept.name}"
-                                                   itemValue="#{dept}" >
-                                    </f:selectItems>
-                                    <p:column  >
-                                        <f:facet name="header" >
-                                            <h:outputText value="Department" ></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="#{d.name}" ></h:outputText>
-                                    </p:column>
-                                    <p:column  >
-                                        <f:facet name="header" >
-                                            <h:outputText value="Institution" ></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="#{d.institution.name}" ></h:outputText>
-                                    </p:column>
-                                </p:selectOneMenu>
-
-                                <p:spacer height="1" width="30" ></p:spacer>
-                                <p:spacer height="1" width="30" ></p:spacer>
-                                <p:commandButton ajax="false"
-                                                 value="Select"
-                                                 action="#{sessionController.selectDepartment()}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </h:form>
-                </p:panel>
-
-                <h:panelGroup rendered ="#{!sessionController.logged and !sessionController.firstLogin}"  >
-                    <ui:insert name="login"   >
-                        <p:panel header="Please login" id="loginbox" style="text-align: center; " styleClass="nonPrintBlock verticalAndHorizontalCentering">
-                            <h:panelGrid columns="2" >
-                                <h:panelGroup >
-                                    <h:graphicImage  library="image" name="lock.png" />
-                                </h:panelGroup>
-                                <h:panelGroup >
-                                    <h:form id="formLogin">
-                                        <h:panelGrid columns="2">
-                                            <h:outputLabel value="Username"  style="text-align: left; margin: 5px; padding: 5px;"  ></h:outputLabel>
-                                            <p:inputText autocomplete="off" id="txtUserName"
-                                                         value="#{sessionController.userName}"
-                                                         style="text-align: left; margin: 5px; padding: 5px;" ></p:inputText>
-                                            <h:outputLabel value="Password"  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
-                                            <p:password id="txtPassword" value="#{sessionController.passord }"  style="text-align: left; margin: 5px; padding: 5px;" ></p:password>
-                                            <h:outputLabel value=""  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
-                                            <p:commandButton value="Login" 
-                                                             id="btnLogin"
-                                                             ajax="false"
-                                                             action="#{sessionController.loginActionWithoutDepartment()}" >
-                                            </p:commandButton>
-                                        </h:panelGrid>
-                                    </h:form>
-
-                                </h:panelGroup>
-                            </h:panelGrid>
-                        </p:panel>
-
-                        <h:form>
-                            <p:commandButton rendered="false" value="Desrypt User Names" action="#{sessionController.decryptAllUsers()}" ajax="false" ></p:commandButton>
-                        </h:form>
-
-                    </ui:insert>
-                </h:panelGroup>
-
-
+                <ez:select_dept/>                
+                
+                <ez:login/>
 
             </h:panelGrid>
             
