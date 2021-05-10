@@ -806,7 +806,8 @@ public class ChannelBean {
         String sql;
         Map m = new HashMap();
         List<ServiceSession> tmp = new ArrayList<>();
-        sql = "Select s From ServiceSession s where s.retired=false "
+        sql = "Select s From ServiceSession s "
+                + " where s.retired=:ret "
                 + " and s.staff=:staff "
                 + " and s.originatingSession is not null "
                 + " and s.sessionDate between :fd and :td "
@@ -815,14 +816,12 @@ public class ChannelBean {
                 + " order by s.sessionDate,s.startingTime ";
         m.put("fd", fd);
         m.put("td", td);
+        m.put("ret", false);
         m.put("staff", s);
         m.put("ins", ins);
         m.put("class", ServiceSession.class);
         try {
             tmp = getServiceSessionFacade().findBySQL(sql, m, TemporalType.TIMESTAMP);
-//            // //System.out.println("m = " + m);
-//            // //System.out.println("sql = " + sql);
-//            // //System.out.println("tmp.size() = " + tmp.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
