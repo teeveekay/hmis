@@ -218,6 +218,13 @@
                                             </ui:repeat>
                                         </table>
                                     </p:panel>
+                                    <p:panel id="admin" header="Administration" >
+                                        <h:panelGrid columns="1" >
+                                            <p:commandButton ajax="false" value="Edit Format" action="/lab/investigation" >
+                                                <f:setPropertyActionListener target="#{investigationController.current}" value="#{patientReportController.currentPatientReport.transInvestigation}" ></f:setPropertyActionListener>
+                                            </p:commandButton>
+                                        </h:panelGrid>
+                                    </p:panel>
                                     <p:panel header="Microbiology"    rendered="#{patientReportController.currentPatientReport.transInvestigation.reportType eq 'Microbiology'}" >
                                         <f:view contentType="text/html">
                                             <table >
@@ -323,6 +330,7 @@
                                             </p:dialog>
 
                                         </h:panelGrid>
+
                                         <p:panel id="reportEditor" >
                                             <h:panelGroup rendered="false" >
                                                 <h1>A</h1>

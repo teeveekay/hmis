@@ -81,27 +81,39 @@
                                 <p:column headerText="No." width="25" >
                                     <h:outputLabel value="#{rowIndex + 1}" ></h:outputLabel>
                                 </p:column>  
-                                <p:column headerText="Investigation" sortBy="#{ix.name}" filterBy="#{ix.name}" filterMatchMode="contains">
+                                <p:column headerText="Name" sortBy="#{ix.name}" filterBy="#{ix.name}" filterMatchMode="contains">
                                     <p:commandLink ajax="false" target="_blank" value="#{ix.name}" action="/lab/investigation" >
+                                        <f:setPropertyActionListener value="#{ix}" target="#{investigationController.current}" ></f:setPropertyActionListener>
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="Full Name" sortBy="#{ix.fullName}" filterBy="#{ix.fullName}" 
+                                          filterMatchMode="contains">
+                                    <p:commandLink ajax="false" target="_blank" value="#{ix.fullName}" action="/lab/investigation" >
+                                        <f:setPropertyActionListener value="#{ix}" target="#{investigationController.current}" ></f:setPropertyActionListener>
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="Printing Name" sortBy="#{ix.printName}" filterBy="#{ix.printName}" 
+                                          filterMatchMode="contains">
+                                    <p:commandLink ajax="false" target="_blank" value="#{ix.printName}" action="/lab/investigation" >
                                         <f:setPropertyActionListener value="#{ix}" target="#{investigationController.current}" ></f:setPropertyActionListener>
                                     </p:commandLink>
                                 </p:column>
                                 <p:column headerText="Category" sortBy="#{ix.category.name}" width="180">
                                     <h:outputLabel value="#{ix.category.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column headerText="Institution" sortBy="#{ix.institution.name}" width="220">
+                                <p:column headerText="Institution" sortBy="#{ix.institution.name}" >
                                     <h:outputLabel value="#{ix.institution.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column headerText="Department" sortBy="#{ix.department.name}" width="220">
+                                <p:column headerText="Department" sortBy="#{ix.department.name}">
                                     <h:outputLabel value="#{ix.department.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column headerText="Analyzer" sortBy="#{ix.machine.name}" width="120">
+                                <p:column headerText="Analyzer" sortBy="#{ix.machine.name}" >
                                     <h:outputLabel value="#{ix.machine.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column headerText="Container" sortBy="#{ix.investigationTube.name}" width="120">
+                                <p:column headerText="Container" sortBy="#{ix.investigationTube.name}" >
                                     <h:outputLabel value="#{ix.investigationTube.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column headerText="Sample" sortBy="#{ix.sample.name}" width="120">
+                                <p:column headerText="Sample" sortBy="#{ix.sample.name}" >
                                     <h:outputLabel value="#{ix.sample.name}" ></h:outputLabel>
                                 </p:column>
                                 
