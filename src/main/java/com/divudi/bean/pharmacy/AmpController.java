@@ -454,11 +454,11 @@ public class AmpController implements Serializable {
     }
 
     public void listnerCategorySelect() {
-        if (getCurrent().getCategory().getDescription() == null || getCurrent().getCategory().getDescription().equals("")) {
-            JsfUtil.addErrorMessage("Please Select Category Code");
-            getCurrent().setCode("");
-            return;
-        }
+//        if (getCurrent().getCategory().getDescription() == null || getCurrent().getCategory().getDescription().equals("")) {
+//            JsfUtil.addErrorMessage("Please Select Category Code");
+//            getCurrent().setCode("");
+//            return;
+//        }
 
         Map m = new HashMap();
         String sql = "select c from Amp c "
@@ -482,6 +482,7 @@ public class AmpController implements Serializable {
             // //System.out.println("s = " + s);
 
             int i = Integer.valueOf(s);
+            
             // //System.out.println("i = " + i);
             i++;
             if (getCurrent().getId() != null) {
@@ -519,7 +520,7 @@ public class AmpController implements Serializable {
 //            return true;
 //        }
 
-        listnerCategorySelect();
+//        listnerCategorySelect();
         if (current.getCategory() == null) {
             UtilityController.addErrorMessage("Please Select Category");
             return true;
